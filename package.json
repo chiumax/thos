@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently -n next,ws -c cyan,yellow \"next dev --turbopack\" \"tsx watch server/ws.ts\"",
+    "dev": "concurrently -n next,ws -c cyan,yellow \"next dev --turbopack -H 0.0.0.0\" \"tsx watch server/ws.ts\"",
     "dev:next": "next dev --turbopack",
     "dev:ws": "tsx watch server/ws.ts",
     "build": "next build",
