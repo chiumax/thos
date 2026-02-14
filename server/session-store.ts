@@ -2,7 +2,7 @@
  * File-based session persistence for thos agents.
  *
  * Persists agent state + message history to JSON files in
- * `$TMPDIR/thos-sessions/<agentId>.json` so data survives server restarts.
+ * `.thos/sessions/<agentId>.json` so data survives server restarts.
  *
  * Uses debounced writes (150ms) for high-frequency events (streaming) and
  * synchronous writes for critical state changes (spawn, result, status).
@@ -10,10 +10,9 @@
 
 import { mkdirSync, writeFileSync, readFileSync, readdirSync, unlinkSync, existsSync } from "fs";
 import { join } from "path";
-import { tmpdir } from "os";
 import type { AgentStatus, ServerMessage } from "../lib/types";
 
-const SESSION_DIR = join(tmpdir(), "thos-sessions");
+const SESSION_DIR = join(process.cwd(), ".thos", "sessions");
 
 /** Shape of a persisted agent on disk. */
 export interface PersistedAgent {
