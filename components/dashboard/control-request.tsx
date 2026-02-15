@@ -23,7 +23,7 @@ export function ControlRequest({
   if (!cr) return null;
 
   return (
-    <div className="mx-auto w-full max-w-lg rounded-lg border-2 border-dashed border-muted-foreground/30 p-4">
+    <div className="mx-auto w-full max-w-lg rounded-lg border-2 border-dashed border-muted-foreground/30 p-3 md:p-4">
       <div className="mb-2 text-xs font-semibold text-muted-foreground">
         Tool approval requested
       </div>
