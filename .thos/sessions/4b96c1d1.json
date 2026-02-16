@@ -1,0 +1,202 @@
+{
+  "id": "4b96c1d1",
+  "state": {
+    "agentId": "4b96c1d1",
+    "status": "done",
+    "tmuxSession": "thos-agent-4b96c1d1",
+    "label": "hi",
+    "createdAt": 1770991044770,
+    "sessionId": "52f0207d-63c9-478d-b9dc-2c83172e28e0"
+  },
+  "messageHistory": [
+    {
+      "type": "relay",
+      "agentId": "4b96c1d1",
+      "message": {
+        "type": "system",
+        "subtype": "hook_started",
+        "hook_id": "8bf12c40-1d21-481b-9718-b9133cc27ec9",
+        "hook_name": "SessionStart:startup",
+        "hook_event": "SessionStart",
+        "uuid": "3c3883c3-4043-495e-9619-6f644d9d0853",
+        "session_id": "52f0207d-63c9-478d-b9dc-2c83172e28e0"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4b96c1d1",
+      "message": {
+        "type": "system",
+        "subtype": "hook_response",
+        "hook_id": "8bf12c40-1d21-481b-9718-b9133cc27ec9",
+        "hook_name": "SessionStart:startup",
+        "hook_event": "SessionStart",
+        "output": "",
+        "stdout": "",
+        "stderr": "",
+        "exit_code": 0,
+        "outcome": "success",
+        "uuid": "7dc9e1bb-07b5-4900-9383-87f344dc3deb",
+        "session_id": "52f0207d-63c9-478d-b9dc-2c83172e28e0"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4b96c1d1",
+      "message": {
+        "type": "system",
+        "subtype": "init",
+        "cwd": "/Users/chiu.fyi/work/personal/thos",
+        "session_id": "52f0207d-63c9-478d-b9dc-2c83172e28e0",
+        "tools": [
+          "Task",
+          "TaskOutput",
+          "Bash",
+          "Glob",
+          "Grep",
+          "ExitPlanMode",
+          "Read",
+          "Edit",
+          "Write",
+          "NotebookEdit",
+          "WebFetch",
+          "TodoWrite",
+          "WebSearch",
+          "TaskStop",
+          "AskUserQuestion",
+          "Skill",
+          "EnterPlanMode",
+          "ToolSearch"
+        ],
+        "mcp_servers": [],
+        "model": "claude-opus-4-6",
+        "permissionMode": "default",
+        "slash_commands": [
+          "keybindings-help",
+          "debug",
+          "compact",
+          "context",
+          "cost",
+          "init",
+          "pr-comments",
+          "release-notes",
+          "review",
+          "security-review",
+          "insights"
+        ],
+        "apiKeySource": "none",
+        "claude_code_version": "2.1.41",
+        "output_style": "default",
+        "agents": [
+          "Bash",
+          "general-purpose",
+          "statusline-setup",
+          "Explore",
+          "Plan"
+        ],
+        "skills": [
+          "keybindings-help",
+          "debug"
+        ],
+        "plugins": [],
+        "uuid": "39ed4496-cbf7-4d33-acca-b29659e818ab",
+        "fast_mode_state": "off"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4b96c1d1",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_01CSXsZiAa9bTaCunAEGAFS9",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": "Hi! How can I help you today?"
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 3,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 18706,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 1,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "52f0207d-63c9-478d-b9dc-2c83172e28e0",
+        "uuid": "d85ebb60-1b6d-4e60-9b5e-ed18e7ad3087"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4b96c1d1",
+      "message": {
+        "type": "result",
+        "subtype": "success",
+        "is_error": false,
+        "duration_ms": 2459,
+        "duration_api_ms": 3803,
+        "num_turns": 1,
+        "result": "Hi! How can I help you today?",
+        "stop_reason": null,
+        "session_id": "52f0207d-63c9-478d-b9dc-2c83172e28e0",
+        "total_cost_usd": 0.010046,
+        "usage": {
+          "input_tokens": 3,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 18706,
+          "output_tokens": 12,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "",
+          "iterations": [],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 123,
+            "outputTokens": 51,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.000378,
+            "contextWindow": 200000,
+            "maxOutputTokens": 64000
+          },
+          "claude-opus-4-6": {
+            "inputTokens": 3,
+            "outputTokens": 12,
+            "cacheReadInputTokens": 18706,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.009668,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000
+          }
+        },
+        "permission_denials": [],
+        "uuid": "00c6a7b8-86b6-466f-8aa1-cdf202872898"
+      }
+    }
+  ]
+}

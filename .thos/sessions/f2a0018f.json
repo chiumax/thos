@@ -1,0 +1,1569 @@
+{
+  "id": "f2a0018f",
+  "state": {
+    "agentId": "f2a0018f",
+    "status": "done",
+    "tmuxSession": "thos-agent-f2a0018f",
+    "label": "hi",
+    "createdAt": 1771016704615,
+    "sessionId": "de1535b4-2b2b-4462-990d-5c02c45e0f4b"
+  },
+  "messageHistory": [
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "system",
+        "subtype": "hook_started",
+        "hook_id": "6847e3ff-a8df-41cb-8a97-1473f5b3c00f",
+        "hook_name": "SessionStart:startup",
+        "hook_event": "SessionStart",
+        "uuid": "5ddbbd83-c851-4745-b85c-48b45f515a11",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "system",
+        "subtype": "hook_response",
+        "hook_id": "6847e3ff-a8df-41cb-8a97-1473f5b3c00f",
+        "hook_name": "SessionStart:startup",
+        "hook_event": "SessionStart",
+        "output": "",
+        "stdout": "",
+        "stderr": "",
+        "exit_code": 0,
+        "outcome": "success",
+        "uuid": "fbb78768-5657-440c-8810-87044a0db456",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "system",
+        "subtype": "init",
+        "cwd": "/Users/chiu.fyi/work/personal/thos",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "tools": [
+          "Task",
+          "TaskOutput",
+          "Bash",
+          "Glob",
+          "Grep",
+          "ExitPlanMode",
+          "Read",
+          "Edit",
+          "Write",
+          "NotebookEdit",
+          "WebFetch",
+          "TodoWrite",
+          "WebSearch",
+          "TaskStop",
+          "AskUserQuestion",
+          "Skill",
+          "EnterPlanMode",
+          "ToolSearch",
+          "mcp__claude_ai_Figma__get_screenshot",
+          "mcp__claude_ai_Figma__create_design_system_rules",
+          "mcp__claude_ai_Figma__get_design_context",
+          "mcp__claude_ai_Figma__get_metadata",
+          "mcp__claude_ai_Figma__get_variable_defs",
+          "mcp__claude_ai_Figma__get_figjam",
+          "mcp__claude_ai_Figma__generate_diagram",
+          "mcp__claude_ai_Figma__get_code_connect_map",
+          "mcp__claude_ai_Figma__whoami",
+          "mcp__claude_ai_Figma__add_code_connect_map",
+          "mcp__claude_ai_Figma__get_code_connect_suggestions",
+          "mcp__claude_ai_Figma__send_code_connect_mappings",
+          "ListMcpResourcesTool",
+          "ReadMcpResourceTool"
+        ],
+        "mcp_servers": [
+          {
+            "name": "claude.ai Figma",
+            "status": "connected"
+          }
+        ],
+        "model": "claude-opus-4-6",
+        "permissionMode": "bypassPermissions",
+        "slash_commands": [
+          "keybindings-help",
+          "debug",
+          "compact",
+          "context",
+          "cost",
+          "init",
+          "pr-comments",
+          "release-notes",
+          "review",
+          "security-review",
+          "insights",
+          "mcp__claude_ai_Figma__create_design_system_rules"
+        ],
+        "apiKeySource": "none",
+        "claude_code_version": "2.1.42",
+        "output_style": "default",
+        "agents": [
+          "Bash",
+          "general-purpose",
+          "statusline-setup",
+          "Explore",
+          "Plan"
+        ],
+        "skills": [
+          "keybindings-help",
+          "debug"
+        ],
+        "plugins": [],
+        "uuid": "21dedf65-a67b-459c-b12d-829b7326e892",
+        "fast_mode_state": "off"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_01Xxu2TYr7Y5ou4KmYcwBeeB",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": "Hi! How can I help you today?"
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 3,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 25666,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 1,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "4add5327-9101-4745-ae04-e37030f32ede"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "result",
+        "subtype": "success",
+        "is_error": false,
+        "duration_ms": 3231,
+        "duration_api_ms": 4232,
+        "num_turns": 1,
+        "result": "Hi! How can I help you today?",
+        "stop_reason": null,
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "total_cost_usd": 0.013471,
+        "usage": {
+          "input_tokens": 3,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 25666,
+          "output_tokens": 12,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "",
+          "iterations": [],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 123,
+            "outputTokens": 40,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.00032300000000000004,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000
+          },
+          "claude-opus-4-6": {
+            "inputTokens": 3,
+            "outputTokens": 12,
+            "cacheReadInputTokens": 25666,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.013148,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000
+          }
+        },
+        "permission_denials": [],
+        "uuid": "f521c08f-982c-49a6-aaf6-4c3966144091"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "system",
+        "subtype": "init",
+        "cwd": "/Users/chiu.fyi/work/personal/thos",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "tools": [
+          "Task",
+          "TaskOutput",
+          "Bash",
+          "Glob",
+          "Grep",
+          "ExitPlanMode",
+          "Read",
+          "Edit",
+          "Write",
+          "NotebookEdit",
+          "WebFetch",
+          "TodoWrite",
+          "WebSearch",
+          "TaskStop",
+          "AskUserQuestion",
+          "Skill",
+          "EnterPlanMode",
+          "ToolSearch",
+          "mcp__claude_ai_Figma__get_screenshot",
+          "mcp__claude_ai_Figma__create_design_system_rules",
+          "mcp__claude_ai_Figma__get_design_context",
+          "mcp__claude_ai_Figma__get_metadata",
+          "mcp__claude_ai_Figma__get_variable_defs",
+          "mcp__claude_ai_Figma__get_figjam",
+          "mcp__claude_ai_Figma__generate_diagram",
+          "mcp__claude_ai_Figma__get_code_connect_map",
+          "mcp__claude_ai_Figma__whoami",
+          "mcp__claude_ai_Figma__add_code_connect_map",
+          "mcp__claude_ai_Figma__get_code_connect_suggestions",
+          "mcp__claude_ai_Figma__send_code_connect_mappings",
+          "ListMcpResourcesTool",
+          "ReadMcpResourceTool"
+        ],
+        "mcp_servers": [
+          {
+            "name": "claude.ai Figma",
+            "status": "connected"
+          }
+        ],
+        "model": "claude-opus-4-6",
+        "permissionMode": "bypassPermissions",
+        "slash_commands": [
+          "keybindings-help",
+          "debug",
+          "compact",
+          "context",
+          "cost",
+          "init",
+          "pr-comments",
+          "release-notes",
+          "review",
+          "security-review",
+          "insights",
+          "mcp__claude_ai_Figma__create_design_system_rules"
+        ],
+        "apiKeySource": "none",
+        "claude_code_version": "2.1.42",
+        "output_style": "default",
+        "agents": [
+          "Bash",
+          "general-purpose",
+          "statusline-setup",
+          "Explore",
+          "Plan"
+        ],
+        "skills": [
+          "keybindings-help",
+          "debug"
+        ],
+        "plugins": [],
+        "uuid": "6035198c-2bd3-4b27-a841-0d324656f538",
+        "fast_mode_state": "off"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_01VStd7At3SE9vNiRRsqLGeR",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+              "name": "Task",
+              "input": {
+                "description": "Explore codebase structure",
+                "prompt": "Explore this codebase thoroughly. I need to understand:\n1. What kind of app this is (tech stack, framework, purpose)\n2. The overall directory structure\n3. Key files and their roles\n4. Database/data layer setup\n5. Current features and functionality\n6. Any relevant config files (package.json, tsconfig, etc.)\n\nStart with listing the top-level directory, then read key files like package.json, any config files, and the main app files. Be thorough.",
+                "subagent_type": "Explore"
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 3,
+            "cache_creation_input_tokens": 55,
+            "cache_read_input_tokens": 25678,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 55
+            },
+            "output_tokens": 2,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "66de7180-9eaa-43c3-b3a8-e0ec8e681e3c"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Explore this codebase thoroughly. I need to understand:\n1. What kind of app this is (tech stack, framework, purpose)\n2. The overall directory structure\n3. Key files and their roles\n4. Database/data layer setup\n5. Current features and functionality\n6. Any relevant config files (package.json, tsconfig, etc.)\n\nStart with listing the top-level directory, then read key files like package.json, any config files, and the main app files. Be thorough."
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "b8122474-3bcf-4bbe-93e9-6de3807a3c79"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-haiku-4-5-20251001",
+          "id": "msg_01MkpCf9MaDTZHhGB2m4L2Ra",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_017J75nvSpWqQZN6NiXGpHeo",
+              "name": "Bash",
+              "input": {
+                "command": "find /Users/chiu.fyi/work/personal/thos -type f -name \"package.json\" -o -name \"tsconfig.json\" -o -name \"next.config.js\" -o -name \"README.md\" | head -20"
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 3,
+            "cache_creation_input_tokens": 17608,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 17608
+            },
+            "output_tokens": 3,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "43caa406-b3fd-4907-936e-9ba40d85921a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_017J75nvSpWqQZN6NiXGpHeo",
+              "type": "tool_result",
+              "content": "/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/strict-event-emitter@0.5.1/node_modules/strict-event-emitter/README.md\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/strict-event-emitter@0.5.1/node_modules/strict-event-emitter/package.json\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/eslint-plugin-react-hooks@7.0.1_eslint@9.39.2_jiti@2.6.1_/node_modules/eslint-plugin-react-hooks/README.md\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/eslint-plugin-react-hooks@7.0.1_eslint@9.39.2_jiti@2.6.1_/node_modules/eslint-plugin-react-hooks/package.json\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/lie@3.3.0/node_modules/lie/README.md\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/lie@3.3.0/node_modules/lie/package.json\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/@react-three+fiber@9.5.0_@types+react@19.2.14_react-dom@19.2.3_react@19.2.3__react@19.2.3_three@0.182.0/node_modules/@react-three/fiber/native/package.json\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/@react-three+fiber@9.5.0_@types+react@19.2.14_react-dom@19.2.3_react@19.2.3__react@19.2.3_three@0.182.0/node_modules/@react-three/fiber/package.json\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/safe-array-concat@1.1.3/node_modules/safe-array-concat/README.md\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/safe-array-concat@1.1.3/node_modules/safe-array-concat/package.json\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/safe-array-concat@1.1.3/node_modules/safe-array-concat/tsconfig.json\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/is-extglob@2.1.1/node_modules/is-extglob/README.md\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/is-extglob@2.1.1/node_modules/is-extglob/package.json\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/three-mesh-bvh@0.8.3_three@0.182.0/node_modules/three-mesh-bvh/README.md\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/three-mesh-bvh@0.8.3_three@0.182.0/node_modules/three-mesh-bvh/package.json\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/supports-color@7.2.0/node_modules/supports-color/package.json\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/side-channel-list@1.0.0/node_modules/side-channel-list/README.md\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/side-channel-list@1.0.0/node_modules/side-channel-list/package.json\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/side-channel-list@1.0.0/node_modules/side-channel-list/tsconfig.json\n/Users/chiu.fyi/work/personal/thos/node_modules/.pnpm/espree@10.4.0/node_modules/espree/README.md",
+              "is_error": false
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "a172e90d-59b9-482a-b479-65a8deff52fb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-haiku-4-5-20251001",
+          "id": "msg_01FqJHgATVpLAy94mDbUh1Z5",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01RhMBtwQpXXbmQMPpcfvU4z",
+              "name": "Bash",
+              "input": {
+                "command": "ls -la /Users/chiu.fyi/work/personal/thos | grep -v node_modules"
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 5,
+            "cache_creation_input_tokens": 1326,
+            "cache_read_input_tokens": 17608,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1326
+            },
+            "output_tokens": 3,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "13761d3f-7207-4998-8419-675ecc66f715"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01RhMBtwQpXXbmQMPpcfvU4z",
+              "type": "tool_result",
+              "content": "drwxr-xr-x chiu.fyi staff 736 B  Fri Feb 13 08:30:35 2026 .\ndrwxr-xr-x chiu.fyi staff 640 B  Fri Feb 13 08:09:45 2026 ..\ndrwxr-xr-x chiu.fyi staff 384 B  Sat Feb 14 15:22:28 2026 .git\n.rw-r--r-- chiu.fyi staff 480 B  Fri Feb 13 03:39:29 2026 .gitignore\ndrwxr-xr-x chiu.fyi staff 800 B  Fri Feb 13 07:50:37 2026 .next\ndrwxr-xr-x chiu.fyi staff 224 B  Fri Feb 13 06:46:35 2026 app\ndrwxr-xr-x chiu.fyi staff 160 B  Fri Feb 13 06:39:38 2026 components\n.rw-r--r-- chiu.fyi staff 463 B  Fri Feb 13 03:40:06 2026 components.json\n.rw-r--r-- chiu.fyi staff 465 B  Fri Feb 13 03:39:29 2026 eslint.config.mjs\ndrwxr-xr-x chiu.fyi staff  96 B  Fri Feb 13 09:39:45 2026 hooks\ndrwxr-xr-x chiu.fyi staff 160 B  Fri Feb 13 09:40:44 2026 lib\n.rw-r--r-- chiu.fyi staff 251 B  Fri Feb 13 08:05:06 2026 next-env.d.ts\n.rw-r--r-- chiu.fyi staff 133 B  Fri Feb 13 03:39:29 2026 next.config.ts\n.rw-r--r-- chiu.fyi staff 1.3 KB Fri Feb 13 06:38:19 2026 package.json\n.rw-r--r-- chiu.fyi staff 306 KB Fri Feb 13 06:38:08 2026 pnpm-lock.yaml\n.rw-r--r-- chiu.fyi staff  54 B  Fri Feb 13 03:39:29 2026 pnpm-workspace.yaml\n.rw-r--r-- chiu.fyi staff  94 B  Fri Feb 13 03:39:29 2026 postcss.config.mjs\ndrwxr-xr-x chiu.fyi staff  64 B  Fri Feb 13 03:41:45 2026 public\n.rw-r--r-- chiu.fyi staff 7.6 KB Fri Feb 13 08:30:35 2026 README.md\ndrwxr-xr-x chiu.fyi staff 128 B  Fri Feb 13 16:04:01 2026 server\n.rw-r--r-- chiu.fyi staff 666 B  Fri Feb 13 03:39:29 2026 tsconfig.json\n.rw-r--r-- chiu.fyi staff 211 KB Fri Feb 13 09:46:51 2026 tsconfig.tsbuildinfo",
+              "is_error": false
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "29dffb4c-caea-40a7-b716-baaa022825c7"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01RZumMpVNboqb6dQKvPiymp",
+              "type": "tool_result",
+              "content": "     1→{\n     2→  \"name\": \"thos-scaffold\",\n     3→  \"version\": \"0.1.0\",\n     4→  \"private\": true,\n     5→  \"scripts\": {\n     6→    \"dev\": \"concurrently -n next,ws -c cyan,yellow \\\"next dev --turbopack\\\" \\\"tsx watch server/ws.ts\\\"\",\n     7→    \"dev:next\": \"next dev --turbopack\",\n     8→    \"dev:ws\": \"tsx watch server/ws.ts\",\n     9→    \"build\": \"next build\",\n    10→    \"start\": \"next start\",\n    11→    \"lint\": \"eslint\"\n    12→  },\n    13→  \"dependencies\": {\n    14→    \"@react-three/drei\": \"^10.7.7\",\n    15→    \"@react-three/fiber\": \"^9.5.0\",\n    16→    \"class-variance-authority\": \"^0.7.1\",\n    17→    \"clsx\": \"^2.1.1\",\n    18→    \"lucide-react\": \"^0.563.0\",\n    19→    \"next\": \"16.1.6\",\n    20→    \"radix-ui\": \"^1.4.3\",\n    21→    \"react\": \"19.2.3\",\n    22→    \"react-dom\": \"19.2.3\",\n    23→    \"tailwind-merge\": \"^3.4.0\",\n    24→    \"three\": \"^0.182.0\",\n    25→    \"ws\": \"^8.19.0\"\n    26→  },\n    27→  \"devDependencies\": {\n    28→    \"@tailwindcss/postcss\": \"^4\",\n    29→    \"@types/node\": \"^20\",\n    30→    \"@types/react\": \"^19\",\n    31→    \"@types/react-dom\": \"^19\",\n    32→    \"@types/three\": \"^0.182.0\",\n    33→    \"@types/ws\": \"^8.18.1\",\n    34→    \"concurrently\": \"^9.2.1\",\n    35→    \"eslint\": \"^9\",\n    36→    \"eslint-config-next\": \"16.1.6\",\n    37→    \"shadcn\": \"^3.8.4\",\n    38→    \"tailwindcss\": \"^4\",\n    39→    \"tsx\": \"^4.21.0\",\n    40→    \"tw-animate-css\": \"^1.4.0\",\n    41→    \"typescript\": \"^5\"\n    42→  },\n    43→  \"packageManager\": \"pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39\"\n    44→}\n    45→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "bf43f521-35a4-451e-afed-4edd4f976cf5"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_017DChL6g5J51MBWxehDvadn",
+              "type": "tool_result",
+              "content": "     1→{\n     2→  \"compilerOptions\": {\n     3→    \"target\": \"ES2017\",\n     4→    \"lib\": [\"dom\", \"dom.iterable\", \"esnext\"],\n     5→    \"allowJs\": true,\n     6→    \"skipLibCheck\": true,\n     7→    \"strict\": true,\n     8→    \"noEmit\": true,\n     9→    \"esModuleInterop\": true,\n    10→    \"module\": \"esnext\",\n    11→    \"moduleResolution\": \"bundler\",\n    12→    \"resolveJsonModule\": true,\n    13→    \"isolatedModules\": true,\n    14→    \"jsx\": \"react-jsx\",\n    15→    \"incremental\": true,\n    16→    \"plugins\": [\n    17→      {\n    18→        \"name\": \"next\"\n    19→      }\n    20→    ],\n    21→    \"paths\": {\n    22→      \"@/*\": [\"./*\"]\n    23→    }\n    24→  },\n    25→  \"include\": [\n    26→    \"next-env.d.ts\",\n    27→    \"**/*.ts\",\n    28→    \"**/*.tsx\",\n    29→    \".next/types/**/*.ts\",\n    30→    \".next/dev/types/**/*.ts\",\n    31→    \"**/*.mts\"\n    32→  ],\n    33→  \"exclude\": [\"node_modules\"]\n    34→}\n    35→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "b5040394-be2d-45c2-bf7b-b047b0e7ff21"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01GgiC9aaD4nufe3hz9WGgSd",
+              "type": "tool_result",
+              "content": "     1→# thos\n     2→\n     3→**the orchestrator you never knew you needed**\n     4→\n     5→A visual orchestration layer for [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Not another IDE — a UI that sits on top of the terminal-based agents you already use, solving the real friction of working with them day-to-day.\n     6→\n     7→## The Problem\n     8→\n     9→AI coding agents are powerful, but the experience of *using* them has real gaps:\n    10→\n    11→- **You lose track of what's happening.** Multiple agents running across tasks, and you're tab-switching and scrolling terminals to figure out who's doing what. The visibility problem compounds fast.\n    12→\n    13→- **Agents are smart but have the memory of an infant.** Your workflows are specific to you — your project structure, your preferences, your domain knowledge. The agent doesn't retain any of it between sessions. You end up re-explaining the same context over and over. A static CLAUDE.md helps, but it doesn't learn from your conversations or evolve with your codebase.\n    14→\n    15→- **Your machine is the bottleneck.** You have a laptop, not a build server. Agents want to compile, test, run — and your local machine can't keep up.\n    16→\n    17→- **Undoing things is painful.** Agent makes a wrong turn, and now you're doing forensics. Better change tracking, rollback, and context management should be table stakes — not an afterthought.\n    18→\n    19→- **Task management is manual.** Coordinating what gets done, in what order, across which agents — that's on you, in your head, with no tooling to help.\n    20→\n    21→## What thos Is\n    22→\n    23→thos is a UI wrapper around Claude Code. Terminals are fine — but when you're orchestrating work across agents, you need something more visual.\n    24→\n    25→Think of it as a control plane:\n    26→\n    27→- **Agent dashboard** — see what every agent is doing, in real time, at a glance\n    28→- **Persistent memory** — agents that learn from your conversations and retain domain knowledge across sessions. Not just saved prompts — context that evolves with your codebase and workflows, so the first time you explain something is the last time.\n    29→- **Change management** — track, diff, and roll back agent-generated changes with confidence\n    30→- **Task orchestration** — assign, sequence, and track work across agents\n    31→- **Remote access** — web UI accessible via localhost, with the option to expose over your network as needed\n    32→\n    33→## What thos Is Not\n    34→\n    35→- **Not an IDE.** VS Code, Cursor, Zed — these are well-engineered. thos doesn't compete with them; it complements them.\n    36→- **Not a terminal replacement.** The terminal is the execution layer. thos is the visibility and coordination layer on top.\n    37→- **Not a general agent framework.** Focused on Claude Code first. Breadth comes later, if it makes sense.\n    38→\n    39→## Prior Art\n    40→\n    41→Similar space as [superset.sh](https://superset.sh) and [Conductor](https://conductor.sh) — tools that recognize the gap between raw agent capability and the UX of actually orchestrating agent work.\n    42→\n    43→## Architecture\n    44→\n    45→### WebSocket relay server (`server/ws.ts`)\n    46→\n    47→A standalone WebSocket server on port 9900, started alongside Next.js via `concurrently`. Two connection families:\n    48→\n    49→- **`/browser`** — React dashboard connects here. Supports multiple tabs simultaneously.\n    50→- **`/claude/:agentId`** — each Claude CLI connects here (passed as `--sdk-url`).\n    51→\n    52→The server acts as a relay: browser spawns agents, the server launches `claude` inside tmux sessions, and all CLI NDJSON messages are forwarded to the browser as `{ type: \"relay\", agentId, message }`.\n    53→\n    54→### Session persistence (`server/session-store.ts`)\n    55→\n    56→Agent state and full message history are persisted to `$TMPDIR/thos-sessions/<agentId>.json`. This means:\n    57→\n    58→- **Page refresh** restores all conversations — the server replays `message_history` to each connecting browser.\n    59→- **Server restart** restores agents from disk. Agents that were active are marked `\"disconnected\"` and relaunched when a browser reconnects.\n    60→- **Multiple browser tabs** see the same state — `sendToBrowser` iterates a `Set<WebSocket>` of all connected browsers.\n    61→\n    62→Writes are **debounced** (150ms) for high-frequency streaming events and **synchronous** for critical state changes (spawn, result, status transitions). On `SIGTERM`/`SIGINT`, all agents are flushed to disk before tmux sessions are killed.\n    63→\n    64→### CLI resilience\n    65→\n    66→| Scenario | Behavior |\n    67→|----------|----------|\n    68→| CLI process crashes | Status becomes `\"disconnected\"`, browser sees \"CLI disconnected — attempting reconnect...\" |\n    69→| Browser reconnects | Server relaunches dead agents via `claude --resume --sdk-url ...` if they have a `sessionId` |\n    70→| Message sent while CLI is down | Queued in `pendingMessages[]`, flushed when CLI WebSocket reconnects |\n    71→| CLI reconnects | Browser sees \"CLI reconnected\", queued messages are delivered |\n    72→\n    73→### Agent status lifecycle\n    74→\n    75→```\n    76→idle → spawning → connected ⇄ thinking → done\n    77→                      ↓                    ↑\n    78→                 disconnected ─────────────┘\n    79→                      ↓          (relaunch)\n    80→                    error\n    81→```\n    82→\n    83→- `idle` — no process, ready to spawn\n    84→- `spawning` — tmux session created, waiting for CLI WebSocket\n    85→- `connected` — CLI connected, `system/init` received\n    86→- `thinking` — waiting for assistant response\n    87→- `done` — CLI WebSocket closed cleanly\n    88→- `disconnected` — CLI WebSocket dropped unexpectedly (crash, kill, server restart)\n    89→- `error` — unrecoverable failure\n    90→\n    91→### Message flow\n    92→\n    93→```\n    94→Browser                    WS Server                    Claude CLI\n    95→  │                           │                            │\n    96→  │──spawn(prompt)──────────▶│                            │\n    97→  │                           │──tmux new-session──────▶│\n    98→  │◀──spawned(agentId)───────│                            │\n    99→  │                           │◀──hook_response───────────│\n   100→  │                           │──user(prompt)────────────▶│\n   101→  │◀──relay(system/init)─────│◀──system/init──────────────│\n   102→  │◀──relay(assistant)───────│◀──assistant─────────────────│\n   103→  │◀──relay(control_request)─│◀──control_request──────────│\n   104→  │──control_response───────▶│──control_response─────────▶│\n   105→  │◀──relay(result)──────────│◀──result────────────────────│\n   106→  │                           │                            │\n   107→  │  (page refresh)           │                            │\n   108→  │──connect /browser────────▶│                            │\n   109→  │◀──agent_list─────────────│                            │\n   110→  │◀──message_history────────│  (replays all stored msgs) │\n   111→```\n   112→\n   113→### Key files\n   114→\n   115→| File | Purpose |\n   116→|------|---------|\n   117→| `server/ws.ts` | WebSocket relay server — agent lifecycle, message routing, multi-browser, persistence integration |\n   118→| `server/session-store.ts` | File-based JSON persistence with debounced/sync writes |\n   119→| `hooks/use-websocket.ts` | React hook — connection management, message processing, dedup, reconnect handling |\n   120→| `lib/types.ts` | Shared TypeScript types for all message protocols |\n   121→| `components/dashboard/agent-sidebar.tsx` | Agent list with status dots |\n   122→| `components/dashboard/chat.tsx` | Chat interface for the active agent |\n   123→| `components/dashboard/status-bar.tsx` | Connection and agent status indicator |\n   124→\n   125→## Status\n   126→\n   127→Early stage. Solving my own problems first, seeing where it goes from there.\n   128→\n   129→---\n   130→\n   131→Built by [@chiumax](https://github.com/chiumax)\n   132→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "30943d95-d107-4404-a4c9-866396372837"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-haiku-4-5-20251001",
+          "id": "msg_019ddDCTf6LuKF8Y85Dv6azi",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01GdQPvazTrVDfEKEXdW2LNQ",
+              "name": "Read",
+              "input": {
+                "file_path": "/Users/chiu.fyi/work/personal/thos/next.config.ts"
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 4,
+            "cache_creation_input_tokens": 993,
+            "cache_read_input_tokens": 18934,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 993
+            },
+            "output_tokens": 1,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "9a9d05ea-a9a9-4dd2-a882-fc06d71e5dd8"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01GdQPvazTrVDfEKEXdW2LNQ",
+              "type": "tool_result",
+              "content": "     1→import type { NextConfig } from \"next\";\n     2→\n     3→const nextConfig: NextConfig = {\n     4→  /* config options here */\n     5→};\n     6→\n     7→export default nextConfig;\n     8→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "662f507c-d28e-4d2d-9179-76bac2dad42b"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-haiku-4-5-20251001",
+          "id": "msg_01HYpJQe99yD5c2FDhy9jtou",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_018VLPkyzDT4KV6NjaURdXgi",
+              "name": "Bash",
+              "input": {
+                "command": "find /Users/chiu.fyi/work/personal/thos -type f \\( -name \"*.tsx\" -o -name \"*.ts\" -o -name \"*.json\" \\) ! -path \"*/node_modules/*\" ! -path \"*/.next/*\" ! -path \"*/dist/*\" | sort"
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 5,
+            "cache_creation_input_tokens": 3842,
+            "cache_read_input_tokens": 19927,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 3842
+            },
+            "output_tokens": 4,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "5fcd5f5f-429e-42af-8bc6-ffe8045cb095"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_018VLPkyzDT4KV6NjaURdXgi",
+              "type": "tool_result",
+              "content": "/Users/chiu.fyi/work/personal/thos/app/dashboard/page.tsx\n/Users/chiu.fyi/work/personal/thos/app/layout.tsx\n/Users/chiu.fyi/work/personal/thos/app/page.tsx\n/Users/chiu.fyi/work/personal/thos/components.json\n/Users/chiu.fyi/work/personal/thos/components/ascii-background.tsx\n/Users/chiu.fyi/work/personal/thos/components/dashboard/agent-sidebar.tsx\n/Users/chiu.fyi/work/personal/thos/components/dashboard/chat.tsx\n/Users/chiu.fyi/work/personal/thos/components/dashboard/condensed-tool-group.tsx\n/Users/chiu.fyi/work/personal/thos/components/dashboard/control-request.tsx\n/Users/chiu.fyi/work/personal/thos/components/dashboard/message.tsx\n/Users/chiu.fyi/work/personal/thos/components/dashboard/status-bar.tsx\n/Users/chiu.fyi/work/personal/thos/components/dashboard/user-question.tsx\n/Users/chiu.fyi/work/personal/thos/components/ui/button.tsx\n/Users/chiu.fyi/work/personal/thos/components/ui/card.tsx\n/Users/chiu.fyi/work/personal/thos/components/ui/scramble-text.tsx\n/Users/chiu.fyi/work/personal/thos/hooks/use-websocket.ts\n/Users/chiu.fyi/work/personal/thos/lib/condense-messages.ts\n/Users/chiu.fyi/work/personal/thos/lib/types.ts\n/Users/chiu.fyi/work/personal/thos/lib/utils.ts\n/Users/chiu.fyi/work/personal/thos/next-env.d.ts\n/Users/chiu.fyi/work/personal/thos/next.config.ts\n/Users/chiu.fyi/work/personal/thos/package.json\n/Users/chiu.fyi/work/personal/thos/server/session-store.ts\n/Users/chiu.fyi/work/personal/thos/server/ws.ts\n/Users/chiu.fyi/work/personal/thos/tsconfig.json",
+              "is_error": false
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "50340d31-991f-42ff-8266-035f78a5269c"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01A5gZgKQ1nbHMyz9dGkRLJ1",
+              "type": "tool_result",
+              "content": "     1→/**\n     2→ * Shared type definitions for the thos dashboard.\n     3→ *\n     4→ * Three categories:\n     5→ * 1. **Claude NDJSON protocol** — messages the Claude CLI sends over its\n     6→ *    `--sdk-url` WebSocket connection (CLI → WS server).\n     7→ * 2. **Browser ↔ Server** — messages exchanged between the React client\n     8→ *    and the standalone WS relay server.\n     9→ * 3. **UI state** — view-model types consumed by React components.\n    10→ */\n    11→\n    12→// ── Claude NDJSON protocol messages (CLI → server) ────────────────────────\n    13→\n    14→/**\n    15→ * Sent once after the first user prompt is received. Contains session\n    16→ * metadata like the model name, working directory, and available tools.\n    17→ */\n    18→export interface ClaudeSystemInit {\n    19→  type: \"system\";\n    20→  subtype: \"init\";\n    21→  session_id: string;\n    22→  tools: unknown[];\n    23→  mcp_servers: unknown[];\n    24→  model: string;\n    25→  cwd: string;\n    26→}\n    27→\n    28→/**\n    29→ * An assistant turn. `message.content` is an array of content blocks\n    30→ * (text, tool_use, tool_result) that may arrive incrementally — each\n    31→ * NDJSON line is a complete snapshot of the message so far.\n    32→ */\n    33→export interface ClaudeAssistant {\n    34→  type: \"assistant\";\n    35→  message: {\n    36→    id: string;\n    37→    role: \"assistant\";\n    38→    content: AssistantContentBlock[];\n    39→    model: string;\n    40→    stop_reason: string | null;\n    41→  };\n    42→  session_id: string;\n    43→}\n    44→\n    45→/** A single content block inside an assistant message. */\n    46→export type AssistantContentBlock =\n    47→  | { type: \"text\"; text: string }\n    48→  | { type: \"tool_use\"; id: string; name: string; input: Record<string, unknown> }\n    49→  | { type: \"tool_result\"; tool_use_id: string; content: string };\n    50→\n    51→/**\n    52→ * Terminal message for a session. Includes cost/duration metrics.\n    53→ * `is_error` is true when `subtype` is `\"error\"`.\n    54→ */\n    55→export interface ClaudeResult {\n    56→  type: \"result\";\n    57→  subtype: \"success\" | \"error\";\n    58→  result?: string;\n    59→  error?: string;\n    60→  session_id: string;\n    61→  cost_usd: number;\n    62→  duration_ms: number;\n    63→  duration_api_ms: number;\n    64→  is_error: boolean;\n    65→  num_turns: number;\n    66→}\n    67→\n    68→/**\n    69→ * Claude is requesting permission to execute a tool. The dashboard must\n    70→ * reply with a `control_response` (allow / deny) before the CLI proceeds.\n    71→ *\n    72→ * Wire format uses a nested `request` object with `request_id` at the\n    73→ * top level for correlation (matches Companion protocol docs).\n    74→ */\n    75→export interface ClaudeControlRequest {\n    76→  type: \"control_request\";\n    77→  request_id: string;\n    78→  request: {\n    79→    subtype: \"can_use_tool\";\n    80→    tool_name: string;\n    81→    input: Record<string, unknown>;\n    82→    tool_use_id?: string;\n    83→    description?: string;\n    84→  };\n    85→  session_id?: string;\n    86→}\n    87→\n    88→/**\n    89→ * Hook lifecycle events emitted during CLI startup. `hook_response` is\n    90→ * the signal that the CLI is ready to receive the first user prompt.\n    91→ */\n    92→export interface ClaudeSystemHook {\n    93→  type: \"system\";\n    94→  subtype: \"hook_started\" | \"hook_response\";\n    95→  session_id?: string;\n    96→}\n    97→\n    98→/** Discriminated union of all known Claude NDJSON message shapes. */\n    99→export type ClaudeMessage =\n   100→  | ClaudeSystemInit\n   101→  | ClaudeAssistant\n   102→  | ClaudeResult\n   103→  | ClaudeControlRequest\n   104→  | ClaudeSystemHook\n   105→  | { type: string; subtype?: string; [key: string]: unknown };\n   106→\n   107→// ── Browser ↔ Server messages ─────────────────────────────────────────────\n   108→\n   109→/** Browser asks the server to spawn a new Claude CLI process. */\n   110→export interface BrowserSpawn {\n   111→  type: \"spawn\";\n   112→  prompt: string;\n   113→}\n   114→\n   115→/** Browser sends a follow-up message to an already-running Claude session. */\n   116→export interface BrowserSendMessage {\n   117→  type: \"send_message\";\n   118→  agentId: string;\n   119→  content: string;\n   120→}\n   121→\n   122→/** Browser responds to a tool approval request (allow or deny). */\n   123→export interface BrowserControlResponse {\n   124→  type: \"control_response\";\n   125→  agentId: string;\n   126→  request_id: string;\n   127→  allow: boolean;\n   128→}\n   129→\n   130→/** Union of all messages the browser can send to the WS server. */\n   131→export type BrowserMessage = BrowserSpawn | BrowserSendMessage | BrowserControlResponse;\n   132→\n   133→/** Server relays a raw Claude NDJSON message to the browser. */\n   134→export interface ServerRelay {\n   135→  type: \"relay\";\n   136→  agentId: string;\n   137→  message: ClaudeMessage;\n   138→}\n   139→\n   140→/** Server notifies the browser of an agent status change. */\n   141→export interface ServerStatus {\n   142→  type: \"status\";\n   143→  agentId: string;\n   144→  status: AgentStatus;\n   145→}\n   146→\n   147→/** Server reports an error (e.g. no active session, process crash). */\n   148→export interface ServerError {\n   149→  type: \"error\";\n   150→  agentId: string;\n   151→  error: string;\n   152→}\n   153→\n   154→/** Summary of an agent for the sidebar. */\n   155→export interface AgentInfo {\n   156→  agentId: string;\n   157→  status: AgentStatus;\n   158→  tmuxSession: string | null;\n   159→  label: string;\n   160→  createdAt: number;\n   161→}\n   162→\n   163→/** Server sends the full list of agents after every state change. */\n   164→export interface ServerAgentList {\n   165→  type: \"agent_list\";\n   166→  agents: AgentInfo[];\n   167→}\n   168→\n   169→/** Server confirms a new agent was spawned and assigns its ID. */\n   170→export interface ServerSpawned {\n   171→  type: \"spawned\";\n   172→  agentId: string;\n   173→}\n   174→\n   175→/** Server replays full message history for an agent on browser connect. */\n   176→export interface ServerMessageHistory {\n   177→  type: \"message_history\";\n   178→  agentId: string;\n   179→  messages: ServerMessage[];\n   180→}\n   181→\n   182→/** CLI WebSocket disconnected (process may have crashed or exited). */\n   183→export interface ServerCliDisconnected {\n   184→  type: \"cli_disconnected\";\n   185→  agentId: string;\n   186→}\n   187→\n   188→/** CLI WebSocket reconnected (e.g. after relaunch with --resume). */\n   189→export interface ServerCliConnected {\n   190→  type: \"cli_connected\";\n   191→  agentId: string;\n   192→}\n   193→\n   194→/** Union of all messages the WS server can send to the browser. */\n   195→export type ServerMessage =\n   196→  | ServerRelay\n   197→  | ServerStatus\n   198→  | ServerError\n   199→  | ServerAgentList\n   200→  | ServerSpawned\n   201→  | ServerMessageHistory\n   202→  | ServerCliDisconnected\n   203→  | ServerCliConnected;\n   204→\n   205→// ── UI state ──────────────────────────────────────────────────────────────\n   206→\n   207→/**\n   208→ * Lifecycle states of the Claude agent process:\n   209→ * - `idle`      — no process running, ready to spawn\n   210→ * - `spawning`  — process launched, waiting for CLI to connect via WS\n   211→ * - `connected` — CLI connected and `system/init` received\n   212→ * - `thinking`  — waiting for assistant response\n   213→ * - `done`      — `result` message received, process finished\n   214→ * - `error`     — process crashed or unexpected failure\n   215→ */\n   216→export type AgentStatus = \"idle\" | \"spawning\" | \"connected\" | \"thinking\" | \"done\" | \"disconnected\" | \"error\";\n   217→\n   218→export type ChatMessageRole = \"user\" | \"assistant\" | \"system\";\n   219→\n   220→/**\n   221→ * A single entry in the chat message list. System messages include\n   222→ * session init info and result summaries. Messages with a `controlRequest`\n   223→ * are rendered as tool-approval cards instead of plain bubbles.\n   224→ */\n   225→/** A single option in an AskUserQuestion question. */\n   226→export interface UserQuestionOption {\n   227→  label: string;\n   228→  description?: string;\n   229→}\n   230→\n   231→/** A single question from AskUserQuestion. */\n   232→export interface UserQuestion {\n   233→  question: string;\n   234→  header?: string;\n   235→  options: UserQuestionOption[];\n   236→  multiSelect: boolean;\n   237→}\n   238→\n   239→/** Info about a single tool_use block in an assistant message. */\n   240→export interface ToolCallInfo {\n   241→  name: string;\n   242→  toolUseId?: string;\n   243→}\n   244→\n   245→export interface ChatMessage {\n   246→  id: string;\n   247→  role: ChatMessageRole;\n   248→  content: string;\n   249→  timestamp: number;\n   250→  /** Present when this message represents a tool approval request. */\n   251→  controlRequest?: {\n   252→    id: string;\n   253→    tool_name: string;\n   254→    input: Record<string, unknown>;\n   255→    /** Set to true after the user allows or denies. */\n   256→    resolved?: boolean;\n   257→  };\n   258→  /** Present when this message is an AskUserQuestion control request. */\n   259→  userQuestion?: {\n   260→    requestId: string;\n   261→    questions: UserQuestion[];\n   262→    resolved?: boolean;\n   263→  };\n   264→  /** Tool calls found in this assistant message. */\n   265→  toolCalls?: ToolCallInfo[];\n   266→  /** True when this message has only tool_use/tool_result blocks and no text. */\n   267→  isToolOnly?: boolean;\n   268→}\n   269→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "4ec42df5-a22c-4eec-a4ec-2f683dd3f042"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-haiku-4-5-20251001",
+          "id": "msg_01WagS3RE8A4waybp32wbNUW",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01Jj8pVQ3yDgiHbJCXKHXw1m",
+              "name": "Read",
+              "input": {
+                "file_path": "/Users/chiu.fyi/work/personal/thos/server/session-store.ts"
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 3,
+            "cache_creation_input_tokens": 884,
+            "cache_read_input_tokens": 23769,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 884
+            },
+            "output_tokens": 1,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "28e1646d-d7e7-496e-aaaf-724b41b27b3d"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01VFRVtWt8r33ax6hKNfZQzK",
+              "type": "tool_result",
+              "content": "     1→/**\n     2→ * Standalone WebSocket relay server for the thos dashboard.\n     3→ *\n     4→ * Runs on port 9900 alongside Next.js (started via `concurrently` in the\n     5→ * `dev` script). It cannot be a Next.js API route because API routes don't\n     6→ * support persistent WebSocket connections.\n     7→ *\n     8→ * ## Architecture\n     9→ *\n    10→ * Two WebSocket path families:\n    11→ * - `/browser`          — the React dashboard connects here (supports multiple tabs).\n    12→ * - `/claude/:agentId`  — each Claude CLI connects here (passed as `--sdk-url`).\n    13→ *\n    14→ * The server supports multiple concurrent agents, each tracked in the\n    15→ * `agents` Map keyed by a short random ID.\n    16→ *\n    17→ * ## Resilience features\n    18→ *\n    19→ * - **Server-side message history** — every relay message is stored per-agent.\n    20→ * - **File persistence** — agent state + history persisted to disk, survives restarts.\n    21→ * - **Multi-browser** — multiple tabs can connect simultaneously.\n    22→ * - **CLI relaunch** — dead agents with a sessionId are relaunched with `--resume`.\n    23→ * - **Message queuing** — messages sent while CLI is disconnected are queued and flushed on reconnect.\n    24→ * - **Disconnect notifications** — browser is notified of CLI disconnect/reconnect.\n    25→ *\n    26→ * ## Message flow\n    27→ *\n    28→ * 1. Browser sends `{ type: \"spawn\", prompt }`.\n    29→ * 2. Server creates agent entry, spawns `claude --sdk-url ws://localhost:9900/claude/<agentId>`.\n    30→ * 3. CLI connects on `/claude/<agentId>`, sends `system/hook_started` then `system/hook_response`.\n    31→ * 4. On `hook_response`, server forwards the pending prompt to the CLI.\n    32→ * 5. CLI sends `system/init`, then `assistant` messages, then `result`.\n    33→ * 6. All CLI messages are relayed to the browser as `{ type: \"relay\", agentId, message }`.\n    34→ * 7. `control_request` messages (tool approval) are relayed to the browser;\n    35→ *    the browser's `control_response` (with `agentId`) is forwarded back to the right CLI.\n    36→ */\n    37→import { WebSocketServer, WebSocket } from \"ws\";\n    38→import { execSync, spawn } from \"child_process\";\n    39→import { randomBytes } from \"crypto\";\n    40→import type { IncomingMessage } from \"http\";\n    41→import type {\n    42→  BrowserMessage,\n    43→  ClaudeMessage,\n    44→  ServerMessage,\n    45→  AgentStatus,\n    46→  AgentInfo,\n    47→} from \"../lib/types\";\n    48→import { SessionStore, type PersistedAgent } from \"./session-store\";\n    49→\n    50→const PORT = 9900;\n    51→const TMUX_SESSION_PREFIX = \"thos-agent\";\n    52→const wss = new WebSocketServer({ port: PORT });\n    53→const store = new SessionStore();\n    54→\n    55→// ── Multi-agent state ──────────────────────────────────────────────────────\n    56→\n    57→interface AgentState {\n    58→  agentId: string;\n    59→  claudeSocket: WebSocket | null;\n    60→  tmuxSession: string | null;\n    61→  pendingPrompt: string | null;\n    62→  status: AgentStatus;\n    63→  label: string;\n    64→  createdAt: number;\n    65→  /** Captured from system/init, used in subsequent user messages and --resume. */\n    66→  sessionId: string | null;\n    67→  /** Stores control_request inputs keyed by request_id, for building control_responses. */\n    68→  pendingControlRequests: Map<string, Record<string, unknown>>;\n    69→  /** All messages sent to the browser for this agent (source of truth). */\n    70→  messageHistory: ServerMessage[];\n    71→  /** Messages queued while CLI is disconnected, flushed on reconnect. */\n    72→  pendingMessages: string[];\n    73→}\n    74→\n    75→const agents = new Map<string, AgentState>();\n    76→\n    77→/** All active browser connections (supports multiple tabs). */\n    78→const browserSockets = new Set<WebSocket>();\n    79→\n    80→/** Generate a short random agent ID. */\n    81→function newAgentId(): string {\n    82→  return randomBytes(4).toString(\"hex\");\n    83→}\n    84→\n    85→// ── Persistence helpers ────────────────────────────────────────────────────\n    86→\n    87→/** Build a PersistedAgent snapshot from live state. */\n    88→function toPersistedAgent(agent: AgentState): PersistedAgent {\n    89→  return {\n    90→    id: agent.agentId,\n    91→    state: {\n    92→      agentId: agent.agentId,\n    93→      status: agent.status,\n    94→      tmuxSession: agent.tmuxSession,\n    95→      label: agent.label,\n    96→      createdAt: agent.createdAt,\n    97→      sessionId: agent.sessionId,\n    98→    },\n    99→    messageHistory: agent.messageHistory,\n   100→  };\n   101→}\n   102→\n   103→/** Persist agent state (debounced — use for streaming events). */\n   104→function persistAgent(agent: AgentState) {\n   105→  store.save(toPersistedAgent(agent));\n   106→}\n   107→\n   108→/** Persist agent state immediately (use for critical state changes). */\n   109→function persistAgentSync(agent: AgentState) {\n   110→  store.saveSync(toPersistedAgent(agent));\n   111→}\n   112→\n   113→// ── Restore from disk on startup ───────────────────────────────────────────\n   114→\n   115→function restoreAgents() {\n   116→  const persisted = store.loadAll();\n   117→  for (const p of persisted) {\n   118→    const agent: AgentState = {\n   119→      agentId: p.state.agentId,\n   120→      claudeSocket: null,\n   121→      tmuxSession: p.state.tmuxSession,\n   122→      pendingPrompt: null,\n   123→      status: p.state.status,\n   124→      label: p.state.label,\n   125→      createdAt: p.state.createdAt,\n   126→      sessionId: p.state.sessionId,\n   127→      pendingControlRequests: new Map(),\n   128→      messageHistory: p.messageHistory,\n   129→      pendingMessages: [],\n   130→    };\n   131→\n   132→    // Agents that weren't \"done\" or \"error\" when the server died are now disconnected\n   133→    if (agent.status !== \"done\" && agent.status !== \"error\") {\n   134→      agent.status = \"disconnected\";\n   135→    }\n   136→\n   137→    agents.set(agent.agentId, agent);\n   138→    console.log(`[restore] agent ${agent.agentId} (status=${agent.status}, ${agent.messageHistory.length} messages)`);\n   139→  }\n   140→  console.log(`[restore] loaded ${persisted.length} agents from disk`);\n   141→}\n   142→\n   143→restoreAgents();\n   144→\n   145→// ── Helpers ────────────────────────────────────────────────────────────────\n   146→\n   147→/** Send a JSON message to all connected browsers. */\n   148→function sendToBrowser(msg: ServerMessage) {\n   149→  const payload = JSON.stringify(msg);\n   150→  for (const ws of browserSockets) {\n   151→    if (ws.readyState === WebSocket.OPEN) {\n   152→      ws.send(payload);\n   153→    }\n   154→  }\n   155→}\n   156→\n   157→/** Build a snapshot of all agents for the sidebar. */\n   158→function buildAgentList(): AgentInfo[] {\n   159→  return Array.from(agents.values()).map((a) => ({\n   160→    agentId: a.agentId,\n   161→    status: a.status,\n   162→    tmuxSession: a.tmuxSession,\n   163→    label: a.label,\n   164→    createdAt: a.createdAt,\n   165→  }));\n   166→}\n   167→\n   168→/** Send the full agent list to all browsers. */\n   169→function broadcastAgentList() {\n   170→  sendToBrowser({ type: \"agent_list\", agents: buildAgentList() });\n   171→}\n   172→\n   173→/** Update an agent's status, notify browsers, broadcast list, and persist. */\n   174→function setAgentStatus(agentId: string, status: AgentStatus) {\n   175→  const agent = agents.get(agentId);\n   176→  if (!agent) return;\n   177→  agent.status = status;\n   178→  sendToBrowser({ type: \"status\", agentId, status });\n   179→  broadcastAgentList();\n   180→  persistAgentSync(agent);\n   181→}\n   182→\n   183→/**\n   184→ * Record a message in the agent's history and send to all browsers.\n   185→ * This is used for relay messages so that message history is the source of truth.\n   186→ */\n   187→function recordAndSend(agentId: string, msg: ServerMessage) {\n   188→  const agent = agents.get(agentId);\n   189→  if (agent) {\n   190→    agent.messageHistory.push(msg);\n   191→    persistAgent(agent); // debounced — streaming messages come fast\n   192→  }\n   193→  sendToBrowser(msg);\n   194→}\n   195→\n   196→// ── Agent lifecycle ────────────────────────────────────────────────────────\n   197→\n   198→/**\n   199→ * Terminate a specific agent by killing its tmux session.\n   200→ * Closes the Claude WebSocket and removes the agent from the Map.\n   201→ */\n   202→function killAgent(agentId: string) {\n   203→  const agent = agents.get(agentId);\n   204→  if (!agent) return;\n   205→\n   206→  if (agent.tmuxSession) {\n   207→    try {\n   208→      execSync(`tmux kill-session -t ${agent.tmuxSession}`, { stdio: \"ignore\" });\n   209→      console.log(`[tmux] killed session ${agent.tmuxSession}`);\n   210→    } catch {\n   211→      // Session may already be dead\n   212→    }\n   213→  }\n   214→  if (agent.claudeSocket?.readyState === WebSocket.OPEN) {\n   215→    agent.claudeSocket.close();\n   216→  }\n   217→  agents.delete(agentId);\n   218→  store.remove(agentId);\n   219→  broadcastAgentList();\n   220→}\n   221→\n   222→/**\n   223→ * Spawn a new Claude CLI process inside a tmux session.\n   224→ *\n   225→ * Creates a new agent entry, spawns the CLI with `--sdk-url` pointing to\n   226→ * `/claude/<agentId>`, and sends a `spawned` message to the browser.\n   227→ */\n   228→function spawnClaude(prompt: string): string {\n   229→  const agentId = newAgentId();\n   230→  const sessionName = `${TMUX_SESSION_PREFIX}-${agentId}`;\n   231→  const label = prompt.length > 60 ? prompt.slice(0, 57) + \"...\" : prompt;\n   232→\n   233→  const agent: AgentState = {\n   234→    agentId,\n   235→    claudeSocket: null,\n   236→    tmuxSession: null,\n   237→    pendingPrompt: prompt,\n   238→    status: \"spawning\",\n   239→    label,\n   240→    createdAt: Date.now(),\n   241→    sessionId: null,\n   242→    pendingControlRequests: new Map(),\n   243→    messageHistory: [],\n   244→    pendingMessages: [],\n   245→  };\n   246→  agents.set(agentId, agent);\n   247→\n   248→  // Notify browsers\n   249→  sendToBrowser({ type: \"spawned\", agentId });\n   250→  broadcastAgentList();\n   251→  persistAgentSync(agent);\n   252→\n   253→  // Build the claude command with CLAUDECODE unset to bypass nesting protection.\n   254→  // tmux new-session runs detached (-d) so spawn() returns immediately.\n   255→  const claudeCmd = `unset CLAUDECODE; exec claude --dangerously-skip-permissions --sdk-url ws://localhost:${PORT}/claude/${agentId}`;\n   256→\n   257→  const tmux = spawn(\"tmux\", [\"new-session\", \"-d\", \"-s\", sessionName, \"bash\", \"-c\", claudeCmd], {\n   258→    stdio: \"ignore\",\n   259→  });\n   260→\n   261→  tmux.on(\"error\", (err) => {\n   262→    console.error(\"[tmux spawn error]\", err);\n   263→    setAgentStatus(agentId, \"error\");\n   264→    recordAndSend(agentId, { type: \"error\", agentId, error: `tmux error: ${err.message}` });\n   265→  });\n   266→\n   267→  tmux.on(\"exit\", (code) => {\n   268→    if (code !== 0) {\n   269→      console.error(`[tmux] new-session exited with code ${code}`);\n   270→      setAgentStatus(agentId, \"error\");\n   271→      recordAndSend(agentId, { type: \"error\", agentId, error: `tmux exited with code ${code}` });\n   272→      return;\n   273→    }\n   274→    console.log(`[tmux] session ${sessionName} created — attach with: tmux attach -t ${sessionName}`);\n   275→    agent.tmuxSession = sessionName;\n   276→    broadcastAgentList();\n   277→    persistAgentSync(agent);\n   278→  });\n   279→\n   280→  return agentId;\n   281→}\n   282→\n   283→/**\n   284→ * Attempt to relaunch a dead agent's CLI with --resume.\n   285→ * Only works if the agent has a sessionId from a previous system/init.\n   286→ */\n   287→function relaunchAgent(agent: AgentState) {\n   288→  if (!agent.sessionId) {\n   289→    console.log(`[relaunch] agent ${agent.agentId} has no sessionId, cannot resume`);\n   290→    return;\n   291→  }\n   292→\n   293→  const sessionName = agent.tmuxSession ?? `${TMUX_SESSION_PREFIX}-${agent.agentId}`;\n   294→  console.log(`[relaunch] attempting --resume for agent ${agent.agentId} (session=${agent.sessionId})`);\n   295→\n   296→  setAgentStatus(agent.agentId, \"spawning\");\n   297→\n   298→  // Kill any lingering tmux session with the same name\n   299→  try {\n   300→    execSync(`tmux kill-session -t ${sessionName}`, { stdio: \"ignore\" });\n   301→  } catch {\n   302→    // fine if it doesn't exist\n   303→  }\n   304→\n   305→  const claudeCmd = `unset CLAUDECODE; exec claude --resume --sdk-url ws://localhost:${PORT}/claude/${agent.agentId}`;\n   306→\n   307→  const tmux = spawn(\"tmux\", [\"new-session\", \"-d\", \"-s\", sessionName, \"bash\", \"-c\", claudeCmd], {\n   308→    stdio: \"ignore\",\n   309→  });\n   310→\n   311→  tmux.on(\"error\", (err) => {\n   312→    console.error(`[relaunch] tmux error for ${agent.agentId}:`, err);\n   313→    setAgentStatus(agent.agentId, \"error\");\n   314→    recordAndSend(agent.agentId, { type: \"error\", agentId: agent.agentId, error: `relaunch error: ${err.message}` });\n   315→  });\n   316→\n   317→  tmux.on(\"exit\", (code) => {\n   318→    if (code !== 0) {\n   319→      console.error(`[relaunch] tmux exited with code ${code} for ${agent.agentId}`);\n   320→      setAgentStatus(agent.agentId, \"error\");\n   321→      recordAndSend(agent.agentId, { type: \"error\", agentId: agent.agentId, error: `relaunch tmux exited with code ${code}` });\n   322→      return;\n   323→    }\n   324→    agent.tmuxSession = sessionName;\n   325→    broadcastAgentList();\n   326→    persistAgentSync(agent);\n   327→    console.log(`[relaunch] tmux session ${sessionName} created for agent ${agent.agentId}`);\n   328→  });\n   329→}\n   330→\n   331→// ── Message handlers ───────────────────────────────────────────────────────\n   332→\n   333→/**\n   334→ * Process an incoming NDJSON message from a specific Claude CLI.\n   335→ *\n   336→ * Status flow matches the Companion protocol:\n   337→ * - hook_response → send pending prompt → \"thinking\"\n   338→ * - system/init   → \"connected\" + capture session_id\n   339→ * - assistant      → \"thinking\"\n   340→ * - result         → \"connected\" (CLI stays alive for multi-turn)\n   341→ * - CLI disconnect → \"disconnected\" (handled in connection close handler)\n   342→ */\n   343→function handleClaudeMessage(agentId: string, raw: string) {\n   344→  const agent = agents.get(agentId);\n   345→  if (!agent) return;\n   346→\n   347→  let msg: ClaudeMessage;\n   348→  try {\n   349→    msg = JSON.parse(raw);\n   350→  } catch {\n   351→    console.error(`[claude:${agentId}] invalid JSON:`, raw);\n   352→    return;\n   353→  }\n   354→\n   355→  // Silently ignore keep_alive messages\n   356→  if (msg.type === \"keep_alive\") return;\n   357→\n   358→  console.log(`[claude:${agentId} →]`, msg.type, (msg as { subtype?: string }).subtype ?? \"\");\n   359→\n   360→  // After hook_response, send the pending prompt\n   361→  if (\n   362→    msg.type === \"system\" &&\n   363→    (msg as { subtype?: string }).subtype === \"hook_response\" &&\n   364→    agent.pendingPrompt &&\n   365→    agent.claudeSocket?.readyState === WebSocket.OPEN\n   366→  ) {\n   367→    const userMsg = JSON.stringify({\n   368→      type: \"user\",\n   369→      message: { role: \"user\", content: agent.pendingPrompt },\n   370→      parent_tool_use_id: null,\n   371→      session_id: agent.sessionId ?? \"\",\n   372→    });\n   373→    console.log(`[server → claude:${agentId}]`, userMsg);\n   374→    agent.claudeSocket.send(userMsg + \"\\n\");\n   375→    agent.pendingPrompt = null;\n   376→    setAgentStatus(agentId, \"thinking\");\n   377→  }\n   378→\n   379→  // Track status based on message type\n   380→  if (msg.type === \"system\" && (msg as { subtype?: string }).subtype === \"init\") {\n   381→    // Capture session_id for subsequent user messages\n   382→    agent.sessionId = (msg as { session_id?: string }).session_id ?? null;\n   383→    setAgentStatus(agentId, \"connected\");\n   384→  } else if (msg.type === \"assistant\") {\n   385→    setAgentStatus(agentId, \"thinking\");\n   386→  } else if (msg.type === \"result\") {\n   387→    // CLI stays alive after result — ready for the next turn.\n   388→    // Status only goes to \"disconnected\" when the CLI WebSocket actually closes.\n   389→    setAgentStatus(agentId, \"connected\");\n   390→  }\n   391→\n   392→  // Store control_request inputs for building proper responses later\n   393→  if (msg.type === \"control_request\") {\n   394→    const cr = msg as { request_id?: string; request?: { input?: Record<string, unknown> } };\n   395→    if (cr.request_id && cr.request?.input) {\n   396→      agent.pendingControlRequests.set(cr.request_id, cr.request.input);\n   397→    }\n   398→  }\n   399→\n   400→  // Record in history and relay to browsers\n   401→  recordAndSend(agentId, { type: \"relay\", agentId, message: msg });\n   402→}\n   403→\n   404→/**\n   405→ * Process an incoming JSON message from the browser.\n   406→ * - `spawn`: create a new agent (does NOT kill others).\n   407→ * - `send_message`: forward a follow-up user message to the specified agent.\n   408→ * - `control_response`: forward a tool allow/deny decision to the specified agent.\n   409→ */\n   410→function handleBrowserMessage(raw: string) {\n   411→  let msg: BrowserMessage;\n   412→  try {\n   413→    msg = JSON.parse(raw);\n   414→  } catch {\n   415→    console.error(\"[browser] invalid JSON:\", raw);\n   416→    return;\n   417→  }\n   418→\n   419→  console.log(\"[browser →]\", msg.type);\n   420→\n   421→  switch (msg.type) {\n   422→    case \"spawn\":\n   423→      spawnClaude(msg.prompt);\n   424→      break;\n   425→\n   426→    case \"send_message\": {\n   427→      const agent = agents.get(msg.agentId);\n   428→      if (!agent) {\n   429→        sendToBrowser({ type: \"error\", agentId: msg.agentId, error: \"Unknown agent\" });\n   430→        break;\n   431→      }\n   432→      if (agent.claudeSocket?.readyState === WebSocket.OPEN) {\n   433→        const userMsg = JSON.stringify({\n   434→          type: \"user\",\n   435→          message: { role: \"user\", content: msg.content },\n   436→          parent_tool_use_id: null,\n   437→          session_id: agent.sessionId ?? \"\",\n   438→        });\n   439→        agent.claudeSocket.send(userMsg + \"\\n\");\n   440→        setAgentStatus(msg.agentId, \"thinking\");\n   441→      } else {\n   442→        // Queue message for delivery when CLI reconnects\n   443→        const userMsg = JSON.stringify({\n   444→          type: \"user\",\n   445→          message: { role: \"user\", content: msg.content },\n   446→          parent_tool_use_id: null,\n   447→          session_id: agent.sessionId ?? \"\",\n   448→        });\n   449→        agent.pendingMessages.push(userMsg);\n   450→        console.log(`[queue] queued message for agent ${msg.agentId} (${agent.pendingMessages.length} pending)`);\n   451→        persistAgentSync(agent);\n   452→      }\n   453→      break;\n   454→    }\n   455→\n   456→    case \"control_response\": {\n   457→      const agent = agents.get(msg.agentId);\n   458→      if (agent?.claudeSocket?.readyState === WebSocket.OPEN) {\n   459→        // Retrieve the original tool input to include as updatedInput (required by protocol)\n   460→        const originalInput = agent.pendingControlRequests.get(msg.request_id) ?? {};\n   461→        agent.pendingControlRequests.delete(msg.request_id);\n   462→\n   463→        // If the browser sent answers (from AskUserQuestion), merge them into the input\n   464→        const answers = (msg as { answers?: Record<string, string> }).answers;\n   465→        const updatedInput = answers\n   466→          ? { ...originalInput, answers }\n   467→          : originalInput;\n   468→\n   469→        const response = JSON.stringify({\n   470→          type: \"control_response\",\n   471→          response: {\n   472→            subtype: \"success\",\n   473→            request_id: msg.request_id,\n   474→            response: msg.allow\n   475→              ? { behavior: \"allow\", updatedInput }\n   476→              : { behavior: \"deny\", message: \"Denied by user\" },\n   477→          },\n   478→        });\n   479→        agent.claudeSocket.send(response + \"\\n\");\n   480→      }\n   481→      break;\n   482→    }\n   483→  }\n   484→}\n   485→\n   486→// ── Send message history to a single browser socket ────────────────────────\n   487→\n   488→/** Send full state to a newly connected browser: agent list + message history per agent. */\n   489→function sendFullStateToSocket(ws: WebSocket) {\n   490→  if (ws.readyState !== WebSocket.OPEN) return;\n   491→\n   492→  // 1. Agent list\n   493→  ws.send(JSON.stringify({ type: \"agent_list\", agents: buildAgentList() }));\n   494→\n   495→  // 2. Message history per agent\n   496→  for (const agent of agents.values()) {\n   497→    if (agent.messageHistory.length > 0) {\n   498→      ws.send(\n   499→        JSON.stringify({\n   500→          type: \"message_history\",\n   501→          agentId: agent.agentId,\n   502→          messages: agent.messageHistory,\n   503→        })\n   504→      );\n   505→    }\n   506→  }\n   507→}\n   508→\n   509→// ── Connection handler — route by URL path ────────────────────────────────\n   510→wss.on(\"connection\", (ws: WebSocket, req: IncomingMessage) => {\n   511→  const path = req.url ?? \"/\";\n   512→  console.log(`[ws connected] path=${path}`);\n   513→\n   514→  if (path === \"/browser\") {\n   515→    browserSockets.add(ws);\n   516→\n   517→    // Send full state to this browser\n   518→    sendFullStateToSocket(ws);\n   519→\n   520→    // Attempt to relaunch any disconnected agents\n   521→    for (const agent of agents.values()) {\n   522→      if (agent.status === \"disconnected\" && !agent.claudeSocket) {\n   523→        relaunchAgent(agent);\n   524→      }\n   525→    }\n   526→\n   527→    ws.on(\"message\", (data) => {\n   528→      handleBrowserMessage(data.toString());\n   529→    });\n   530→\n   531→    ws.on(\"close\", () => {\n   532→      console.log(\"[browser disconnected]\");\n   533→      browserSockets.delete(ws);\n   534→      // Do NOT kill agents — keep them alive for reconnect\n   535→    });\n   536→  } else if (path.startsWith(\"/claude/\")) {\n   537→    // Parse agentId from /claude/<agentId>\n   538→    const agentId = path.slice(\"/claude/\".length);\n   539→    const agent = agents.get(agentId);\n   540→\n   541→    if (!agent) {\n   542→      console.log(`[ws] unknown agentId: ${agentId}, closing`);\n   543→      ws.close();\n   544→      return;\n   545→    }\n   546→\n   547→    agent.claudeSocket = ws;\n   548→    console.log(`[claude:${agentId} CLI connected via WebSocket]`);\n   549→\n   550→    // Notify browsers that CLI is connected\n   551→    sendToBrowser({ type: \"cli_connected\", agentId });\n   552→\n   553→    // Flush any pending messages queued while CLI was disconnected\n   554→    if (agent.pendingMessages.length > 0) {\n   555→      console.log(`[flush] sending ${agent.pendingMessages.length} queued messages to agent ${agentId}`);\n   556→      for (const queued of agent.pendingMessages) {\n   557→        ws.send(queued + \"\\n\");\n   558→      }\n   559→      agent.pendingMessages = [];\n   560→      persistAgentSync(agent);\n   561→    }\n   562→\n   563→    ws.on(\"message\", (data) => {\n   564→      handleClaudeMessage(agentId, data.toString());\n   565→    });\n   566→\n   567→    ws.on(\"close\", () => {\n   568→      console.log(`[claude:${agentId} CLI disconnected]`);\n   569→      if (agent.claudeSocket === ws) {\n   570→        agent.claudeSocket = null;\n   571→        if (agent.status !== \"error\" && agent.status !== \"done\") {\n   572→          setAgentStatus(agentId, \"disconnected\");\n   573→          // Notify browsers that CLI disconnected\n   574→          sendToBrowser({ type: \"cli_disconnected\", agentId });\n   575→        }\n   576→      }\n   577→    });\n   578→  } else {\n   579→    console.log(`[ws] unknown path: ${path}, closing`);\n   580→    ws.close();\n   581→  }\n   582→});\n   583→\n   584→// ── tmux cleanup ──────────────────────────────────────────────────────────\n   585→\n   586→/** Kill all tmux sessions matching the thos-agent prefix. */\n   587→function killAllAgentSessions() {\n   588→  try {\n   589→    const sessions = execSync(\"tmux list-sessions -F '#{session_name}'\", {\n   590→      encoding: \"utf-8\",\n   591→    })\n   592→      .trim()\n   593→      .split(\"\\n\")\n   594→      .filter((s) => s.startsWith(TMUX_SESSION_PREFIX));\n   595→\n   596→    for (const s of sessions) {\n   597→      try {\n   598→        execSync(`tmux kill-session -t ${s}`, { stdio: \"ignore\" });\n   599→        console.log(`[tmux] cleaned up stale session ${s}`);\n   600→      } catch {}\n   601→    }\n   602→  } catch {\n   603→    // tmux server not running or no sessions — fine\n   604→  }\n   605→}\n   606→\n   607→function shutdown() {\n   608→  console.log(\"[ws server] shutting down...\");\n   609→\n   610→  // Persist all agents synchronously before exit\n   611→  const allPersisted = Array.from(agents.values()).map(toPersistedAgent);\n   612→  store.flushAll(allPersisted);\n   613→  console.log(`[ws server] saved ${allPersisted.length} agents to disk`);\n   614→\n   615→  killAllAgentSessions();\n   616→  wss.close();\n   617→  process.exit(0);\n   618→}\n   619→\n   620→process.on(\"SIGTERM\", shutdown);\n   621→process.on(\"SIGINT\", shutdown);\n   622→\n   623→// Clean up any orphaned tmux sessions from previous runs\n   624→killAllAgentSessions();\n   625→\n   626→console.log(`[ws server] listening on port ${PORT}`);\n   627→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "7205134f-edb3-4d8e-be8c-68de8cecdf11"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01Jj8pVQ3yDgiHbJCXKHXw1m",
+              "type": "tool_result",
+              "content": "     1→/**\n     2→ * File-based session persistence for thos agents.\n     3→ *\n     4→ * Persists agent state + message history to JSON files in\n     5→ * `$TMPDIR/thos-sessions/<agentId>.json` so data survives server restarts.\n     6→ *\n     7→ * Uses debounced writes (150ms) for high-frequency events (streaming) and\n     8→ * synchronous writes for critical state changes (spawn, result, status).\n     9→ */\n    10→\n    11→import { mkdirSync, writeFileSync, readFileSync, readdirSync, unlinkSync, existsSync } from \"fs\";\n    12→import { join } from \"path\";\n    13→import { tmpdir } from \"os\";\n    14→import type { AgentStatus, ServerMessage } from \"../lib/types\";\n    15→\n    16→const SESSION_DIR = join(tmpdir(), \"thos-sessions\");\n    17→\n    18→/** Shape of a persisted agent on disk. */\n    19→export interface PersistedAgent {\n    20→  id: string;\n    21→  state: {\n    22→    agentId: string;\n    23→    status: AgentStatus;\n    24→    tmuxSession: string | null;\n    25→    label: string;\n    26→    createdAt: number;\n    27→    sessionId: string | null;\n    28→  };\n    29→  messageHistory: ServerMessage[];\n    30→}\n    31→\n    32→export class SessionStore {\n    33→  private dir: string;\n    34→  private debounceTimers = new Map<string, ReturnType<typeof setTimeout>>();\n    35→\n    36→  constructor(dir: string = SESSION_DIR) {\n    37→    this.dir = dir;\n    38→    mkdirSync(this.dir, { recursive: true });\n    39→  }\n    40→\n    41→  /** File path for a given agent ID. */\n    42→  private filePath(agentId: string): string {\n    43→    return join(this.dir, `${agentId}.json`);\n    44→  }\n    45→\n    46→  /** Debounced write — batches rapid stream events (150ms). */\n    47→  save(agent: PersistedAgent): void {\n    48→    const existing = this.debounceTimers.get(agent.id);\n    49→    if (existing) clearTimeout(existing);\n    50→    this.debounceTimers.set(\n    51→      agent.id,\n    52→      setTimeout(() => {\n    53→        this.debounceTimers.delete(agent.id);\n    54→        this.writeFile(agent);\n    55→      }, 150)\n    56→    );\n    57→  }\n    58→\n    59→  /** Immediate write — use for critical state changes (spawn, result, status). */\n    60→  saveSync(agent: PersistedAgent): void {\n    61→    // Cancel any pending debounced write\n    62→    const existing = this.debounceTimers.get(agent.id);\n    63→    if (existing) {\n    64→      clearTimeout(existing);\n    65→      this.debounceTimers.delete(agent.id);\n    66→    }\n    67→    this.writeFile(agent);\n    68→  }\n    69→\n    70→  /** Load a single agent from disk. Returns null if not found. */\n    71→  load(agentId: string): PersistedAgent | null {\n    72→    const fp = this.filePath(agentId);\n    73→    if (!existsSync(fp)) return null;\n    74→    try {\n    75→      const raw = readFileSync(fp, \"utf-8\");\n    76→      return JSON.parse(raw) as PersistedAgent;\n    77→    } catch (err) {\n    78→      console.error(`[session-store] failed to load ${agentId}:`, err);\n    79→      return null;\n    80→    }\n    81→  }\n    82→\n    83→  /** Load all persisted agents on server startup. */\n    84→  loadAll(): PersistedAgent[] {\n    85→    try {\n    86→      const files = readdirSync(this.dir).filter((f) => f.endsWith(\".json\"));\n    87→      const agents: PersistedAgent[] = [];\n    88→      for (const file of files) {\n    89→        try {\n    90→          const raw = readFileSync(join(this.dir, file), \"utf-8\");\n    91→          agents.push(JSON.parse(raw) as PersistedAgent);\n    92→        } catch (err) {\n    93→          console.error(`[session-store] failed to parse ${file}:`, err);\n    94→        }\n    95→      }\n    96→      return agents;\n    97→    } catch {\n    98→      return [];\n    99→    }\n   100→  }\n   101→\n   102→  /** Delete an agent's persisted file. */\n   103→  remove(agentId: string): void {\n   104→    const fp = this.filePath(agentId);\n   105→    try {\n   106→      if (existsSync(fp)) unlinkSync(fp);\n   107→    } catch (err) {\n   108→      console.error(`[session-store] failed to remove ${agentId}:`, err);\n   109→    }\n   110→    // Also cancel any pending debounced write\n   111→    const existing = this.debounceTimers.get(agentId);\n   112→    if (existing) {\n   113→      clearTimeout(existing);\n   114→      this.debounceTimers.delete(agentId);\n   115→    }\n   116→  }\n   117→\n   118→  /** Flush all pending debounced writes synchronously (for graceful shutdown). */\n   119→  flushAll(allAgents: PersistedAgent[]): void {\n   120→    // Cancel all pending timers\n   121→    for (const [id, timer] of this.debounceTimers) {\n   122→      clearTimeout(timer);\n   123→      this.debounceTimers.delete(id);\n   124→    }\n   125→    // Write all agents\n   126→    for (const agent of allAgents) {\n   127→      this.writeFile(agent);\n   128→    }\n   129→  }\n   130→\n   131→  private writeFile(agent: PersistedAgent): void {\n   132→    try {\n   133→      writeFileSync(this.filePath(agent.id), JSON.stringify(agent, null, 2));\n   134→    } catch (err) {\n   135→      console.error(`[session-store] failed to write ${agent.id}:`, err);\n   136→    }\n   137→  }\n   138→}\n   139→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "50b754d8-89b6-411e-bd53-44427734dd47"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01CYkdY6evUcufpewdoUEyhX",
+              "type": "tool_result",
+              "content": "     1→\"use client\";\n     2→\n     3→/**\n     4→ * React hook that manages the WebSocket connection to the thos relay server.\n     5→ *\n     6→ * Supports multiple concurrent agents. Each agent has its own status,\n     7→ * message history, label, and tmux session name tracked in a Map keyed\n     8→ * by agent ID. The `activeAgentId` determines which agent's chat is shown.\n     9→ *\n    10→ * Resilience features:\n    11→ * - Handles `message_history` replay from server on connect/reconnect.\n    12→ * - Handles `cli_disconnected` / `cli_connected` events.\n    13→ * - Deduplicates messages using a per-agent Set of seen message IDs.\n    14→ * - Robust reconnection guard (clears previous timer before scheduling).\n    15→ */\n    16→\n    17→import { useCallback, useEffect, useMemo, useRef, useState } from \"react\";\n    18→import type {\n    19→  AgentInfo,\n    20→  AgentStatus,\n    21→  ChatMessage,\n    22→  ClaudeAssistant,\n    23→  ClaudeControlRequest,\n    24→  ClaudeMessage,\n    25→  ClaudeResult,\n    26→  ClaudeSystemInit,\n    27→  ServerMessage,\n    28→  ServerMessageHistory,\n    29→  ToolCallInfo,\n    30→  UserQuestion,\n    31→} from \"@/lib/types\";\n    32→\n    33→const WS_URL = \"ws://localhost:9900/browser\";\n    34→\n    35→/** Per-agent client state. */\n    36→export interface AgentClientState {\n    37→  status: AgentStatus;\n    38→  messages: ChatMessage[];\n    39→  /** Raw Claude NDJSON messages for debug view. */\n    40→  rawMessages: ClaudeMessage[];\n    41→  label: string;\n    42→  tmuxSession: string | null;\n    43→  createdAt: number;\n    44→}\n    45→\n    46→/**\n    47→ * Extract displayable text from a Claude assistant message.\n    48→ * Content blocks may be text, tool_use, or tool_result — each is\n    49→ * handled defensively since the array structure can vary.\n    50→ */\n    51→function extractText(msg: ClaudeAssistant): string {\n    52→  const blocks = msg.message?.content;\n    53→  if (!blocks || !Array.isArray(blocks)) return \"\";\n    54→  return blocks\n    55→    .map((b) => {\n    56→      if (b.type === \"text\") return b.text;\n    57→      if (b.type === \"tool_use\") return `[tool_use: ${b.name}]`;\n    58→      if (b.type === \"tool_result\") return `[tool_result: ${b.content}]`;\n    59→      return \"\";\n    60→    })\n    61→    .filter(Boolean)\n    62→    .join(\"\\n\");\n    63→}\n    64→\n    65→/** Module-level counter for generating unique message IDs. */\n    66→let msgCounter = 0;\n    67→function nextId() {\n    68→  return `msg-${Date.now()}-${++msgCounter}`;\n    69→}\n    70→\n    71→/**\n    72→ * Convert a server relay message into a ChatMessage, or null if it shouldn't be displayed.\n    73→ * Used both for live messages and for replaying message_history.\n    74→ */\n    75→function relayChatMessage(agentId: string, relayMsg: ServerMessage): ChatMessage | null {\n    76→  if (relayMsg.type === \"relay\") {\n    77→    const msg = relayMsg.message;\n    78→\n    79→    if (msg.type === \"system\" && (msg as { subtype?: string }).subtype === \"init\") {\n    80→      const init = msg as ClaudeSystemInit;\n    81→      return {\n    82→        id: nextId(),\n    83→        role: \"system\",\n    84→        content: `Session started — model: ${init.model}, cwd: ${init.cwd}`,\n    85→        timestamp: Date.now(),\n    86→      };\n    87→    }\n    88→\n    89→    if (msg.type === \"assistant\") {\n    90→      const assistant = msg as ClaudeAssistant;\n    91→      const text = extractText(assistant);\n    92→      if (!text) return null;\n    93→\n    94→      const blocks = assistant.message?.content ?? [];\n    95→      const hasText = blocks.some((b) => b.type === \"text\" && b.text.trim());\n    96→      const toolCalls: ToolCallInfo[] = blocks\n    97→        .filter((b) => b.type === \"tool_use\")\n    98→        .map((b) => ({\n    99→          name: (b as { name: string }).name,\n   100→          toolUseId: (b as { id: string }).id,\n   101→        }));\n   102→      const isToolOnly = !hasText && toolCalls.length > 0;\n   103→\n   104→      return {\n   105→        id: nextId(),\n   106→        role: \"assistant\",\n   107→        content: text,\n   108→        timestamp: Date.now(),\n   109→        toolCalls,\n   110→        isToolOnly,\n   111→      };\n   112→    }\n   113→\n   114→    if (msg.type === \"result\") {\n   115→      const result = msg as ClaudeResult;\n   116→      const summary = result.is_error\n   117→        ? `Error: ${result.error}`\n   118→        : `Done — ${result.num_turns ?? \"?\"} turns, $${(result.cost_usd ?? 0).toFixed(4)}, ${((result.duration_ms ?? 0) / 1000).toFixed(1)}s`;\n   119→      return {\n   120→        id: nextId(),\n   121→        role: \"system\",\n   122→        content: summary,\n   123→        timestamp: Date.now(),\n   124→      };\n   125→    }\n   126→\n   127→    if (msg.type === \"control_request\") {\n   128→      const cr = msg as ClaudeControlRequest;\n   129→\n   130→      // AskUserQuestion gets its own UI instead of generic Allow/Deny\n   131→      if (cr.request.tool_name === \"AskUserQuestion\") {\n   132→        const input = cr.request.input as { questions?: UserQuestion[] };\n   133→        const questions = Array.isArray(input.questions) ? input.questions : [];\n   134→        return {\n   135→          id: nextId(),\n   136→          role: \"system\",\n   137→          content: \"Question from Claude\",\n   138→          timestamp: Date.now(),\n   139→          userQuestion: {\n   140→            requestId: cr.request_id,\n   141→            questions,\n   142→          },\n   143→        };\n   144→      }\n   145→\n   146→      return {\n   147→        id: nextId(),\n   148→        role: \"system\",\n   149→        content: `Tool approval requested: ${cr.request.tool_name}`,\n   150→        timestamp: Date.now(),\n   151→        controlRequest: {\n   152→          id: cr.request_id,\n   153→          tool_name: cr.request.tool_name,\n   154→          input: cr.request.input,\n   155→        },\n   156→      };\n   157→    }\n   158→  }\n   159→\n   160→  if (relayMsg.type === \"error\" && relayMsg.agentId === agentId) {\n   161→    return {\n   162→      id: nextId(),\n   163→      role: \"system\",\n   164→      content: `Error: ${relayMsg.error}`,\n   165→      timestamp: Date.now(),\n   166→    };\n   167→  }\n   168→\n   169→  return null;\n   170→}\n   171→\n   172→export function useWebSocket() {\n   173→  const wsRef = useRef<WebSocket | null>(null);\n   174→  const reconnectTimer = useRef<ReturnType<typeof setTimeout> | null>(null);\n   175→  const [connected, setConnected] = useState(false);\n   176→\n   177→  // Multi-agent state\n   178→  const [agents, setAgents] = useState<Map<string, AgentClientState>>(new Map());\n   179→  const [agentOrder, setAgentOrder] = useState<string[]>([]);\n   180→  const [activeAgentId, setActiveAgentId] = useState<string | null>(null);\n   181→\n   182→  // Per-agent deduplication: track count of processed messages per agent\n   183→  // to avoid duplicating messages already in local state during history replay.\n   184→  const processedCountRef = useRef<Map<string, number>>(new Map());\n   185→\n   186→  /** Immutably update a single agent's state in the Map. */\n   187→  const updateAgent = useCallback(\n   188→    (agentId: string, updater: (prev: AgentClientState) => AgentClientState) => {\n   189→      setAgents((prev) => {\n   190→        const existing = prev.get(agentId);\n   191→        if (!existing) return prev;\n   192→        const next = new Map(prev);\n   193→        next.set(agentId, updater(existing));\n   194→        return next;\n   195→      });\n   196→    },\n   197→    []\n   198→  );\n   199→\n   200→  const connect = useCallback(() => {\n   201→    if (wsRef.current?.readyState === WebSocket.OPEN) return;\n   202→    if (wsRef.current) {\n   203→      wsRef.current.close();\n   204→      wsRef.current = null;\n   205→    }\n   206→\n   207→    const ws = new WebSocket(WS_URL);\n   208→    wsRef.current = ws;\n   209→\n   210→    ws.onopen = () => setConnected(true);\n   211→\n   212→    ws.onclose = () => {\n   213→      setConnected(false);\n   214→      wsRef.current = null;\n   215→      // Reconnection guard: clear any existing timer before scheduling\n   216→      if (reconnectTimer.current) clearTimeout(reconnectTimer.current);\n   217→      reconnectTimer.current = setTimeout(() => connect(), 2000);\n   218→    };\n   219→\n   220→    ws.onerror = () => {\n   221→      // onclose will fire after onerror, which triggers reconnect\n   222→    };\n   223→\n   224→    ws.onmessage = (event) => {\n   225→      let data: ServerMessage;\n   226→      try {\n   227→        data = JSON.parse(event.data as string);\n   228→      } catch {\n   229→        return;\n   230→      }\n   231→\n   232→      // ── message_history: replay full history from server ──\n   233→      if (data.type === \"message_history\") {\n   234→        const historyMsg = data as ServerMessageHistory;\n   235→        const agentId = historyMsg.agentId;\n   236→        const serverMessages = historyMsg.messages;\n   237→\n   238→        // Convert all server messages to ChatMessages + extract raw Claude messages\n   239→        const chatMessages: ChatMessage[] = [];\n   240→        const rawMessages: ClaudeMessage[] = [];\n   241→        for (const sm of serverMessages) {\n   242→          if (sm.type === \"relay\") {\n   243→            rawMessages.push(sm.message);\n   244→          }\n   245→          const cm = relayChatMessage(agentId, sm);\n   246→          if (cm) chatMessages.push(cm);\n   247→        }\n   248→\n   249→        // Skip messages already processed locally (dedup)\n   250→        const alreadyProcessed = processedCountRef.current.get(agentId) ?? 0;\n   251→        const newMessages = chatMessages.slice(alreadyProcessed);\n   252→\n   253→        if (newMessages.length > 0) {\n   254→          setAgents((prev) => {\n   255→            const existing = prev.get(agentId);\n   256→            if (!existing) {\n   257→              // Agent not yet in local state — create it\n   258→              const next = new Map(prev);\n   259→              next.set(agentId, {\n   260→                status: \"idle\",\n   261→                messages: chatMessages, // use full history for new agent\n   262→                rawMessages,\n   263→                label: \"\",\n   264→                tmuxSession: null,\n   265→                createdAt: 0,\n   266→              });\n   267→              return next;\n   268→            }\n   269→            // Replace messages with full server history (source of truth)\n   270→            const next = new Map(prev);\n   271→            next.set(agentId, { ...existing, messages: chatMessages, rawMessages });\n   272→            return next;\n   273→          });\n   274→        }\n   275→\n   276→        processedCountRef.current.set(agentId, chatMessages.length);\n   277→        return;\n   278→      }\n   279→\n   280→      // ── cli_disconnected: show system message ──\n   281→      if (data.type === \"cli_disconnected\") {\n   282→        updateAgent(data.agentId, (prev) => ({\n   283→          ...prev,\n   284→          status: \"disconnected\",\n   285→          messages: [\n   286→            ...prev.messages,\n   287→            {\n   288→              id: nextId(),\n   289→              role: \"system\",\n   290→              content: \"CLI disconnected — attempting reconnect...\",\n   291→              timestamp: Date.now(),\n   292→            },\n   293→          ],\n   294→        }));\n   295→        return;\n   296→      }\n   297→\n   298→      // ── cli_connected: show system message ──\n   299→      if (data.type === \"cli_connected\") {\n   300→        updateAgent(data.agentId, (prev) => ({\n   301→          ...prev,\n   302→          messages: [\n   303→            ...prev.messages,\n   304→            {\n   305→              id: nextId(),\n   306→              role: \"system\",\n   307→              content: \"CLI reconnected\",\n   308→              timestamp: Date.now(),\n   309→            },\n   310→          ],\n   311→        }));\n   312→        return;\n   313→      }\n   314→\n   315→      // ── agent_list: reconcile sidebar state from server ──\n   316→      if (data.type === \"agent_list\") {\n   317→        const serverAgents = data.agents as AgentInfo[];\n   318→        setAgents((prev) => {\n   319→          const next = new Map(prev);\n   320→          const serverIds = new Set(serverAgents.map((a) => a.agentId));\n   321→\n   322→          // Update or add agents from server\n   323→          for (const info of serverAgents) {\n   324→            const existing = next.get(info.agentId);\n   325→            if (existing) {\n   326→              next.set(info.agentId, {\n   327→                ...existing,\n   328→                status: info.status,\n   329→                tmuxSession: info.tmuxSession,\n   330→                label: info.label,\n   331→              });\n   332→            } else {\n   333→              next.set(info.agentId, {\n   334→                status: info.status,\n   335→                messages: [],\n   336→                rawMessages: [],\n   337→                label: info.label,\n   338→                tmuxSession: info.tmuxSession,\n   339→                createdAt: info.createdAt,\n   340→              });\n   341→            }\n   342→          }\n   343→\n   344→          // Remove agents no longer on the server\n   345→          for (const id of next.keys()) {\n   346→            if (!serverIds.has(id)) {\n   347→              next.delete(id);\n   348→            }\n   349→          }\n   350→\n   351→          return next;\n   352→        });\n   353→        setAgentOrder(serverAgents.map((a) => a.agentId));\n   354→        return;\n   355→      }\n   356→\n   357→      // ── spawned: auto-select the newly created agent ──\n   358→      if (data.type === \"spawned\") {\n   359→        setActiveAgentId(data.agentId);\n   360→        return;\n   361→      }\n   362→\n   363→      // ── status: update a specific agent's status ──\n   364→      if (data.type === \"status\") {\n   365→        updateAgent(data.agentId, (prev) => ({ ...prev, status: data.status }));\n   366→        return;\n   367→      }\n   368→\n   369→      // ── error: append to agent's message list ──\n   370→      if (data.type === \"error\") {\n   371→        updateAgent(data.agentId, (prev) => ({\n   372→          ...prev,\n   373→          messages: [\n   374→            ...prev.messages,\n   375→            {\n   376→              id: nextId(),\n   377→              role: \"system\",\n   378→              content: `Error: ${data.error}`,\n   379→              timestamp: Date.now(),\n   380→            },\n   381→          ],\n   382→        }));\n   383→        // Track processed count for dedup\n   384→        processedCountRef.current.set(\n   385→          data.agentId,\n   386→          (processedCountRef.current.get(data.agentId) ?? 0) + 1\n   387→        );\n   388→        return;\n   389→      }\n   390→\n   391→      // ── relay: append claude message to agent's history ──\n   392→      if (data.type === \"relay\") {\n   393→        const agentId = data.agentId;\n   394→        const rawMsg = data.message;\n   395→        const chatMsg = relayChatMessage(agentId, data);\n   396→\n   397→        updateAgent(agentId, (prev) => ({\n   398→          ...prev,\n   399→          rawMessages: [...prev.rawMessages, rawMsg],\n   400→          messages: chatMsg ? [...prev.messages, chatMsg] : prev.messages,\n   401→        }));\n   402→        if (chatMsg) {\n   403→          // Track processed count for dedup\n   404→          processedCountRef.current.set(\n   405→            agentId,\n   406→            (processedCountRef.current.get(agentId) ?? 0) + 1\n   407→          );\n   408→        }\n   409→        return;\n   410→      }\n   411→    };\n   412→  }, [updateAgent]);\n   413→\n   414→  useEffect(() => {\n   415→    connect();\n   416→    return () => {\n   417→      if (reconnectTimer.current) clearTimeout(reconnectTimer.current);\n   418→      wsRef.current?.close();\n   419→    };\n   420→  }, [connect]);\n   421→\n   422→  const send = useCallback((data: object) => {\n   423→    if (wsRef.current?.readyState === WebSocket.OPEN) {\n   424→      wsRef.current.send(JSON.stringify(data));\n   425→    }\n   426→  }, []);\n   427→\n   428→  const spawnAgent = useCallback(\n   429→    (prompt: string) => {\n   430→      send({ type: \"spawn\", prompt });\n   431→    },\n   432→    [send]\n   433→  );\n   434→\n   435→  const sendMessage = useCallback(\n   436→    (content: string) => {\n   437→      if (!activeAgentId) return;\n   438→      // Optimistically add user message to local state\n   439→      updateAgent(activeAgentId, (prev) => ({\n   440→        ...prev,\n   441→        messages: [\n   442→          ...prev.messages,\n   443→          {\n   444→            id: nextId(),\n   445→            role: \"user\",\n   446→            content,\n   447→            timestamp: Date.now(),\n   448→          },\n   449→        ],\n   450→      }));\n   451→      send({ type: \"send_message\", agentId: activeAgentId, content });\n   452→    },\n   453→    [send, activeAgentId, updateAgent]\n   454→  );\n   455→\n   456→  const respondToControl = useCallback(\n   457→    (requestId: string, allow: boolean) => {\n   458→      if (!activeAgentId) return;\n   459→      send({ type: \"control_response\", agentId: activeAgentId, request_id: requestId, allow });\n   460→      updateAgent(activeAgentId, (prev) => ({\n   461→        ...prev,\n   462→        messages: prev.messages.map((m) =>\n   463→          m.controlRequest?.id === requestId\n   464→            ? { ...m, controlRequest: { ...m.controlRequest, resolved: true } }\n   465→            : m\n   466→        ),\n   467→      }));\n   468→    },\n   469→    [send, activeAgentId, updateAgent]\n   470→  );\n   471→\n   472→  /** Respond to an AskUserQuestion control request with the user's selections. */\n   473→  const respondToUserQuestion = useCallback(\n   474→    (requestId: string, answers: Record<string, string>) => {\n   475→      if (!activeAgentId) return;\n   476→      send({\n   477→        type: \"control_response\",\n   478→        agentId: activeAgentId,\n   479→        request_id: requestId,\n   480→        allow: true,\n   481→        answers,\n   482→      });\n   483→      updateAgent(activeAgentId, (prev) => ({\n   484→        ...prev,\n   485→        messages: prev.messages.map((m) =>\n   486→          m.userQuestion?.requestId === requestId\n   487→            ? { ...m, userQuestion: { ...m.userQuestion, resolved: true } }\n   488→            : m\n   489→        ),\n   490→      }));\n   491→    },\n   492→    [send, activeAgentId, updateAgent]\n   493→  );\n   494→\n   495→  // Derived values for the active agent\n   496→  const activeAgent = activeAgentId ? agents.get(activeAgentId) : undefined;\n   497→  const activeStatus = useMemo<AgentStatus>(\n   498→    () => activeAgent?.status ?? \"idle\",\n   499→    [activeAgent?.status]\n   500→  );\n   501→  const activeMessages = useMemo<ChatMessage[]>(\n   502→    () => activeAgent?.messages ?? [],\n   503→    [activeAgent?.messages]\n   504→  );\n   505→  const activeRawMessages = useMemo<ClaudeMessage[]>(\n   506→    () => activeAgent?.rawMessages ?? [],\n   507→    [activeAgent?.rawMessages]\n   508→  );\n   509→\n   510→  return {\n   511→    connected,\n   512→    agents,\n   513→    agentOrder,\n   514→    activeAgentId,\n   515→    setActiveAgentId,\n   516→    activeStatus,\n   517→    activeMessages,\n   518→    activeRawMessages,\n   519→    spawnAgent,\n   520→    sendMessage,\n   521→    respondToControl,\n   522→    respondToUserQuestion,\n   523→  };\n   524→}\n   525→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "0a4b1796-99e6-410e-9480-2af6198e0a12"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-haiku-4-5-20251001",
+          "id": "msg_019Bd91RVf3MeYpsD9S28PGP",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01MpnBtd5oYtBxJXRTCEqP6f",
+              "name": "Read",
+              "input": {
+                "file_path": "/Users/chiu.fyi/work/personal/thos/app/layout.tsx"
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 4,
+            "cache_creation_input_tokens": 13550,
+            "cache_read_input_tokens": 24653,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 13550
+            },
+            "output_tokens": 1,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "d001cadb-c4a4-42a9-8f74-dafa6d192ae2"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_012A4hgYtYJq7A2kCpDnZtFA",
+              "type": "tool_result",
+              "content": "     1→\"use client\";\n     2→\n     3→/**\n     4→ * Dashboard route (`/dashboard`).\n     5→ *\n     6→ * Orchestrates the multi-agent WebSocket hook, sidebar, and chat panel.\n     7→ * Clicking \"+\" or selecting \"New Agent\" sets `activeAgentId` to `null`,\n     8→ * which shows the spawn input. On spawn, the server responds with\n     9→ * `spawned` and the hook auto-selects the new agent.\n    10→ */\n    11→\n    12→import { useWebSocket } from \"@/hooks/use-websocket\";\n    13→import { AgentSidebar } from \"@/components/dashboard/agent-sidebar\";\n    14→import { Chat } from \"@/components/dashboard/chat\";\n    15→\n    16→export default function DashboardPage() {\n    17→  const {\n    18→    connected,\n    19→    agents,\n    20→    agentOrder,\n    21→    activeAgentId,\n    22→    setActiveAgentId,\n    23→    activeStatus,\n    24→    activeMessages,\n    25→    activeRawMessages,\n    26→    spawnAgent,\n    27→    sendMessage,\n    28→    respondToControl,\n    29→    respondToUserQuestion,\n    30→  } = useWebSocket();\n    31→\n    32→  return (\n    33→    <div className=\"flex h-dvh\">\n    34→      <AgentSidebar\n    35→        agents={agents}\n    36→        agentOrder={agentOrder}\n    37→        activeAgentId={activeAgentId}\n    38→        onSelect={setActiveAgentId}\n    39→        onNewAgent={() => setActiveAgentId(null)}\n    40→      />\n    41→      <div className=\"flex flex-1 flex-col\">\n    42→        <Chat\n    43→          connected={connected}\n    44→          status={activeStatus}\n    45→          messages={activeMessages}\n    46→          rawMessages={activeRawMessages}\n    47→          onSendMessage={sendMessage}\n    48→          onSpawnAgent={spawnAgent}\n    49→          onRespondToControl={respondToControl}\n    50→          onRespondToUserQuestion={respondToUserQuestion}\n    51→        />\n    52→      </div>\n    53→    </div>\n    54→  );\n    55→}\n    56→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "4e05bc8a-a176-4e8b-9f21-354583b6b149"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01MpnBtd5oYtBxJXRTCEqP6f",
+              "type": "tool_result",
+              "content": "     1→import type { Metadata } from \"next\";\n     2→import { JetBrains_Mono } from \"next/font/google\";\n     3→import \"./globals.css\";\n     4→\n     5→const jetbrainsMono = JetBrains_Mono({\n     6→  variable: \"--font-jetbrains-mono\",\n     7→  subsets: [\"latin\"],\n     8→});\n     9→\n    10→export const metadata: Metadata = {\n    11→  title: \"thos\",\n    12→  description: \"the orchestrator you never knew you needed\",\n    13→};\n    14→\n    15→export default function RootLayout({\n    16→  children,\n    17→}: Readonly<{\n    18→  children: React.ReactNode;\n    19→}>) {\n    20→  return (\n    21→    <html lang=\"en\" className=\"dark\" suppressHydrationWarning>\n    22→      <body className={`${jetbrainsMono.variable} font-mono antialiased`}>\n    23→        {children}\n    24→      </body>\n    25→    </html>\n    26→  );\n    27→}\n    28→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "13f1add3-be56-4c02-8ef5-4e39257307b1"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01VcRYz1eibx2ptiJkWT5PSp",
+              "type": "tool_result",
+              "content": "     1→\"use client\";\n     2→\n     3→/**\n     4→ * Main chat interface for the thos dashboard.\n     5→ *\n     6→ * Composes {@link StatusBar}, a scrollable message list ({@link Message}\n     7→ * and {@link ControlRequest} cards), and an input bar. The submit button\n     8→ * text toggles between \"Spawn\" (when idle/done) and \"Send\" (when an\n     9→ * agent session is active). Auto-scrolls on new messages.\n    10→ *\n    11→ * A toggle in the top-right switches between the processed chat view\n    12→ * and a raw JSON view of all Claude NDJSON messages.\n    13→ *\n    14→ * Receives all data and callbacks via props — the parent page component\n    15→ * owns the WebSocket hook and orchestrates multiple agents.\n    16→ */\n    17→\n    18→import { useEffect, useMemo, useRef, useState } from \"react\";\n    19→import type { AgentStatus, ChatMessage, ClaudeMessage } from \"@/lib/types\";\n    20→import { condenseMessages } from \"@/lib/condense-messages\";\n    21→import { StatusBar } from \"./status-bar\";\n    22→import { Message } from \"./message\";\n    23→import { ControlRequest } from \"./control-request\";\n    24→import { UserQuestion } from \"./user-question\";\n    25→import { CondensedToolGroup } from \"./condensed-tool-group\";\n    26→import { Button } from \"@/components/ui/button\";\n    27→\n    28→export function Chat({\n    29→  connected,\n    30→  status,\n    31→  messages,\n    32→  rawMessages,\n    33→  onSendMessage,\n    34→  onSpawnAgent,\n    35→  onRespondToControl,\n    36→  onRespondToUserQuestion,\n    37→}: {\n    38→  connected: boolean;\n    39→  status: AgentStatus;\n    40→  messages: ChatMessage[];\n    41→  rawMessages: ClaudeMessage[];\n    42→  onSendMessage: (content: string) => void;\n    43→  onSpawnAgent: (prompt: string) => void;\n    44→  onRespondToControl: (requestId: string, allow: boolean) => void;\n    45→  onRespondToUserQuestion: (requestId: string, answers: Record<string, string>) => void;\n    46→}) {\n    47→  const [input, setInput] = useState(\"\");\n    48→  const [showRaw, setShowRaw] = useState(false);\n    49→  const scrollRef = useRef<HTMLDivElement>(null);\n    50→\n    51→  useEffect(() => {\n    52→    scrollRef.current?.scrollTo({\n    53→      top: scrollRef.current.scrollHeight,\n    54→      behavior: \"smooth\",\n    55→    });\n    56→  }, [messages, rawMessages, showRaw]);\n    57→\n    58→  const displayItems = useMemo(() => condenseMessages(messages), [messages]);\n    59→  const isActive = status === \"connected\" || status === \"thinking\";\n    60→\n    61→  function handleSubmit(e: React.FormEvent) {\n    62→    e.preventDefault();\n    63→    const trimmed = input.trim();\n    64→    if (!trimmed) return;\n    65→\n    66→    if (isActive) {\n    67→      onSendMessage(trimmed);\n    68→    } else {\n    69→      onSpawnAgent(trimmed);\n    70→    }\n    71→    setInput(\"\");\n    72→  }\n    73→\n    74→  return (\n    75→    <div className=\"flex h-full flex-col\">\n    76→      <div className=\"relative\">\n    77→        <StatusBar connected={connected} status={status} />\n    78→        <button\n    79→          onClick={() => setShowRaw((v) => !v)}\n    80→          className={`absolute right-3 top-1/2 -translate-y-1/2 rounded px-2 py-0.5 text-[10px] font-mono transition-colors ${\n    81→            showRaw\n    82→              ? \"bg-foreground text-background\"\n    83→              : \"bg-muted text-muted-foreground hover:bg-muted/80\"\n    84→          }`}\n    85→        >\n    86→          {showRaw ? \"RAW\" : \"raw\"}\n    87→        </button>\n    88→      </div>\n    89→\n    90→      <div ref={scrollRef} className=\"flex-1 overflow-y-auto p-4 space-y-2\">\n    91→        {showRaw ? (\n    92→          rawMessages.length === 0 ? (\n    93→            <div className=\"flex h-full items-center justify-center text-sm text-muted-foreground\">\n    94→              No raw messages yet\n    95→            </div>\n    96→          ) : (\n    97→            <div className=\"space-y-1\">\n    98→              {rawMessages.map((msg, i) => (\n    99→                <RawMessage key={i} message={msg} index={i} />\n   100→              ))}"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "b8bcba2e-6141-4d44-a405-4571a0b8d107"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01ENANMTgM61yCYe4tfG7tud",
+              "type": "tool_result",
+              "content": "     1→\"use client\";\n     2→\n     3→/**\n     4→ * Sidebar listing all active agents with status dots, truncated labels,\n     5→ * tmux session names, and a \"+\" button to spawn a new agent.\n     6→ */\n     7→\n     8→import { Plus } from \"lucide-react\";\n     9→import type { AgentStatus } from \"@/lib/types\";\n    10→import type { AgentClientState } from \"@/hooks/use-websocket\";\n    11→import { cn } from \"@/lib/utils\";\n    12→\n    13→/** Status dot color + optional pulse animation. */\n    14→const STATUS_DOT: Record<AgentStatus, string> = {\n    15→  idle: \"bg-muted-foreground\",\n    16→  spawning: \"bg-yellow-500 animate-pulse\",\n    17→  connected: \"bg-green-500\",\n    18→  thinking: \"bg-blue-500 animate-pulse\",\n    19→  done: \"bg-muted-foreground\",\n    20→  disconnected: \"bg-orange-500 animate-pulse\",\n    21→  error: \"bg-red-500\",\n    22→};\n    23→\n    24→export function AgentSidebar({\n    25→  agents,\n    26→  agentOrder,\n    27→  activeAgentId,\n    28→  onSelect,\n    29→  onNewAgent,\n    30→}: {\n    31→  agents: Map<string, AgentClientState>;\n    32→  agentOrder: string[];\n    33→  activeAgentId: string | null;\n    34→  onSelect: (agentId: string | null) => void;\n    35→  onNewAgent: () => void;\n    36→}) {\n    37→  return (\n    38→    <div className=\"flex w-56 flex-col border-r bg-sidebar text-sidebar-foreground\">\n    39→      {/* Header */}\n    40→      <div className=\"flex items-center justify-between border-b px-3 py-2\">\n    41→        <span className=\"text-xs font-semibold\">agents</span>\n    42→        <button\n    43→          onClick={onNewAgent}\n    44→          className=\"rounded-md p-1 hover:bg-sidebar-accent transition-colors\"\n    45→          aria-label=\"New agent\"\n    46→        >\n    47→          <Plus className=\"size-3.5\" />\n    48→        </button>\n    49→      </div>\n    50→\n    51→      {/* Agent list */}\n    52→      <div className=\"flex-1 overflow-y-auto\">\n    53→        {agentOrder.length === 0 && (\n    54→          <div className=\"px-3 py-4 text-xs text-muted-foreground\">\n    55→            No agents yet\n    56→          </div>\n    57→        )}\n    58→        {agentOrder.map((id) => {\n    59→          const agent = agents.get(id);\n    60→          if (!agent) return null;\n    61→          const isActive = id === activeAgentId;\n    62→          return (\n    63→            <button\n    64→              key={id}\n    65→              onClick={() => onSelect(id)}\n    66→              className={cn(\n    67→                \"flex w-full flex-col gap-0.5 px-3 py-2 text-left text-xs transition-colors\",\n    68→                isActive ? \"bg-sidebar-accent\" : \"hover:bg-sidebar-accent/50\"\n    69→              )}\n    70→            >\n    71→              <span className=\"flex items-center gap-2\">\n    72→                <span className={cn(\"inline-block size-2 shrink-0 rounded-full\", STATUS_DOT[agent.status])} />\n    73→                <span className=\"truncate\">{agent.label || \"new agent\"}</span>\n    74→              </span>\n    75→              {agent.tmuxSession && (\n    76→                <span className=\"pl-4 text-[10px] text-muted-foreground truncate\">\n    77→                  {agent.tmuxSession}\n    78→                </span>\n    79→              )}\n    80→            </button>\n    81→          );\n    82→        })}\n    83→      </div>\n    84→    </div>\n    85→  );\n    86→}\n    87→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "f4045627-6ae8-4e9a-9b00-24f60d388918"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-haiku-4-5-20251001",
+          "id": "msg_01W6xsrp1JkryPcCiZfFCybC",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01JK9s7UEqHvfQTfZbYBq1Ga",
+              "name": "Read",
+              "input": {
+                "file_path": "/Users/chiu.fyi/work/personal/thos/lib/condense-messages.ts"
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 4,
+            "cache_creation_input_tokens": 7401,
+            "cache_read_input_tokens": 38203,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 7401
+            },
+            "output_tokens": 2,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "1e2f4576-972f-4ff0-9036-dcdc8e692ffc"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01JK9s7UEqHvfQTfZbYBq1Ga",
+              "type": "tool_result",
+              "content": "     1→import type { ChatMessage } from \"@/lib/types\";\n     2→\n     3→export interface SingleItem {\n     4→  kind: \"single\";\n     5→  message: ChatMessage;\n     6→}\n     7→\n     8→export interface CondensedGroup {\n     9→  kind: \"condensed\";\n    10→  id: string;\n    11→  messages: ChatMessage[];\n    12→  summary: string;\n    13→  toolCounts: Record<string, number>;\n    14→  count: number;\n    15→  timestamp: number;\n    16→}\n    17→\n    18→export type DisplayItem = SingleItem | CondensedGroup;\n    19→\n    20→/**\n    21→ * Groups consecutive tool-only assistant messages into collapsible summaries.\n    22→ * Messages with text content, control requests, user questions, and non-assistant\n    23→ * messages all break the grouping sequence.\n    24→ *\n    25→ * Only condenses when 2+ consecutive tool-only messages are found.\n    26→ */\n    27→export function condenseMessages(messages: ChatMessage[]): DisplayItem[] {\n    28→  const result: DisplayItem[] = [];\n    29→  let i = 0;\n    30→\n    31→  while (i < messages.length) {\n    32→    const msg = messages[i];\n    33→\n    34→    if (msg.isToolOnly) {\n    35→      const group: ChatMessage[] = [];\n    36→      while (i < messages.length && messages[i].isToolOnly) {\n    37→        group.push(messages[i]);\n    38→        i++;\n    39→      }\n    40→\n    41→      if (group.length >= 2) {\n    42→        const toolCounts: Record<string, number> = {};\n    43→        for (const m of group) {\n    44→          for (const tc of m.toolCalls ?? []) {\n    45→            toolCounts[tc.name] = (toolCounts[tc.name] ?? 0) + 1;\n    46→          }\n    47→        }\n    48→\n    49→        const breakdown = Object.entries(toolCounts)\n    50→          .map(([name, count]) => `${name} x${count}`)\n    51→          .join(\", \");\n    52→        const total = Object.values(toolCounts).reduce((a, b) => a + b, 0);\n    53→\n    54→        result.push({\n    55→          kind: \"condensed\",\n    56→          id: `group-${group[0].id}`,\n    57→          messages: group,\n    58→          summary: `${total} tool calls (${breakdown})`,\n    59→          toolCounts,\n    60→          count: group.length,\n    61→          timestamp: group[0].timestamp,\n    62→        });\n    63→      } else {\n    64→        result.push({ kind: \"single\", message: group[0] });\n    65→      }\n    66→    } else {\n    67→      result.push({ kind: \"single\", message: msg });\n    68→      i++;\n    69→    }\n    70→  }\n    71→\n    72→  return result;\n    73→}\n    74→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "6d4c8ca3-3ef0-40dc-a373-81fd3424ea44"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_011uFugtGmzDpfMbts3hgQBe",
+              "type": "tool_result",
+              "content": "     1→\"use client\";\n     2→\n     3→/**\n     4→ * Tool approval card shown when Claude requests permission to run a tool.\n     5→ *\n     6→ * Displays the tool name and its JSON input, with Allow / Deny buttons.\n     7→ * Once the user responds, buttons are replaced with a \"Resolved\" label.\n     8→ * Rendered in place of a regular {@link Message} when the message carries\n     9→ * a `controlRequest` payload.\n    10→ */\n    11→\n    12→import { Button } from \"@/components/ui/button\";\n    13→import type { ChatMessage } from \"@/lib/types\";\n    14→\n    15→export function ControlRequest({\n    16→  message,\n    17→  onRespond,\n    18→}: {\n    19→  message: ChatMessage;\n    20→  onRespond: (requestId: string, allow: boolean) => void;\n    21→}) {\n    22→  const cr = message.controlRequest;\n    23→  if (!cr) return null;\n    24→\n    25→  return (\n    26→    <div className=\"mx-auto w-full max-w-lg rounded-lg border-2 border-dashed border-muted-foreground/30 p-4\">\n    27→      <div className=\"mb-2 text-xs font-semibold text-muted-foreground\">\n    28→        Tool approval requested\n    29→      </div>\n    30→      <div className=\"mb-1 text-sm font-medium\">{cr.tool_name}</div>\n    31→      <pre className=\"mb-3 max-h-40 overflow-auto rounded bg-secondary p-2 text-xs\">\n    32→        {JSON.stringify(cr.input, null, 2)}\n    33→      </pre>\n    34→      {!cr.resolved ? (\n    35→        <div className=\"flex gap-2\">\n    36→          <Button size=\"sm\" onClick={() => onRespond(cr.id, true)}>\n    37→            Allow\n    38→          </Button>\n    39→          <Button\n    40→            size=\"sm\"\n    41→            variant=\"destructive\"\n    42→            onClick={() => onRespond(cr.id, false)}\n    43→          >\n    44→            Deny\n    45→          </Button>\n    46→        </div>\n    47→      ) : (\n    48→        <div className=\"text-xs italic text-muted-foreground\">Resolved</div>\n    49→      )}\n    50→    </div>\n    51→  );\n    52→}\n    53→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "774fedb4-8430-482f-96e3-f57d42a1d770"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01DYJumKzopHKcbAVS97GkSR",
+              "type": "tool_result",
+              "content": "     1→{\n     2→  \"$schema\": \"https://ui.shadcn.com/schema.json\",\n     3→  \"style\": \"new-york\",\n     4→  \"rsc\": true,\n     5→  \"tsx\": true,\n     6→  \"tailwind\": {\n     7→    \"config\": \"\",\n     8→    \"css\": \"app/globals.css\",\n     9→    \"baseColor\": \"neutral\",\n    10→    \"cssVariables\": true,\n    11→    \"prefix\": \"\"\n    12→  },\n    13→  \"iconLibrary\": \"lucide\",\n    14→  \"rtl\": false,\n    15→  \"aliases\": {\n    16→    \"components\": \"@/components\",\n    17→    \"utils\": \"@/lib/utils\",\n    18→    \"ui\": \"@/components/ui\",\n    19→    \"lib\": \"@/lib\",\n    20→    \"hooks\": \"@/hooks\"\n    21→  },\n    22→  \"registries\": {}\n    23→}\n    24→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "5eb1bd73-d399-4185-a7a5-eacc6afffe89"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-haiku-4-5-20251001",
+          "id": "msg_01WqJhdMRW55MgVXjjSpryAe",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01A5bKDg5i2FudDeQo7v8w4N",
+              "name": "Read",
+              "input": {
+                "file_path": "/Users/chiu.fyi/work/personal/thos/app/page.tsx"
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 4,
+            "cache_creation_input_tokens": 3714,
+            "cache_read_input_tokens": 45604,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 3714
+            },
+            "output_tokens": 1,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "be276aa6-3dd7-4a78-916a-af993d4a86f2"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01A5bKDg5i2FudDeQo7v8w4N",
+              "type": "tool_result",
+              "content": "     1→import { Button } from \"@/components/ui/button\";\n     2→import {\n     3→  Card,\n     4→  CardContent,\n     5→  CardDescription,\n     6→  CardHeader,\n     7→  CardTitle,\n     8→} from \"@/components/ui/card\";\n     9→import { AsciiBackground } from \"@/components/ascii-background\";\n    10→import { ScrambleText } from \"@/components/ui/scramble-text\";\n    11→\n    12→const ASCII_LOGO = `\n    13→ ┌┬┐┬ ┬┌─┐┌─┐\n    14→  │ ├─┤│ │└─┐\n    15→  ┴ ┴ ┴└─┘└─┘\n    16→`;\n    17→\n    18→const features = [\n    19→  {\n    20→    title: \"agent dashboard\",\n    21→    description: \"see what every agent is doing, in real time, at a glance\",\n    22→    icon: \">>\",\n    23→  },\n    24→  {\n    25→    title: \"persistent memory\",\n    26→    description: \"context that evolves with your codebase and workflows\",\n    27→    icon: \"[]\",\n    28→  },\n    29→  {\n    30→    title: \"change management\",\n    31→    description: \"track, diff, and roll back agent-generated changes\",\n    32→    icon: \"<>\",\n    33→  },\n    34→  {\n    35→    title: \"task orchestration\",\n    36→    description: \"assign, sequence, and track work across agents\",\n    37→    icon: \"##\",\n    38→  },\n    39→];\n    40→\n    41→export default function Home() {\n    42→  return (\n    43→    <>\n    44→      <AsciiBackground />\n    45→      <div className=\"relative flex min-h-screen flex-col items-center justify-center gap-12 p-8\">\n    46→        <div className=\"animate-in fade-in duration-700 fill-mode-both flex flex-col items-center gap-4 text-center\">\n    47→          <pre className=\"glow-pulse text-primary text-lg leading-tight sm:text-2xl\">\n    48→            {ASCII_LOGO}\n    49→          </pre>\n    50→          <p className=\"animate-in fade-in slide-in-from-bottom-2 duration-500 delay-150 fill-mode-both text-muted-foreground max-w-md text-sm\">\n    51→            <ScrambleText\n    52→              text=\"the orchestrator you never knew you needed.\"\n    53→              delay={200}\n    54→              duration={800}\n    55→            />\n    56→            <br />\n    57→            <ScrambleText\n    58→              text=\"a visual orchestration layer for \"\n    59→              delay={400}\n    60→              duration={700}\n    61→              className=\"text-muted-foreground\"\n    62→            />\n    63→            <ScrambleText\n    64→              text=\"claude code\"\n    65→              delay={500}\n    66→              duration={700}\n    67→              className=\"text-primary\"\n    68→            />\n    69→            <ScrambleText text=\".\" delay={600} duration={400} />\n    70→          </p>\n    71→        </div>\n    72→\n    73→        <div className=\"grid w-full max-w-2xl grid-cols-1 gap-4 sm:grid-cols-2\">\n    74→          {features.map((feature, i) => (\n    75→            <Card\n    76→              key={feature.title}\n    77→              className=\"animate-in fade-in slide-in-from-bottom-3 duration-500 fill-mode-both border-dashed bg-card/60 backdrop-blur-sm\"\n    78→              style={{ animationDelay: `${300 + i * 100}ms` }}\n    79→            >\n    80→              <CardHeader>\n    81→                <CardDescription className=\"text-primary font-bold\">\n    82→                  <ScrambleText\n    83→                    text={feature.icon}\n    84→                    delay={400 + i * 100}\n    85→                    duration={400}\n    86→                  />\n    87→                </CardDescription>\n    88→                <CardTitle className=\"text-sm\">\n    89→                  <ScrambleText\n    90→                    text={feature.title}\n    91→                    delay={500 + i * 100}\n    92→                    duration={600}\n    93→                  />\n    94→                </CardTitle>\n    95→              </CardHeader>\n    96→              <CardContent>\n    97→                <p className=\"text-muted-foreground text-xs\">\n    98→                  <ScrambleText\n    99→                    text={feature.description}\n   100→                    delay={600 + i * 100}\n   101→                    duration={700}\n   102→                  />\n   103→                </p>\n   104→              </CardContent>\n   105→            </Card>\n   106→          ))}\n   107→        </div>\n   108→\n   109→        <div className=\"animate-in fade-in slide-in-from-bottom-2 duration-500 delay-700 fill-mode-both flex items-center gap-3\">\n   110→          <Button>\n   111→            <ScrambleText text=\"get started\" delay={800} duration={500} />\n   112→          </Button>\n   113→          <Button variant=\"outline\" className=\"backdrop-blur-sm\">\n   114→            <ScrambleText text=\"view source\" delay={900} duration={500} />\n   115→          </Button>\n   116→        </div>\n   117→\n   118→        <p className=\"animate-in fade-in duration-500 delay-1000 fill-mode-both text-muted-foreground text-xs\">\n   119→          <ScrambleText\n   120→            text=\"early stage — solving my own problems first\"\n   121→            delay={1100}\n   122→            duration={600}\n   123→          />\n   124→        </p>\n   125→      </div>\n   126→    </>\n   127→  );\n   128→}\n   129→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "3b7ed2cd-b7a6-4821-88b1-88db6e2d8a48"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-haiku-4-5-20251001",
+          "id": "msg_0173y9dEPv8UHLmkcPpKtajW",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01CR9MmUBa7BET5fuojagRhA",
+              "name": "Bash",
+              "input": {
+                "command": "git diff HEAD"
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 4,
+            "cache_creation_input_tokens": 2830,
+            "cache_read_input_tokens": 49318,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2830
+            },
+            "output_tokens": 2,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "42f2808f-76a1-4ff2-8df2-cd196b1d9fc7"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01LUR1o9pzG7j8Dq9iaCoQ43",
+              "type": "tool_result",
+              "content": "914d8ec init",
+              "is_error": false
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "c31f9bf8-5a73-4894-9d4f-82fe6d32de23"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01CR9MmUBa7BET5fuojagRhA",
+              "type": "tool_result",
+              "content": "diff --git a/app/dashboard/page.tsx b/app/dashboard/page.tsx\nindex a34ae8a..c1b12cb 100644\n--- a/app/dashboard/page.tsx\n+++ b/app/dashboard/page.tsx\n@@ -22,9 +22,11 @@ export default function DashboardPage() {\n     setActiveAgentId,\n     activeStatus,\n     activeMessages,\n+    activeRawMessages,\n     spawnAgent,\n     sendMessage,\n     respondToControl,\n+    respondToUserQuestion,\n   } = useWebSocket();\n \n   return (\n@@ -41,9 +43,11 @@ export default function DashboardPage() {\n           connected={connected}\n           status={activeStatus}\n           messages={activeMessages}\n+          rawMessages={activeRawMessages}\n           onSendMessage={sendMessage}\n           onSpawnAgent={spawnAgent}\n           onRespondToControl={respondToControl}\n+          onRespondToUserQuestion={respondToUserQuestion}\n         />\n       </div>\n     </div>\ndiff --git a/components/dashboard/chat.tsx b/components/dashboard/chat.tsx\nindex 50b4a79..9aa2d3b 100644\n--- a/components/dashboard/chat.tsx\n+++ b/components/dashboard/chat.tsx\n@@ -8,22 +8,28 @@\n  * text toggles between \"Spawn\" (when idle/done) and \"Send\" (when an\n  * agent session is active). Auto-scrolls on new messages.\n  *\n+ * A toggle in the top-right switches between the processed chat view\n+ * and a raw JSON view of all Claude NDJSON messages.\n+ *\n  * Receives all data and callbacks via props — the parent page component\n  * owns the WebSocket hook and orchestrates multiple agents.\n  */\n \n-import { useEffect, useRef, useState } from \"react\";\n-import type { AgentStatus, ChatMessage } from \"@/lib/types\";\n+import { useEffect, useMemo, useRef, useState } from \"react\";\n+import type { AgentStatus, ChatMessage, ClaudeMessage } from \"@/lib/types\";\n+import { condenseMessages } from \"@/lib/condense-messages\";\n import { StatusBar } from \"./status-bar\";\n import { Message } from \"./message\";\n import { ControlRequest } from \"./control-request\";\n import { UserQuestion } from \"./user-question\";\n+import { CondensedToolGroup } from \"./condensed-tool-group\";\n import { Button } from \"@/components/ui/button\";\n \n export function Chat({\n   connected,\n   status,\n   messages,\n+  rawMessages,\n   onSendMessage,\n   onSpawnAgent,\n   onRespondToControl,\n@@ -32,12 +38,14 @@ export function Chat({\n   connected: boolean;\n   status: AgentStatus;\n   messages: ChatMessage[];\n+  rawMessages: ClaudeMessage[];\n   onSendMessage: (content: string) => void;\n   onSpawnAgent: (prompt: string) => void;\n   onRespondToControl: (requestId: string, allow: boolean) => void;\n   onRespondToUserQuestion: (requestId: string, answers: Record<string, string>) => void;\n }) {\n   const [input, setInput] = useState(\"\");\n+  const [showRaw, setShowRaw] = useState(false);\n   const scrollRef = useRef<HTMLDivElement>(null);\n \n   useEffect(() => {\n@@ -45,8 +53,9 @@ export function Chat({\n       top: scrollRef.current.scrollHeight,\n       behavior: \"smooth\",\n     });\n-  }, [messages]);\n+  }, [messages, rawMessages, showRaw]);\n \n+  const displayItems = useMemo(() => condenseMessages(messages), [messages]);\n   const isActive = status === \"connected\" || status === \"thinking\";\n \n   function handleSubmit(e: React.FormEvent) {\n@@ -64,30 +73,62 @@ export function Chat({\n \n   return (\n     <div className=\"flex h-full flex-col\">\n-      <StatusBar connected={connected} status={status} />\n+      <div className=\"relative\">\n+        <StatusBar connected={connected} status={status} />\n+        <button\n+          onClick={() => setShowRaw((v) => !v)}\n+          className={`absolute right-3 top-1/2 -translate-y-1/2 rounded px-2 py-0.5 text-[10px] font-mono transition-colors ${\n+            showRaw\n+              ? \"bg-foreground text-background\"\n+              : \"bg-muted text-muted-foreground hover:bg-muted/80\"\n+          }`}\n+        >\n+          {showRaw ? \"RAW\" : \"raw\"}\n+        </button>\n+      </div>\n \n       <div ref={scrollRef} className=\"flex-1 overflow-y-auto p-4 space-y-2\">\n-        {messages.length === 0 && (\n-          <div className=\"flex h-full items-center justify-center text-sm text-muted-foreground\">\n-            Type a prompt to spawn a Claude agent\n-          </div>\n-        )}\n-        {messages.map((msg) =>\n-          msg.userQuestion ? (\n-            <UserQuestion\n-              key={msg.id}\n-              message={msg}\n-              onRespond={onRespondToUserQuestion}\n-            />\n-          ) : msg.controlRequest ? (\n-            <ControlRequest\n-              key={msg.id}\n-              message={msg}\n-              onRespond={onRespondToControl}\n-            />\n+        {showRaw ? (\n+          rawMessages.length === 0 ? (\n+            <div className=\"flex h-full items-center justify-center text-sm text-muted-foreground\">\n+              No raw messages yet\n+            </div>\n           ) : (\n-            <Message key={msg.id} message={msg} />\n+            <div className=\"space-y-1\">\n+              {rawMessages.map((msg, i) => (\n+                <RawMessage key={i} message={msg} index={i} />\n+              ))}\n+            </div>\n           )\n+        ) : (\n+          <>\n+            {messages.length === 0 && (\n+              <div className=\"flex h-full items-center justify-center text-sm text-muted-foreground\">\n+                Type a prompt to spawn a Claude agent\n+              </div>\n+            )}\n+            {displayItems.map((item) => {\n+              if (item.kind === \"condensed\") {\n+                return <CondensedToolGroup key={item.id} group={item} />;\n+              }\n+              const msg = item.message;\n+              return msg.userQuestion ? (\n+                <UserQuestion\n+                  key={msg.id}\n+                  message={msg}\n+                  onRespond={onRespondToUserQuestion}\n+                />\n+              ) : msg.controlRequest ? (\n+                <ControlRequest\n+                  key={msg.id}\n+                  message={msg}\n+                  onRespond={onRespondToControl}\n+                />\n+              ) : (\n+                <Message key={msg.id} message={msg} />\n+              );\n+            })}\n+          </>\n         )}\n       </div>\n \n@@ -109,3 +150,37 @@ export function Chat({\n     </div>\n   );\n }\n+\n+/** Badge color per Claude NDJSON message type. */\n+const TYPE_COLORS: Record<string, string> = {\n+  system: \"text-yellow-500\",\n+  assistant: \"text-blue-400\",\n+  result: \"text-green-500\",\n+  control_request: \"text-orange-400\",\n+  keep_alive: \"text-muted-foreground\",\n+};\n+\n+function RawMessage({ message, index }: { message: ClaudeMessage; index: number }) {\n+  const [expanded, setExpanded] = useState(false);\n+  const subtype = (message as { subtype?: string }).subtype;\n+  const typeLabel = subtype ? `${message.type}/${subtype}` : message.type;\n+  const colorClass = TYPE_COLORS[message.type] ?? \"text-muted-foreground\";\n+\n+  return (\n+    <div className=\"font-mono text-[11px] leading-relaxed\">\n+      <button\n+        onClick={() => setExpanded((v) => !v)}\n+        className=\"flex w-full items-center gap-2 rounded px-2 py-1 text-left hover:bg-muted/50 transition-colors\"\n+      >\n+        <span className=\"text-muted-foreground w-6 shrink-0 text-right\">{index}</span>\n+        <span className={colorClass}>{typeLabel}</span>\n+        <span className=\"text-muted-foreground\">{expanded ? \"▼\" : \"▶\"}</span>\n+      </button>\n+      {expanded && (\n+        <pre className=\"ml-10 overflow-x-auto rounded bg-muted/30 p-2 text-[10px] text-muted-foreground whitespace-pre-wrap break-all\">\n+          {JSON.stringify(message, null, 2)}\n+        </pre>\n+      )}\n+    </div>\n+  );\n+}\ndiff --git a/hooks/use-websocket.ts b/hooks/use-websocket.ts\nindex ec83875..79c9dea 100644\n--- a/hooks/use-websocket.ts\n+++ b/hooks/use-websocket.ts\n@@ -21,10 +21,12 @@ import type {\n   ChatMessage,\n   ClaudeAssistant,\n   ClaudeControlRequest,\n+  ClaudeMessage,\n   ClaudeResult,\n   ClaudeSystemInit,\n   ServerMessage,\n   ServerMessageHistory,\n+  ToolCallInfo,\n   UserQuestion,\n } from \"@/lib/types\";\n \n@@ -34,6 +36,8 @@ const WS_URL = \"ws://localhost:9900/browser\";\n export interface AgentClientState {\n   status: AgentStatus;\n   messages: ChatMessage[];\n+  /** Raw Claude NDJSON messages for debug view. */\n+  rawMessages: ClaudeMessage[];\n   label: string;\n   tmuxSession: string | null;\n   createdAt: number;\n@@ -83,16 +87,28 @@ function relayChatMessage(agentId: string, relayMsg: ServerMessage): ChatMessage\n     }\n \n     if (msg.type === \"assistant\") {\n-      const text = extractText(msg as ClaudeAssistant);\n-      if (text) {\n-        return {\n-          id: nextId(),\n-          role: \"assistant\",\n-          content: text,\n-          timestamp: Date.now(),\n-        };\n-      }\n-      return null;\n+      const assistant = msg as ClaudeAssistant;\n+      const text = extractText(assistant);\n+      if (!text) return null;\n+\n+      const blocks = assistant.message?.content ?? [];\n+      const hasText = blocks.some((b) => b.type === \"text\" && b.text.trim());\n+      const toolCalls: ToolCallInfo[] = blocks\n+        .filter((b) => b.type === \"tool_use\")\n+        .map((b) => ({\n+          name: (b as { name: string }).name,\n+          toolUseId: (b as { id: string }).id,\n+        }));\n+      const isToolOnly = !hasText && toolCalls.length > 0;\n+\n+      return {\n+        id: nextId(),\n+        role: \"assistant\",\n+        content: text,\n+        timestamp: Date.now(),\n+        toolCalls,\n+        isToolOnly,\n+      };\n     }\n \n     if (msg.type === \"result\") {\n@@ -219,9 +235,13 @@ export function useWebSocket() {\n         const agentId = historyMsg.agentId;\n         const serverMessages = historyMsg.messages;\n \n-        // Convert all server messages to ChatMessages\n+        // Convert all server messages to ChatMessages + extract raw Claude messages\n         const chatMessages: ChatMessage[] = [];\n+        const rawMessages: ClaudeMessage[] = [];\n         for (const sm of serverMessages) {\n+          if (sm.type === \"relay\") {\n+            rawMessages.push(sm.message);\n+          }\n           const cm = relayChatMessage(agentId, sm);\n           if (cm) chatMessages.push(cm);\n         }\n@@ -239,6 +259,7 @@ export function useWebSocket() {\n               next.set(agentId, {\n                 status: \"idle\",\n                 messages: chatMessages, // use full history for new agent\n+                rawMessages,\n                 label: \"\",\n                 tmuxSession: null,\n                 createdAt: 0,\n@@ -247,7 +268,7 @@ export function useWebSocket() {\n             }\n             // Replace messages with full server history (source of truth)\n             const next = new Map(prev);\n-            next.set(agentId, { ...existing, messages: chatMessages });\n+            next.set(agentId, { ...existing, messages: chatMessages, rawMessages });\n             return next;\n           });\n         }\n@@ -312,6 +333,7 @@ export function useWebSocket() {\n               next.set(info.agentId, {\n                 status: info.status,\n                 messages: [],\n+                rawMessages: [],\n                 label: info.label,\n                 tmuxSession: info.tmuxSession,\n                 createdAt: info.createdAt,\n@@ -369,13 +391,15 @@ export function useWebSocket() {\n       // ── relay: append claude message to agent's history ──\n       if (data.type === \"relay\") {\n         const agentId = data.agentId;\n+        const rawMsg = data.message;\n         const chatMsg = relayChatMessage(agentId, data);\n \n+        updateAgent(agentId, (prev) => ({\n+          ...prev,\n+          rawMessages: [...prev.rawMessages, rawMsg],\n+          messages: chatMsg ? [...prev.messages, chatMsg] : prev.messages,\n+        }));\n         if (chatMsg) {\n-          updateAgent(agentId, (prev) => ({\n-            ...prev,\n-            messages: [...prev.messages, chatMsg],\n-          }));\n           // Track processed count for dedup\n           processedCountRef.current.set(\n             agentId,\n@@ -478,6 +502,10 @@ export function useWebSocket() {\n     () => activeAgent?.messages ?? [],\n     [activeAgent?.messages]\n   );\n+  const activeRawMessages = useMemo<ClaudeMessage[]>(\n+    () => activeAgent?.rawMessages ?? [],\n+    [activeAgent?.rawMessages]\n+  );\n \n   return {\n     connected,\n@@ -487,6 +515,7 @@ export function useWebSocket() {\n     setActiveAgentId,\n     activeStatus,\n     activeMessages,\n+    activeRawMessages,\n     spawnAgent,\n     sendMessage,\n     respondToControl,\ndiff --git a/lib/types.ts b/lib/types.ts\nindex 747feb4..b7faa19 100644\n--- a/lib/types.ts\n+++ b/lib/types.ts\n@@ -236,6 +236,12 @@ export interface UserQuestion {\n   multiSelect: boolean;\n }\n \n+/** Info about a single tool_use block in an assistant message. */\n+export interface ToolCallInfo {\n+  name: string;\n+  toolUseId?: string;\n+}\n+\n export interface ChatMessage {\n   id: string;\n   role: ChatMessageRole;\n@@ -255,4 +261,8 @@ export interface ChatMessage {\n     questions: UserQuestion[];\n     resolved?: boolean;\n   };\n+  /** Tool calls found in this assistant message. */\n+  toolCalls?: ToolCallInfo[];\n+  /** True when this message has only tool_use/tool_result blocks and no text. */\n+  isToolOnly?: boolean;\n }\ndiff --git a/server/ws.ts b/server/ws.ts\nindex 56168b6..c4163c6 100644\n--- a/server/ws.ts\n+++ b/server/ws.ts\n@@ -252,7 +252,7 @@ function spawnClaude(prompt: string): string {\n \n   // Build the claude command with CLAUDECODE unset to bypass nesting protection.\n   // tmux new-session runs detached (-d) so spawn() returns immediately.\n-  const claudeCmd = `unset CLAUDECODE; exec claude --sdk-url ws://localhost:${PORT}/claude/${agentId}`;\n+  const claudeCmd = `unset CLAUDECODE; exec claude --dangerously-skip-permissions --sdk-url ws://localhost:${PORT}/claude/${agentId}`;\n \n   const tmux = spawn(\"tmux\", [\"new-session\", \"-d\", \"-s\", sessionName, \"bash\", \"-c\", claudeCmd], {\n     stdio: \"ignore\",",
+              "is_error": false
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "f76c9d44-3ca2-47e4-9906-69905b0122c5"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_013TRNfq7Wy3QdAPubXYbbDW",
+              "type": "tool_result",
+              "content": "drwxr-xr-x chiu.fyi staff  288 B  Fri Feb 13 09:46:22 2026 .\ndrwxr-xr-x chiu.fyi staff  160 B  Fri Feb 13 06:39:38 2026 ..\n.rw-r--r-- chiu.fyi staff  2.7 KB Fri Feb 13 08:20:51 2026 agent-sidebar.tsx\n.rw-r--r-- chiu.fyi staff  6.2 KB Fri Feb 13 09:46:22 2026 chat.tsx\n.rw-r--r-- chiu.fyi staff  1.1 KB Fri Feb 13 09:41:07 2026 condensed-tool-group.tsx\n.rw-r--r-- chiu.fyi staff  1.5 KB Fri Feb 13 06:44:06 2026 control-request.tsx\n.rw-r--r-- chiu.fyi staff 1020 B  Fri Feb 13 06:44:02 2026 message.tsx\n.rw-r--r-- chiu.fyi staff  1.2 KB Fri Feb 13 08:23:39 2026 status-bar.tsx\n.rw-r--r-- chiu.fyi staff  3.7 KB Fri Feb 13 08:55:29 2026 user-question.tsx",
+              "is_error": false
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "259b7f53-3caf-428d-ad7f-adcbaa57e6dd"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01VUmu1t3vSuuaynNVJRDtMq",
+              "type": "tool_result",
+              "content": "     1→\"use client\";\n     2→\n     3→/**\n     4→ * Renders an AskUserQuestion control request as an interactive question card.\n     5→ *\n     6→ * Each question shows its options as clickable chips. For single-select\n     7→ * questions, clicking an option selects it (deselects others). For\n     8→ * multi-select, clicking toggles the option. A \"Submit\" button sends the\n     9→ * answers back to Claude via the control_response flow.\n    10→ */\n    11→\n    12→import { useState } from \"react\";\n    13→import { Button } from \"@/components/ui/button\";\n    14→import type { ChatMessage } from \"@/lib/types\";\n    15→import { cn } from \"@/lib/utils\";\n    16→\n    17→export function UserQuestion({\n    18→  message,\n    19→  onRespond,\n    20→}: {\n    21→  message: ChatMessage;\n    22→  onRespond: (requestId: string, answers: Record<string, string>) => void;\n    23→}) {\n    24→  const uq = message.userQuestion;\n    25→  if (!uq) return null;\n    26→\n    27→  return (\n    28→    <div className=\"mx-auto w-full max-w-lg space-y-4 rounded-lg border-2 border-dashed border-muted-foreground/30 p-4\">\n    29→      {uq.questions.map((q, i) => (\n    30→        <QuestionBlock\n    31→          key={i}\n    32→          question={q.question}\n    33→          header={q.header}\n    34→          options={q.options}\n    35→          multiSelect={q.multiSelect}\n    36→          resolved={uq.resolved}\n    37→          onSubmit={(answer) => {\n    38→            // Build the answers object keyed by question index\n    39→            // For now each question submits independently — could batch if needed\n    40→            const answers: Record<string, string> = { [`q${i}`]: answer };\n    41→            onRespond(uq.requestId, answers);\n    42→          }}\n    43→        />\n    44→      ))}\n    45→    </div>\n    46→  );\n    47→}\n    48→\n    49→function QuestionBlock({\n    50→  question,\n    51→  header,\n    52→  options,\n    53→  multiSelect,\n    54→  resolved,\n    55→  onSubmit,\n    56→}: {\n    57→  question: string;\n    58→  header?: string;\n    59→  options: { label: string; description?: string }[];\n    60→  multiSelect: boolean;\n    61→  resolved?: boolean;\n    62→  onSubmit: (answer: string) => void;\n    63→}) {\n    64→  const [selected, setSelected] = useState<Set<number>>(new Set());\n    65→\n    66→  function toggle(idx: number) {\n    67→    if (resolved) return;\n    68→    setSelected((prev) => {\n    69→      const next = new Set(prev);\n    70→      if (multiSelect) {\n    71→        if (next.has(idx)) next.delete(idx);\n    72→        else next.add(idx);\n    73→      } else {\n    74→        if (next.has(idx)) next.clear();\n    75→        else {\n    76→          next.clear();\n    77→          next.add(idx);\n    78→        }\n    79→      }\n    80→      return next;\n    81→    });\n    82→  }\n    83→\n    84→  function handleSubmit() {\n    85→    const labels = options\n    86→      .filter((_, i) => selected.has(i))\n    87→      .map((o) => o.label);\n    88→    onSubmit(labels.join(\", \"));\n    89→  }\n    90→\n    91→  return (\n    92→    <div>\n    93→      {header && (\n    94→        <div className=\"mb-1 text-xs font-semibold text-muted-foreground\">\n    95→          {header}\n    96→        </div>\n    97→      )}\n    98→      <div className=\"mb-3 text-sm\">{question}</div>\n    99→      <div className=\"mb-3 flex flex-wrap gap-2\">\n   100→        {options.map((opt, i) => (\n   101→          <button\n   102→            key={i}\n   103→            type=\"button\"\n   104→            disabled={!!resolved}\n   105→            onClick={() => toggle(i)}\n   106→            className={cn(\n   107→              \"rounded-md border px-3 py-1.5 text-xs transition-colors\",\n   108→              selected.has(i)\n   109→                ? \"border-primary bg-primary text-primary-foreground\"\n   110→                : \"border-muted-foreground/30 bg-secondary hover:border-primary/50\",\n   111→              resolved && \"opacity-60 cursor-default\"\n   112→            )}\n   113→            title={opt.description}\n   114→          >\n   115→            {opt.label}\n   116→            {opt.description && (\n   117→              <span className=\"ml-1 text-[10px] opacity-70\">\n   118→                — {opt.description}\n   119→              </span>\n   120→            )}\n   121→          </button>\n   122→        ))}\n   123→      </div>\n   124→      {!resolved ? (\n   125→        <Button\n   126→          size=\"sm\"\n   127→          disabled={selected.size === 0}\n   128→          onClick={handleSubmit}\n   129→        >\n   130→          Submit\n   131→        </Button>\n   132→      ) : (\n   133→        <div className=\"text-xs italic text-muted-foreground\">Answered</div>\n   134→      )}\n   135→    </div>\n   136→  );\n   137→}\n   138→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "86d26c5d-d6f7-4f32-bf67-e51b7833b762"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-haiku-4-5-20251001",
+          "id": "msg_01CEr1PEM18QCbfhDA4sBjSN",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_0167FJ7Nkgu32WznfzVebog7",
+              "name": "Read",
+              "input": {
+                "file_path": "/Users/chiu.fyi/work/personal/thos/components/dashboard/message.tsx"
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 4,
+            "cache_creation_input_tokens": 4593,
+            "cache_read_input_tokens": 52148,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 4593
+            },
+            "output_tokens": 5,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "2036ff3b-5695-4b02-866a-6ad8fc496f66"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_0167FJ7Nkgu32WznfzVebog7",
+              "type": "tool_result",
+              "content": "     1→\"use client\";\n     2→\n     3→/**\n     4→ * Single chat message bubble.\n     5→ * - **user** — right-aligned, primary background.\n     6→ * - **assistant** — left-aligned, secondary background.\n     7→ * - **system** — centered, italic, muted (used for init info, result summaries, errors).\n     8→ */\n     9→\n    10→import type { ChatMessage } from \"@/lib/types\";\n    11→import { cn } from \"@/lib/utils\";\n    12→\n    13→export function Message({ message }: { message: ChatMessage }) {\n    14→  if (message.role === \"system\") {\n    15→    return (\n    16→      <div className=\"py-1 text-center text-xs italic text-muted-foreground\">\n    17→        {message.content}\n    18→      </div>\n    19→    );\n    20→  }\n    21→\n    22→  const isUser = message.role === \"user\";\n    23→\n    24→  return (\n    25→    <div className={cn(\"flex\", isUser ? \"justify-end\" : \"justify-start\")}>\n    26→      <div\n    27→        className={cn(\n    28→          \"max-w-[80%] rounded-lg px-3 py-2 text-sm whitespace-pre-wrap\",\n    29→          isUser\n    30→            ? \"bg-primary text-primary-foreground\"\n    31→            : \"bg-secondary text-secondary-foreground\"\n    32→        )}\n    33→      >\n    34→        {message.content}\n    35→      </div>\n    36→    </div>\n    37→  );\n    38→}\n    39→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "37a75ac2-575e-4409-a98b-2553539ffdc8"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01Lcgr8VC5RDvtV9hmSHHAqF",
+              "type": "tool_result",
+              "content": "     1→\"use client\";\n     2→\n     3→import { useState } from \"react\";\n     4→import { ChevronRight } from \"lucide-react\";\n     5→import type { CondensedGroup } from \"@/lib/condense-messages\";\n     6→import { Message } from \"./message\";\n     7→import { cn } from \"@/lib/utils\";\n     8→\n     9→export function CondensedToolGroup({ group }: { group: CondensedGroup }) {\n    10→  const [expanded, setExpanded] = useState(false);\n    11→\n    12→  return (\n    13→    <div className=\"py-1\">\n    14→      <button\n    15→        onClick={() => setExpanded((v) => !v)}\n    16→        aria-expanded={expanded}\n    17→        className=\"flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted/50 transition-colors\"\n    18→      >\n    19→        <ChevronRight\n    20→          className={cn(\n    21→            \"size-3 shrink-0 transition-transform\",\n    22→            expanded && \"rotate-90\"\n    23→          )}\n    24→        />\n    25→        <span className=\"font-mono\">{group.summary}</span>\n    26→      </button>\n    27→\n    28→      {expanded && (\n    29→        <div className=\"ml-5 mt-1 space-y-1 border-l border-muted pl-3\">\n    30→          {group.messages.map((msg) => (\n    31→            <Message key={msg.id} message={msg} />\n    32→          ))}\n    33→        </div>\n    34→      )}\n    35→    </div>\n    36→  );\n    37→}\n    38→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "e3b78d19-086d-4e70-82a2-d38b53a2085b"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_019NLzKKgp3EiKs9c2ECmu7J",
+              "type": "tool_result",
+              "content": "     1→\"use client\";\n     2→\n     3→/**\n     4→ * Top bar showing the WS connection state (green/red dot) and the\n     5→ * current agent lifecycle status (idle, spawning, thinking, etc.).\n     6→ */\n     7→\n     8→import type { AgentStatus } from \"@/lib/types\";\n     9→\n    10→/** Human-readable labels for each agent status. */\n    11→const STATUS_LABELS: Record<AgentStatus, string> = {\n    12→  idle: \"idle\",\n    13→  spawning: \"spawning...\",\n    14→  connected: \"connected\",\n    15→  thinking: \"thinking...\",\n    16→  done: \"done\",\n    17→  disconnected: \"disconnected\",\n    18→  error: \"error\",\n    19→};\n    20→\n    21→export function StatusBar({\n    22→  connected,\n    23→  status,\n    24→}: {\n    25→  connected: boolean;\n    26→  status: AgentStatus;\n    27→}) {\n    28→  return (\n    29→    <div className=\"flex items-center justify-between border-b px-4 py-2 text-xs\">\n    30→      <span className=\"text-muted-foreground font-semibold\">thos dashboard</span>\n    31→      <div className=\"flex items-center gap-3\">\n    32→        <span className=\"flex items-center gap-1.5\">\n    33→          <span\n    34→            className={`inline-block size-2 rounded-full ${\n    35→              connected ? \"bg-green-500\" : \"bg-red-500\"\n    36→            }`}\n    37→          />\n    38→          {connected ? \"ws connected\" : \"ws disconnected\"}\n    39→        </span>\n    40→        <span className=\"text-muted-foreground\">|</span>\n    41→        <span>agent: {STATUS_LABELS[status]}</span>\n    42→      </div>\n    43→    </div>\n    44→  );\n    45→}\n    46→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "79443fb8-170a-4126-a252-7f420e76c612"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-haiku-4-5-20251001",
+          "id": "msg_01B5X6JUkrWacYnoBDNgHdXM",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01XoVsXpDPCMHFFyZvbJ4TNi",
+              "name": "Read",
+              "input": {
+                "file_path": "/Users/chiu.fyi/work/personal/thos/lib/utils.ts"
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 4,
+            "cache_creation_input_tokens": 2769,
+            "cache_read_input_tokens": 56741,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2769
+            },
+            "output_tokens": 1,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "c9ec6512-6a0b-4e3b-be1f-60f998c3fd18"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01XoVsXpDPCMHFFyZvbJ4TNi",
+              "type": "tool_result",
+              "content": "     1→import { clsx, type ClassValue } from \"clsx\"\n     2→import { twMerge } from \"tailwind-merge\"\n     3→\n     4→export function cn(...inputs: ClassValue[]) {\n     5→  return twMerge(clsx(inputs))\n     6→}\n     7→"
+            }
+          ]
+        },
+        "parent_tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "cdea8ac7-07bf-425c-98e3-77584795f6f4"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01Wd49PuWfNNpCswc12NJNFW",
+              "type": "tool_result",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Perfect! Now let me create a comprehensive summary of my findings:\n\n## Comprehensive Codebase Analysis: thos\n\n### 1. **Application Overview**\n\n**thos** (\"the orchestrator you never knew you needed\") is a **visual orchestration layer for Claude Code** – a web-based UI dashboard that sits on top of the Claude CLI to orchestrate multiple AI agents in real-time.\n\n**Key Philosophy:**\n- Not an IDE replacement, but a visibility and coordination layer\n- Focuses on solving friction points in working with AI coding agents\n- Enables persistent memory, change tracking, and task orchestration across agents\n\n### 2. **Tech Stack**\n\n**Frontend:**\n- **Framework:** Next.js 16.1.6 (with Turbopack in dev mode)\n- **UI Framework:** React 19.2.3 with TypeScript\n- **Styling:** Tailwind CSS 4 + Tailwind Merge for class conflict resolution\n- **Component Library:** shadcn UI (headless components)\n- **Icons:** Lucide React (563.0)\n- **3D Graphics:** React Three Fiber (9.5.0), Three.js (0.182.0), Drei (10.7.7)\n- **Animations:** TailwindCSS animations + tw-animate-css\n\n**Backend/Server:**\n- **Runtime:** Node.js with TypeScript\n- **WebSocket Server:** ws (8.19.0) on port 9900\n- **Process Management:** tmux for CLI session isolation\n- **Persistence:** File-based JSON storage in `/tmp/thos-sessions/`\n\n**Development/Build:**\n- **Build Tool:** Next.js with Turbopack\n- **Package Manager:** pnpm 10.10.0\n- **Monorepo:** pnpm-workspace\n- **Linting:** ESLint 9\n- **Type Checking:** TypeScript 5\n\n### 3. **Overall Directory Structure**\n\n```\n/Users/chiu.fyi/work/personal/thos/\n├── app/                          # Next.js app directory (route-based)\n│   ├── layout.tsx               # Root layout with JetBrains Mono font\n│   ├── page.tsx                 # Landing/home page with feature cards\n│   └── dashboard/\n│       └── page.tsx             # Main dashboard at /dashboard route\n├── components/                  # React components\n│   ├── ui/                      # Reusable UI primitives\n│   │   ├── button.tsx\n│   │   ├── card.tsx\n│   │   └── scramble-text.tsx    # Text scramble animation\n│   ├── dashboard/               # Dashboard-specific components\n│   │   ├── agent-sidebar.tsx    # Left sidebar with agent list\n│   │   ├── chat.tsx             # Main chat interface\n│   │   ├── control-request.tsx  # Tool approval card\n│   │   ├── message.tsx          # Single message bubble\n│   │   ├── status-bar.tsx       # Connection/agent status display\n│   │   ├── user-question.tsx    # Interactive question UI\n│   │   └── condensed-tool-group.tsx # Collapsible tool call groups\n│   └── ascii-background.tsx     # Decorative background\n├── hooks/\n│   └── use-websocket.ts         # Core WebSocket hook (500+ lines)\n├── lib/\n│   ├── types.ts                 # Shared TypeScript interfaces\n│   ├── condense-messages.ts     # Message grouping/condensing logic\n│   └── utils.ts                 # Utility functions (cn helper)\n├── server/\n│   ├── ws.ts                    # WebSocket relay server (627 lines)\n│   └── session-store.ts         # File-based persistence (139 lines)\n├── public/                      # Static assets\n├── package.json                 # Dependencies + build scripts\n├── tsconfig.json               # TypeScript config\n├── next.config.ts              # Next.js config (minimal)\n├── components.json             # shadcn config\n├── tailwind.config.*           # Tailwind CSS config\n├── postcss.config.mjs          # PostCSS config\n└── README.md                   # Comprehensive documentation\n```\n\n### 4. **Key Files and Their Roles**\n\n#### **Core Backend Logic**\n\n| File | Lines | Purpose |\n|------|-------|---------|\n| `server/ws.ts` | 627 | WebSocket relay server – orchestrates agent spawning, message routing, tmux session management, multi-browser support, persistence integration |\n| `server/session-store.ts` | 139 | File-based JSON persistence – debounced writes for streaming, sync writes for critical state changes, graceful shutdown |\n| `hooks/use-websocket.ts` | 525 | React hook managing WebSocket connection – agent lifecycle, message dedup, reconnection logic, control flow |\n\n#### **Type Definitions**\n\n| File | Size | Content |\n|------|------|---------|\n| `lib/types.ts` | 269 lines | Shared types for Claude NDJSON protocol, browser↔server messages, UI state, control requests, agent status lifecycle |\n\n#### **UI Components**\n\n| Component | Purpose |\n|-----------|---------|\n| `components/dashboard/chat.tsx` | Main chat interface – message display, input bar, raw NDJSON debug view toggle, auto-scroll |\n| `components/dashboard/agent-sidebar.tsx` | Sidebar with agent list – status dots, labels, tmux session names, spawn button |\n| `components/dashboard/message.tsx` | Single message bubble – user/assistant/system roles |\n| `components/dashboard/control-request.tsx` | Tool approval card – shows requested tool name and input, Allow/Deny buttons |\n| `components/dashboard/user-question.tsx` | Interactive question UI – single/multi-select options, submit |\n| `components/dashboard/condensed-tool-group.tsx` | Collapsible group of consecutive tool-only messages |\n| `components/dashboard/status-bar.tsx` | Top bar – WebSocket connection status, agent lifecycle status |\n\n### 5. **Database/Data Layer Setup**\n\n**No traditional database.** Instead:\n\n1. **File-Based Persistence (`server/session-store.ts`):**\n   - Location: `$TMPDIR/thos-sessions/<agentId>.json`\n   - Format: JSON files per agent\n   - Data: Agent state (id, status, tmuxSession, label, createdAt, sessionId) + full message history\n   - Writes: Debounced (150ms) for streaming, synchronous for critical state changes\n   - On server restart: Agents marked \"disconnected\", relaunched with `--resume`\n\n2. **In-Memory State:**\n   - **Server:** `Map<agentId, AgentState>` tracking live agent connections\n   - **Browser:** `Map<agentId, AgentClientState>` tracking UI state and messages\n   - Message history replayed from server on browser connect/reconnect\n\n3. **Message Storage:**\n   - All relay messages stored in `agent.messageHistory[]`\n   - Raw Claude NDJSON messages retained for debug view\n   - Deduplication prevents replay duplication when reconnecting\n\n### 6. **Current Features and Functionality**\n\n#### **Agent Management**\n- Spawn new Claude CLI agents with custom prompts\n- Each agent runs in isolated tmux session with unique ID\n- Real-time status tracking: idle → spawning → connected → thinking → done/disconnected/error\n- Multi-agent support with sidebar listing all active agents\n\n#### **Message Handling**\n- Relay all Claude NDJSON messages to browser\n- Parse and display: system init, assistant responses, tool calls, results, control requests\n- Tool-only message condensing (2+ consecutive tool calls collapsed into summaries)\n- Raw NDJSON debug view (toggle in top-right)\n- Message deduplication on reconnect\n\n#### **Control Flow**\n- **Tool Approval:** Browser receives `control_request`, user allows/denies, response sent back to CLI\n- **AskUserQuestion:** Interactive questions with single/multi-select options\n- **User Input:** Send follow-up messages to active agent mid-session\n\n#### **Resilience**\n- CLI disconnection detection and auto-reconnect attempts\n- Message queueing while CLI is down, flushed on reconnect\n- Page refresh restores full conversation history from server\n- Multi-browser support (one server, multiple tabs)\n- Graceful shutdown: flush all agents to disk before exit\n\n#### **UI/UX**\n- Dark theme with ASCII styling (JetBrains Mono font)\n- Status indicators: green (connected), blue (thinking), yellow (spawning), orange (disconnected), red (error)\n- Auto-scroll on new messages\n- Scramble text animations on landing page\n- Responsive sidebar with truncated agent labels and tmux session info\n\n### 7. **Relevant Config Files**\n\n#### **package.json**\n```json\n{\n  \"name\": \"thos-scaffold\",\n  \"version\": \"0.1.0\",\n  \"scripts\": {\n    \"dev\": \"concurrently -n next,ws -c cyan,yellow \\\"next dev --turbopack\\\" \\\"tsx watch server/ws.ts\\\"\",\n    \"build\": \"next build\",\n    \"start\": \"next start\"\n  }\n}\n```\n- Runs Next.js and WebSocket server in parallel\n- Concurrently for multi-process management\n\n#### **tsconfig.json**\n- ES2017 target, strict mode enabled\n- Path alias: `@/*` maps to root directory\n- JSX: react-jsx\n- Incremental compilation enabled\n\n#### **components.json** (shadcn config)\n- Style: new-york\n- Icon library: lucide\n- Tailwind CSS variables for theming\n\n### 8. **Current Project State (Git Status)**\n\n**Modified Files (uncommitted changes):**\n1. `app/dashboard/page.tsx` – Added `activeRawMessages` and `respondToUserQuestion` props\n2. `components/dashboard/chat.tsx` – Added raw message toggle, debug view, tool message condensing\n3. `hooks/use-websocket.ts` – Added raw message tracking, tool call extraction, user question response\n4. `lib/types.ts` – Added `ToolCallInfo` interface, `toolCalls` and `isToolOnly` fields to `ChatMessage`\n5. `server/ws.ts` – Added `--dangerously-skip-permissions` flag to Claude CLI spawn command\n\n**New Files (untracked):**\n1. `components/dashboard/condensed-tool-group.tsx` – Collapsible tool message groups\n2. `lib/condense-messages.ts` – Message grouping logic\n\n**Recent Commit:** `914d8ec init` (only one commit)\n\n### 9. **Architecture Highlights**\n\n**Message Flow:**\n```\nBrowser (React) ←→ WebSocket (port 9900)\n                       ↓\n                    WS Server\n                       ↓\n         Claude CLI (via tmux session)\n```\n\n**Agent Status Lifecycle:**\n```\nidle → spawning → connected ⇌ thinking → done\n                      ↓           ↑\n                   disconnected ──┘\n                      ↓\n                    error\n```\n\n**Key Design Decisions:**\n1. **Standalone WebSocket server** (not Next.js route) for persistent connections\n2. **tmux for process isolation** – each agent gets its own terminal session\n3. **Debounced file persistence** – balances durability with performance\n4. **Multi-browser support** – broadcasts all state changes to all connected tabs\n5. **Message history as source of truth** – stored on server, replayed to browsers\n\n---\n\n**Summary:** thos is an early-stage orchestration UI for Claude Code that provides real-time visibility into multiple AI agents, handles tool approval interactively, supports multi-turn conversations, and persists agent state across server restarts. The architecture is relatively simple but well-structured: a WebSocket relay server manages agent lifecycle and message routing, while a React frontend provides the dashboard UI."
+                },
+                {
+                  "type": "text",
+                  "text": "agentId: a8417a2 (for resuming to continue this agent's work if needed)\n<usage>total_tokens: 63800\ntool_uses: 27\nduration_ms: 53966</usage>"
+                }
+              ]
+            }
+          ]
+        },
+        "parent_tool_use_id": null,
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "925ccbc4-c9bd-4d08-b70b-9c6da460b0d6",
+        "tool_use_result": {
+          "status": "completed",
+          "prompt": "Explore this codebase thoroughly. I need to understand:\n1. What kind of app this is (tech stack, framework, purpose)\n2. The overall directory structure\n3. Key files and their roles\n4. Database/data layer setup\n5. Current features and functionality\n6. Any relevant config files (package.json, tsconfig, etc.)\n\nStart with listing the top-level directory, then read key files like package.json, any config files, and the main app files. Be thorough.",
+          "agentId": "a8417a2",
+          "content": [
+            {
+              "type": "text",
+              "text": "Perfect! Now let me create a comprehensive summary of my findings:\n\n## Comprehensive Codebase Analysis: thos\n\n### 1. **Application Overview**\n\n**thos** (\"the orchestrator you never knew you needed\") is a **visual orchestration layer for Claude Code** – a web-based UI dashboard that sits on top of the Claude CLI to orchestrate multiple AI agents in real-time.\n\n**Key Philosophy:**\n- Not an IDE replacement, but a visibility and coordination layer\n- Focuses on solving friction points in working with AI coding agents\n- Enables persistent memory, change tracking, and task orchestration across agents\n\n### 2. **Tech Stack**\n\n**Frontend:**\n- **Framework:** Next.js 16.1.6 (with Turbopack in dev mode)\n- **UI Framework:** React 19.2.3 with TypeScript\n- **Styling:** Tailwind CSS 4 + Tailwind Merge for class conflict resolution\n- **Component Library:** shadcn UI (headless components)\n- **Icons:** Lucide React (563.0)\n- **3D Graphics:** React Three Fiber (9.5.0), Three.js (0.182.0), Drei (10.7.7)\n- **Animations:** TailwindCSS animations + tw-animate-css\n\n**Backend/Server:**\n- **Runtime:** Node.js with TypeScript\n- **WebSocket Server:** ws (8.19.0) on port 9900\n- **Process Management:** tmux for CLI session isolation\n- **Persistence:** File-based JSON storage in `/tmp/thos-sessions/`\n\n**Development/Build:**\n- **Build Tool:** Next.js with Turbopack\n- **Package Manager:** pnpm 10.10.0\n- **Monorepo:** pnpm-workspace\n- **Linting:** ESLint 9\n- **Type Checking:** TypeScript 5\n\n### 3. **Overall Directory Structure**\n\n```\n/Users/chiu.fyi/work/personal/thos/\n├── app/                          # Next.js app directory (route-based)\n│   ├── layout.tsx               # Root layout with JetBrains Mono font\n│   ├── page.tsx                 # Landing/home page with feature cards\n│   └── dashboard/\n│       └── page.tsx             # Main dashboard at /dashboard route\n├── components/                  # React components\n│   ├── ui/                      # Reusable UI primitives\n│   │   ├── button.tsx\n│   │   ├── card.tsx\n│   │   └── scramble-text.tsx    # Text scramble animation\n│   ├── dashboard/               # Dashboard-specific components\n│   │   ├── agent-sidebar.tsx    # Left sidebar with agent list\n│   │   ├── chat.tsx             # Main chat interface\n│   │   ├── control-request.tsx  # Tool approval card\n│   │   ├── message.tsx          # Single message bubble\n│   │   ├── status-bar.tsx       # Connection/agent status display\n│   │   ├── user-question.tsx    # Interactive question UI\n│   │   └── condensed-tool-group.tsx # Collapsible tool call groups\n│   └── ascii-background.tsx     # Decorative background\n├── hooks/\n│   └── use-websocket.ts         # Core WebSocket hook (500+ lines)\n├── lib/\n│   ├── types.ts                 # Shared TypeScript interfaces\n│   ├── condense-messages.ts     # Message grouping/condensing logic\n│   └── utils.ts                 # Utility functions (cn helper)\n├── server/\n│   ├── ws.ts                    # WebSocket relay server (627 lines)\n│   └── session-store.ts         # File-based persistence (139 lines)\n├── public/                      # Static assets\n├── package.json                 # Dependencies + build scripts\n├── tsconfig.json               # TypeScript config\n├── next.config.ts              # Next.js config (minimal)\n├── components.json             # shadcn config\n├── tailwind.config.*           # Tailwind CSS config\n├── postcss.config.mjs          # PostCSS config\n└── README.md                   # Comprehensive documentation\n```\n\n### 4. **Key Files and Their Roles**\n\n#### **Core Backend Logic**\n\n| File | Lines | Purpose |\n|------|-------|---------|\n| `server/ws.ts` | 627 | WebSocket relay server – orchestrates agent spawning, message routing, tmux session management, multi-browser support, persistence integration |\n| `server/session-store.ts` | 139 | File-based JSON persistence – debounced writes for streaming, sync writes for critical state changes, graceful shutdown |\n| `hooks/use-websocket.ts` | 525 | React hook managing WebSocket connection – agent lifecycle, message dedup, reconnection logic, control flow |\n\n#### **Type Definitions**\n\n| File | Size | Content |\n|------|------|---------|\n| `lib/types.ts` | 269 lines | Shared types for Claude NDJSON protocol, browser↔server messages, UI state, control requests, agent status lifecycle |\n\n#### **UI Components**\n\n| Component | Purpose |\n|-----------|---------|\n| `components/dashboard/chat.tsx` | Main chat interface – message display, input bar, raw NDJSON debug view toggle, auto-scroll |\n| `components/dashboard/agent-sidebar.tsx` | Sidebar with agent list – status dots, labels, tmux session names, spawn button |\n| `components/dashboard/message.tsx` | Single message bubble – user/assistant/system roles |\n| `components/dashboard/control-request.tsx` | Tool approval card – shows requested tool name and input, Allow/Deny buttons |\n| `components/dashboard/user-question.tsx` | Interactive question UI – single/multi-select options, submit |\n| `components/dashboard/condensed-tool-group.tsx` | Collapsible group of consecutive tool-only messages |\n| `components/dashboard/status-bar.tsx` | Top bar – WebSocket connection status, agent lifecycle status |\n\n### 5. **Database/Data Layer Setup**\n\n**No traditional database.** Instead:\n\n1. **File-Based Persistence (`server/session-store.ts`):**\n   - Location: `$TMPDIR/thos-sessions/<agentId>.json`\n   - Format: JSON files per agent\n   - Data: Agent state (id, status, tmuxSession, label, createdAt, sessionId) + full message history\n   - Writes: Debounced (150ms) for streaming, synchronous for critical state changes\n   - On server restart: Agents marked \"disconnected\", relaunched with `--resume`\n\n2. **In-Memory State:**\n   - **Server:** `Map<agentId, AgentState>` tracking live agent connections\n   - **Browser:** `Map<agentId, AgentClientState>` tracking UI state and messages\n   - Message history replayed from server on browser connect/reconnect\n\n3. **Message Storage:**\n   - All relay messages stored in `agent.messageHistory[]`\n   - Raw Claude NDJSON messages retained for debug view\n   - Deduplication prevents replay duplication when reconnecting\n\n### 6. **Current Features and Functionality**\n\n#### **Agent Management**\n- Spawn new Claude CLI agents with custom prompts\n- Each agent runs in isolated tmux session with unique ID\n- Real-time status tracking: idle → spawning → connected → thinking → done/disconnected/error\n- Multi-agent support with sidebar listing all active agents\n\n#### **Message Handling**\n- Relay all Claude NDJSON messages to browser\n- Parse and display: system init, assistant responses, tool calls, results, control requests\n- Tool-only message condensing (2+ consecutive tool calls collapsed into summaries)\n- Raw NDJSON debug view (toggle in top-right)\n- Message deduplication on reconnect\n\n#### **Control Flow**\n- **Tool Approval:** Browser receives `control_request`, user allows/denies, response sent back to CLI\n- **AskUserQuestion:** Interactive questions with single/multi-select options\n- **User Input:** Send follow-up messages to active agent mid-session\n\n#### **Resilience**\n- CLI disconnection detection and auto-reconnect attempts\n- Message queueing while CLI is down, flushed on reconnect\n- Page refresh restores full conversation history from server\n- Multi-browser support (one server, multiple tabs)\n- Graceful shutdown: flush all agents to disk before exit\n\n#### **UI/UX**\n- Dark theme with ASCII styling (JetBrains Mono font)\n- Status indicators: green (connected), blue (thinking), yellow (spawning), orange (disconnected), red (error)\n- Auto-scroll on new messages\n- Scramble text animations on landing page\n- Responsive sidebar with truncated agent labels and tmux session info\n\n### 7. **Relevant Config Files**\n\n#### **package.json**\n```json\n{\n  \"name\": \"thos-scaffold\",\n  \"version\": \"0.1.0\",\n  \"scripts\": {\n    \"dev\": \"concurrently -n next,ws -c cyan,yellow \\\"next dev --turbopack\\\" \\\"tsx watch server/ws.ts\\\"\",\n    \"build\": \"next build\",\n    \"start\": \"next start\"\n  }\n}\n```\n- Runs Next.js and WebSocket server in parallel\n- Concurrently for multi-process management\n\n#### **tsconfig.json**\n- ES2017 target, strict mode enabled\n- Path alias: `@/*` maps to root directory\n- JSX: react-jsx\n- Incremental compilation enabled\n\n#### **components.json** (shadcn config)\n- Style: new-york\n- Icon library: lucide\n- Tailwind CSS variables for theming\n\n### 8. **Current Project State (Git Status)**\n\n**Modified Files (uncommitted changes):**\n1. `app/dashboard/page.tsx` – Added `activeRawMessages` and `respondToUserQuestion` props\n2. `components/dashboard/chat.tsx` – Added raw message toggle, debug view, tool message condensing\n3. `hooks/use-websocket.ts` – Added raw message tracking, tool call extraction, user question response\n4. `lib/types.ts` – Added `ToolCallInfo` interface, `toolCalls` and `isToolOnly` fields to `ChatMessage`\n5. `server/ws.ts` – Added `--dangerously-skip-permissions` flag to Claude CLI spawn command\n\n**New Files (untracked):**\n1. `components/dashboard/condensed-tool-group.tsx` – Collapsible tool message groups\n2. `lib/condense-messages.ts` – Message grouping logic\n\n**Recent Commit:** `914d8ec init` (only one commit)\n\n### 9. **Architecture Highlights**\n\n**Message Flow:**\n```\nBrowser (React) ←→ WebSocket (port 9900)\n                       ↓\n                    WS Server\n                       ↓\n         Claude CLI (via tmux session)\n```\n\n**Agent Status Lifecycle:**\n```\nidle → spawning → connected ⇌ thinking → done\n                      ↓           ↑\n                   disconnected ──┘\n                      ↓\n                    error\n```\n\n**Key Design Decisions:**\n1. **Standalone WebSocket server** (not Next.js route) for persistent connections\n2. **tmux for process isolation** – each agent gets its own terminal session\n3. **Debounced file persistence** – balances durability with performance\n4. **Multi-browser support** – broadcasts all state changes to all connected tabs\n5. **Message history as source of truth** – stored on server, replayed to browsers\n\n---\n\n**Summary:** thos is an early-stage orchestration UI for Claude Code that provides real-time visibility into multiple AI agents, handles tool approval interactively, supports multi-turn conversations, and persists agent state across server restarts. The architecture is relatively simple but well-structured: a WebSocket relay server manages agent lifecycle and message routing, while a React frontend provides the dashboard UI."
+            }
+          ],
+          "totalDurationMs": 53966,
+          "totalTokens": 63800,
+          "totalToolUseCount": 27,
+          "usage": {
+            "input_tokens": 4,
+            "cache_creation_input_tokens": 1405,
+            "cache_read_input_tokens": 59510,
+            "output_tokens": 2881,
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 1405,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "",
+            "iterations": [],
+            "speed": "standard"
+          }
+        }
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_01KcBE9wZJKF7GPK7JmT14oo",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01PCYsasHX6yhwf4dWqQ2gQo",
+              "name": "AskUserQuestion",
+              "input": {
+                "questions": [
+                  {
+                    "question": "What kind of task management are you thinking? Help me understand the scope.",
+                    "header": "Scope",
+                    "options": [
+                      {
+                        "label": "Agent task tracking",
+                        "description": "Track what each agent is working on, its progress, and results — tied to the existing agent system"
+                      },
+                      {
+                        "label": "Project task board",
+                        "description": "A standalone task board (like Trello/Linear) where you can create tasks, assign them to agents, and track status"
+                      },
+                      {
+                        "label": "TodoWrite integration",
+                        "description": "Surface and manage the TodoWrite/todo lists that Claude agents create during their work"
+                      },
+                      {
+                        "label": "Orchestration workflows",
+                        "description": "Define multi-step workflows where tasks are chained — agent A finishes, then agent B starts, etc."
+                      }
+                    ],
+                    "multiSelect": true
+                  }
+                ]
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 1,
+            "cache_creation_input_tokens": 3165,
+            "cache_read_input_tokens": 25733,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 3165
+            },
+            "output_tokens": 1,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "de1535b4-2b2b-4462-990d-5c02c45e0f4b",
+        "uuid": "cb004491-73ba-45a6-8f60-4411f63eb0b7"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "f2a0018f",
+      "message": {
+        "type": "control_request",
+        "request_id": "57bc0bd5-acd4-43e2-b1d1-fe31532ace1a",
+        "request": {
+          "subtype": "can_use_tool",
+          "tool_name": "AskUserQuestion",
+          "input": {
+            "questions": [
+              {
+                "question": "What kind of task management are you thinking? Help me understand the scope.",
+                "header": "Scope",
+                "options": [
+                  {
+                    "label": "Agent task tracking",
+                    "description": "Track what each agent is working on, its progress, and results — tied to the existing agent system"
+                  },
+                  {
+                    "label": "Project task board",
+                    "description": "A standalone task board (like Trello/Linear) where you can create tasks, assign them to agents, and track status"
+                  },
+                  {
+                    "label": "TodoWrite integration",
+                    "description": "Surface and manage the TodoWrite/todo lists that Claude agents create during their work"
+                  },
+                  {
+                    "label": "Orchestration workflows",
+                    "description": "Define multi-step workflows where tasks are chained — agent A finishes, then agent B starts, etc."
+                  }
+                ],
+                "multiSelect": true
+              }
+            ]
+          },
+          "tool_use_id": "toolu_01PCYsasHX6yhwf4dWqQ2gQo"
+        }
+      }
+    }
+  ]
+}
