@@ -14,16 +14,22 @@
  * The server supports multiple concurrent agents, each tracked in the
  * `agents` Map keyed by a short random ID.
  *
- * ## Resilience features
+ * ## Connection flow (browser)
  *
- * - **Server-side message history** — every relay message is stored per-agent.
- * - **File persistence** — agent state + history persisted to disk, survives restarts.
- * - **Multi-browser** — multiple tabs can connect simultaneously.
- * - **CLI relaunch** — dead agents with a sessionId are relaunched with `--resume`.
- * - **Message queuing** — messages sent while CLI is disconnected are queued and flushed on reconnect.
- * - **Disconnect notifications** — browser is notified of CLI disconnect/reconnect.
+ * On browser connect, the server sends two small messages:
+ * 1. `agent_list`  — metadata for all agents (sidebar).
+ * 2. `task_list`   — all tasks.
  *
- * ## Message flow
+ * Message histories are NOT sent eagerly. They are loaded lazily: the
+ * browser sends `{ type: "request_history", agentId }` when the user
+ * selects an agent, and the server responds with `message_history` for
+ * that single agent. This avoids sending megabytes of JSON on connect,
+ * which caused multi-minute loading times on mobile networks.
+ *
+ * Live messages for active agents are still broadcast to all browsers
+ * via `relay` messages in real time.
+ *
+ * ## Message flow (spawning)
  *
  * 1. Browser sends `{ type: "spawn", prompt }`.
  * 2. Server creates agent entry, spawns `claude --sdk-url ws://localhost:9900/claude/<agentId>`.
@@ -33,6 +39,17 @@
  * 6. All CLI messages are relayed to the browser as `{ type: "relay", agentId, message }`.
  * 7. `control_request` messages (tool approval) are relayed to the browser;
  *    the browser's `control_response` (with `agentId`) is forwarded back to the right CLI.
+ *
+ * ## Resilience features
+ *
+ * - **Server-side message history** — every relay message is stored per-agent.
+ * - **File persistence** — agent state + history persisted to disk, survives restarts.
+ * - **Multi-browser** — multiple tabs can connect simultaneously.
+ * - **tmux survival** — tmux sessions are NOT killed on server restart; CLI processes
+ *   can reconnect to the new server if they retry their WebSocket connection.
+ * - **Message queuing** — messages sent while CLI is disconnected are queued and flushed on reconnect.
+ * - **Disconnect notifications** — browser is notified of CLI disconnect/reconnect.
+ * - **Lazy history** — message histories loaded on demand per agent, not on connect.
  */
 import { WebSocketServer, WebSocket } from "ws";
 import { execSync, spawn } from "child_process";
@@ -44,12 +61,37 @@ import type {
   ServerMessage,
   AgentStatus,
   AgentInfo,
+  Task,
 } from "../lib/types";
 import { SessionStore, type PersistedAgent } from "./session-store";
+import { TaskStore } from "./task-store";
 
 const PORT = 9900;
 const TMUX_SESSION_PREFIX = "thos-agent";
-const wss = new WebSocketServer({ port: PORT });
+
+/** Check if an IP is localhost or in the Tailscale CGNAT range (100.64.0.0/10). */
+function isAllowedIP(ip: string | undefined): boolean {
+  if (!ip) return false;
+  // Strip IPv6-mapped IPv4 prefix
+  const addr = ip.startsWith("::ffff:") ? ip.slice(7) : ip;
+  if (addr === "127.0.0.1" || addr === "::1" || addr === "localhost") return true;
+  // Tailscale CGNAT: 100.64.0.0/10 → 100.64.0.0 – 100.127.255.255
+  const parts = addr.split(".");
+  if (parts.length !== 4) return false;
+  const first = parseInt(parts[0], 10);
+  const second = parseInt(parts[1], 10);
+  return first === 100 && second >= 64 && second <= 127;
+}
+
+const wss = new WebSocketServer({
+  port: PORT,
+  verifyClient: (info) => {
+    const ip = info.req.socket.remoteAddress;
+    const allowed = isAllowedIP(ip);
+    if (!allowed) console.log(`[ws] rejected connection from ${ip}`);
+    return allowed;
+  },
+});
 const store = new SessionStore();
 
 // ── Multi-agent state ──────────────────────────────────────────────────────
@@ -62,7 +104,7 @@ interface AgentState {
   status: AgentStatus;
   label: string;
   createdAt: number;
-  /** Captured from system/init, used in subsequent user messages and --resume. */
+  /** Captured from system/init, used in subsequent user messages. */
   sessionId: string | null;
   /** Stores control_request inputs keyed by request_id, for building control_responses. */
   pendingControlRequests: Map<string, Record<string, unknown>>;
@@ -73,6 +115,8 @@ interface AgentState {
 }
 
 const agents = new Map<string, AgentState>();
+const taskStore = new TaskStore();
+const tasks = new Map<string, Task>();
 
 /** All active browser connections (supports multiple tabs). */
 const browserSockets = new Set<WebSocket>();
@@ -80,6 +124,21 @@ const browserSockets = new Set<WebSocket>();
 /** Generate a short random agent ID. */
 function newAgentId(): string {
   return randomBytes(4).toString("hex");
+}
+
+// ── tmux helpers ───────────────────────────────────────────────────────────
+
+/** Return the set of currently alive tmux session names matching the thos prefix. */
+function listAliveTmuxSessions(): Set<string> {
+  try {
+    const output = execSync("tmux list-sessions -F '#{session_name}'", {
+      encoding: "utf-8",
+    }).trim();
+    if (!output) return new Set();
+    return new Set(output.split("\n").filter((s) => s.startsWith(TMUX_SESSION_PREFIX)));
+  } catch {
+    return new Set();
+  }
 }
 
 // ── Persistence helpers ────────────────────────────────────────────────────
@@ -100,6 +159,26 @@ function toPersistedAgent(agent: AgentState): PersistedAgent {
   };
 }
 
+/**
+ * Compact a message history by deduplicating cumulative snapshots.
+ * Keeps only the last version of each assistant/user message ID.
+ * Called on restore to shrink legacy bloated histories.
+ */
+function compactHistory(history: ServerMessage[]): ServerMessage[] {
+  // Build a map of msgId → last index
+  const lastIndex = new Map<string, number>();
+  for (let i = 0; i < history.length; i++) {
+    const id = getRelayMessageId(history[i]);
+    if (id) lastIndex.set(id, i);
+  }
+  // Keep only messages that are either non-deduplicable or the last occurrence
+  return history.filter((msg, i) => {
+    const id = getRelayMessageId(msg);
+    if (!id) return true; // non-relay or no message ID — always keep
+    return lastIndex.get(id) === i;
+  });
+}
+
 /** Persist agent state (debounced — use for streaming events). */
 function persistAgent(agent: AgentState) {
   store.save(toPersistedAgent(agent));
@@ -114,6 +193,8 @@ function persistAgentSync(agent: AgentState) {
 
 function restoreAgents() {
   const persisted = store.loadAll();
+  const aliveSessions = listAliveTmuxSessions();
+
   for (const p of persisted) {
     const agent: AgentState = {
       agentId: p.state.agentId,
@@ -125,22 +206,71 @@ function restoreAgents() {
       createdAt: p.state.createdAt,
       sessionId: p.state.sessionId,
       pendingControlRequests: new Map(),
-      messageHistory: p.messageHistory,
+      messageHistory: compactHistory(p.messageHistory),
       pendingMessages: [],
     };
 
-    // Agents that weren't "done" or "error" when the server died are now disconnected
+    // Determine status for agents that were active when the server last ran
     if (agent.status !== "done" && agent.status !== "error") {
-      agent.status = "disconnected";
+      const tmuxAlive = agent.tmuxSession ? aliveSessions.has(agent.tmuxSession) : false;
+      if (tmuxAlive) {
+        // tmux session still alive — CLI may reconnect to this server
+        agent.status = "disconnected";
+        console.log(`[restore] agent ${agent.agentId} — tmux alive, waiting for CLI reconnect`);
+      } else {
+        // tmux session gone — agent is archived
+        agent.status = "done";
+        console.log(`[restore] agent ${agent.agentId} — tmux dead, archived`);
+      }
     }
 
     agents.set(agent.agentId, agent);
-    console.log(`[restore] agent ${agent.agentId} (status=${agent.status}, ${agent.messageHistory.length} messages)`);
+    const originalCount = p.messageHistory.length;
+    const compactedCount = agent.messageHistory.length;
+    const saved = originalCount - compactedCount;
+    console.log(`[restore] agent ${agent.agentId} (status=${agent.status}, ${compactedCount} messages${saved > 0 ? `, compacted from ${originalCount} (−${saved})` : ""})`);
+
+    // Persist compacted history back to disk
+    if (saved > 0) {
+      persistAgentSync(agent);
+    }
   }
   console.log(`[restore] loaded ${persisted.length} agents from disk`);
 }
 
 restoreAgents();
+
+// ── Task restore + helpers ────────────────────────────────────────────────
+
+function restoreTasks() {
+  const persisted = taskStore.loadAll();
+  for (const t of persisted) {
+    tasks.set(t.id, t);
+  }
+  console.log(`[restore] loaded ${persisted.length} tasks from disk`);
+}
+
+restoreTasks();
+
+/** Build the full task list sorted by creation time (newest first). */
+function buildTaskList(): Task[] {
+  return Array.from(tasks.values()).sort((a, b) => b.createdAt - a.createdAt);
+}
+
+/** Send the full task list to all browsers. */
+function broadcastTaskList() {
+  const payload = JSON.stringify({ type: "task_list", tasks: buildTaskList() });
+  for (const ws of browserSockets) {
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(payload);
+    }
+  }
+}
+
+/** Persist all tasks to disk (sync). */
+function persistTasks() {
+  taskStore.saveSync(Array.from(tasks.values()));
+}
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -181,13 +311,55 @@ function setAgentStatus(agentId: string, status: AgentStatus) {
 }
 
 /**
+ * Extract a stable dedup key from a relay message, if present.
+ *
+ * Claude NDJSON sends cumulative snapshots for two message types:
+ * - `assistant` — keyed by `message.id` (e.g. `msg_01VE1P7c...`)
+ * - `user` (tool_result) — keyed by top-level `uuid` (e.g. `b217b852-...`)
+ *
+ * We deduplicate by replacing the previous snapshot in `messageHistory`
+ * instead of appending, reducing storage from O(n²) to O(n).
+ */
+function getRelayMessageId(msg: ServerMessage): string | null {
+  if (msg.type !== "relay") return null;
+  const inner = msg.message;
+  if (inner.type === "assistant") {
+    return (inner as { message?: { id?: string } }).message?.id ?? null;
+  }
+  if (inner.type === "user") {
+    return (inner as { uuid?: string }).uuid ?? null;
+  }
+  return null;
+}
+
+/**
  * Record a message in the agent's history and send to all browsers.
- * This is used for relay messages so that message history is the source of truth.
+ *
+ * For cumulative snapshot messages (assistant, user/tool_result), replaces the
+ * previous snapshot with the same message ID instead of appending. This keeps
+ * only the final version of each message, dramatically reducing file sizes
+ * (e.g. 38 MB → ~1 MB for a typical session).
  */
 function recordAndSend(agentId: string, msg: ServerMessage) {
   const agent = agents.get(agentId);
   if (agent) {
-    agent.messageHistory.push(msg);
+    const msgId = getRelayMessageId(msg);
+    if (msgId) {
+      // Replace previous snapshot with same message ID (search from end for speed)
+      let replaced = false;
+      for (let i = agent.messageHistory.length - 1; i >= 0; i--) {
+        if (getRelayMessageId(agent.messageHistory[i]) === msgId) {
+          agent.messageHistory[i] = msg;
+          replaced = true;
+          break;
+        }
+      }
+      if (!replaced) {
+        agent.messageHistory.push(msg);
+      }
+    } else {
+      agent.messageHistory.push(msg);
+    }
     persistAgent(agent); // debounced — streaming messages come fast
   }
   sendToBrowser(msg);
@@ -196,10 +368,10 @@ function recordAndSend(agentId: string, msg: ServerMessage) {
 // ── Agent lifecycle ────────────────────────────────────────────────────────
 
 /**
- * Terminate a specific agent by killing its tmux session.
- * Closes the Claude WebSocket and removes the agent from the Map.
+ * Stop a running agent by killing its tmux session and closing the CLI socket.
+ * The agent remains in the Map (status set to "done") so it can be viewed/deleted later.
  */
-function killAgent(agentId: string) {
+function stopAgent(agentId: string) {
   const agent = agents.get(agentId);
   if (!agent) return;
 
@@ -210,6 +382,25 @@ function killAgent(agentId: string) {
     } catch {
       // Session may already be dead
     }
+  }
+  if (agent.claudeSocket?.readyState === WebSocket.OPEN) {
+    agent.claudeSocket.close();
+  }
+  agent.claudeSocket = null;
+  setAgentStatus(agentId, "done");
+}
+
+/**
+ * Permanently delete an agent: stop it, remove from Map, remove from disk.
+ */
+function deleteAgent(agentId: string) {
+  const agent = agents.get(agentId);
+  if (!agent) return;
+
+  if (agent.tmuxSession) {
+    try {
+      execSync(`tmux kill-session -t ${agent.tmuxSession}`, { stdio: "ignore" });
+    } catch {}
   }
   if (agent.claudeSocket?.readyState === WebSocket.OPEN) {
     agent.claudeSocket.close();
@@ -252,7 +443,7 @@ function spawnClaude(prompt: string): string {
 
   // Build the claude command with CLAUDECODE unset to bypass nesting protection.
   // tmux new-session runs detached (-d) so spawn() returns immediately.
-  const claudeCmd = `unset CLAUDECODE; exec claude --sdk-url ws://localhost:${PORT}/claude/${agentId}`;
+  const claudeCmd = `unset CLAUDECODE; exec claude --dangerously-skip-permissions --sdk-url ws://localhost:${PORT}/claude/${agentId}`;
 
   const tmux = spawn("tmux", ["new-session", "-d", "-s", sessionName, "bash", "-c", claudeCmd], {
     stdio: "ignore",
@@ -280,54 +471,6 @@ function spawnClaude(prompt: string): string {
   return agentId;
 }
 
-/**
- * Attempt to relaunch a dead agent's CLI with --resume.
- * Only works if the agent has a sessionId from a previous system/init.
- */
-function relaunchAgent(agent: AgentState) {
-  if (!agent.sessionId) {
-    console.log(`[relaunch] agent ${agent.agentId} has no sessionId, cannot resume`);
-    return;
-  }
-
-  const sessionName = agent.tmuxSession ?? `${TMUX_SESSION_PREFIX}-${agent.agentId}`;
-  console.log(`[relaunch] attempting --resume for agent ${agent.agentId} (session=${agent.sessionId})`);
-
-  setAgentStatus(agent.agentId, "spawning");
-
-  // Kill any lingering tmux session with the same name
-  try {
-    execSync(`tmux kill-session -t ${sessionName}`, { stdio: "ignore" });
-  } catch {
-    // fine if it doesn't exist
-  }
-
-  const claudeCmd = `unset CLAUDECODE; exec claude --resume --sdk-url ws://localhost:${PORT}/claude/${agent.agentId}`;
-
-  const tmux = spawn("tmux", ["new-session", "-d", "-s", sessionName, "bash", "-c", claudeCmd], {
-    stdio: "ignore",
-  });
-
-  tmux.on("error", (err) => {
-    console.error(`[relaunch] tmux error for ${agent.agentId}:`, err);
-    setAgentStatus(agent.agentId, "error");
-    recordAndSend(agent.agentId, { type: "error", agentId: agent.agentId, error: `relaunch error: ${err.message}` });
-  });
-
-  tmux.on("exit", (code) => {
-    if (code !== 0) {
-      console.error(`[relaunch] tmux exited with code ${code} for ${agent.agentId}`);
-      setAgentStatus(agent.agentId, "error");
-      recordAndSend(agent.agentId, { type: "error", agentId: agent.agentId, error: `relaunch tmux exited with code ${code}` });
-      return;
-    }
-    agent.tmuxSession = sessionName;
-    broadcastAgentList();
-    persistAgentSync(agent);
-    console.log(`[relaunch] tmux session ${sessionName} created for agent ${agent.agentId}`);
-  });
-}
-
 // ── Message handlers ───────────────────────────────────────────────────────
 
 /**
@@ -338,7 +481,7 @@ function relaunchAgent(agent: AgentState) {
  * - system/init   → "connected" + capture session_id
  * - assistant      → "thinking"
  * - result         → "connected" (CLI stays alive for multi-turn)
- * - CLI disconnect → "disconnected" (handled in connection close handler)
+ * - CLI disconnect → "done" (handled in connection close handler)
  */
 function handleClaudeMessage(agentId: string, raw: string) {
   const agent = agents.get(agentId);
@@ -385,7 +528,7 @@ function handleClaudeMessage(agentId: string, raw: string) {
     setAgentStatus(agentId, "thinking");
   } else if (msg.type === "result") {
     // CLI stays alive after result — ready for the next turn.
-    // Status only goes to "disconnected" when the CLI WebSocket actually closes.
+    // Status only goes to "done" when the CLI WebSocket actually closes.
     setAgentStatus(agentId, "connected");
   }
 
@@ -406,8 +549,14 @@ function handleClaudeMessage(agentId: string, raw: string) {
  * - `spawn`: create a new agent (does NOT kill others).
  * - `send_message`: forward a follow-up user message to the specified agent.
  * - `control_response`: forward a tool allow/deny decision to the specified agent.
+ * - `kill_agent`: stop the CLI and tmux session.
+ * - `delete_agent`: permanently remove an agent.
+ * - `rename_agent`: update an agent's label.
+ * - `clear_history`: wipe an agent's message history.
+ * - `request_history`: send message history for a single agent (lazy loading).
+ * - `create_task` / `update_task` / `delete_task` / `delegate_task`: task CRUD.
  */
-function handleBrowserMessage(raw: string) {
+function handleBrowserMessage(raw: string, senderWs: WebSocket) {
   let msg: BrowserMessage;
   try {
     msg = JSON.parse(raw);
@@ -429,6 +578,17 @@ function handleBrowserMessage(raw: string) {
         sendToBrowser({ type: "error", agentId: msg.agentId, error: "Unknown agent" });
         break;
       }
+
+      // Record the user message in history so it persists across reloads.
+      // Do NOT broadcast — the sending browser already has it optimistically,
+      // and other browsers will get it when they request_history.
+      agent.messageHistory.push({
+        type: "relay",
+        agentId: msg.agentId,
+        message: { type: "user", message: { role: "user", content: msg.content } },
+      } as ServerMessage);
+      persistAgent(agent);
+
       if (agent.claudeSocket?.readyState === WebSocket.OPEN) {
         const userMsg = JSON.stringify({
           type: "user",
@@ -480,30 +640,112 @@ function handleBrowserMessage(raw: string) {
       }
       break;
     }
+
+    case "kill_agent":
+      stopAgent(msg.agentId);
+      break;
+
+    case "delete_agent":
+      deleteAgent(msg.agentId);
+      break;
+
+    case "rename_agent": {
+      const agent = agents.get(msg.agentId);
+      if (!agent) break;
+      agent.label = msg.label;
+      broadcastAgentList();
+      persistAgentSync(agent);
+      break;
+    }
+
+    case "clear_history": {
+      const agent = agents.get(msg.agentId);
+      if (!agent) break;
+      agent.messageHistory = [];
+      persistAgentSync(agent);
+      sendToBrowser({ type: "history_cleared", agentId: msg.agentId });
+      break;
+    }
+
+    case "request_history": {
+      console.log(`[browser] request_history for ${msg.agentId}`);
+      sendHistoryToSocket(senderWs, msg.agentId);
+      break;
+    }
+
+    case "create_task": {
+      const taskId = randomBytes(4).toString("hex");
+      const task: Task = {
+        id: taskId,
+        title: msg.title,
+        description: msg.description,
+        status: "todo",
+        priority: msg.priority,
+        agentId: null,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+      };
+      tasks.set(taskId, task);
+      persistTasks();
+      broadcastTaskList();
+      break;
+    }
+
+    case "update_task": {
+      const task = tasks.get(msg.taskId);
+      if (!task) break;
+      Object.assign(task, msg.updates, { updatedAt: Date.now() });
+      persistTasks();
+      broadcastTaskList();
+      break;
+    }
+
+    case "delete_task": {
+      tasks.delete(msg.taskId);
+      persistTasks();
+      broadcastTaskList();
+      break;
+    }
+
+    case "delegate_task": {
+      const task = tasks.get(msg.taskId);
+      if (!task) break;
+      const prompt = `Task: ${task.title}\n\n${task.description}`;
+      const agentId = spawnClaude(prompt);
+      task.agentId = agentId;
+      task.status = "in-progress";
+      task.updatedAt = Date.now();
+      persistTasks();
+      broadcastTaskList();
+      break;
+    }
   }
 }
 
 // ── Send message history to a single browser socket ────────────────────────
 
-/** Send full state to a newly connected browser: agent list + message history per agent. */
+/** Send initial state (agent list + tasks) to a newly connected browser. */
 function sendFullStateToSocket(ws: WebSocket) {
   if (ws.readyState !== WebSocket.OPEN) return;
 
-  // 1. Agent list
+  // Agent list (sidebar metadata) — message histories are loaded lazily on demand
   ws.send(JSON.stringify({ type: "agent_list", agents: buildAgentList() }));
 
-  // 2. Message history per agent
-  for (const agent of agents.values()) {
-    if (agent.messageHistory.length > 0) {
-      ws.send(
-        JSON.stringify({
-          type: "message_history",
-          agentId: agent.agentId,
-          messages: agent.messageHistory,
-        })
-      );
-    }
-  }
+  // Task list
+  ws.send(JSON.stringify({ type: "task_list", tasks: buildTaskList() }));
+}
+
+/** Send message history for a single agent to a specific browser socket. */
+function sendHistoryToSocket(ws: WebSocket, agentId: string) {
+  const agent = agents.get(agentId);
+  if (!agent || ws.readyState !== WebSocket.OPEN) return;
+  ws.send(
+    JSON.stringify({
+      type: "message_history",
+      agentId: agent.agentId,
+      messages: agent.messageHistory,
+    })
+  );
 }
 
 // ── Connection handler — route by URL path ────────────────────────────────
@@ -512,20 +754,13 @@ wss.on("connection", (ws: WebSocket, req: IncomingMessage) => {
   console.log(`[ws connected] path=${path}`);
 
   if (path === "/browser") {
+    // Send full state BEFORE adding to browserSockets so that live
+    // relay broadcasts don't interleave with the history replay.
+    sendFullStateToSocket(ws);
     browserSockets.add(ws);
 
-    // Send full state to this browser
-    sendFullStateToSocket(ws);
-
-    // Attempt to relaunch any disconnected agents
-    for (const agent of agents.values()) {
-      if (agent.status === "disconnected" && !agent.claudeSocket) {
-        relaunchAgent(agent);
-      }
-    }
-
     ws.on("message", (data) => {
-      handleBrowserMessage(data.toString());
+      handleBrowserMessage(data.toString(), ws);
     });
 
     ws.on("close", () => {
@@ -568,10 +803,20 @@ wss.on("connection", (ws: WebSocket, req: IncomingMessage) => {
       console.log(`[claude:${agentId} CLI disconnected]`);
       if (agent.claudeSocket === ws) {
         agent.claudeSocket = null;
-        if (agent.status !== "error" && agent.status !== "done") {
-          setAgentStatus(agentId, "disconnected");
-          // Notify browsers that CLI disconnected
+        if (agent.status !== "error") {
+          setAgentStatus(agentId, "done");
           sendToBrowser({ type: "cli_disconnected", agentId });
+
+          // Auto-complete any task linked to this agent
+          for (const task of tasks.values()) {
+            if (task.agentId === agentId && task.status !== "done") {
+              task.status = "done";
+              task.updatedAt = Date.now();
+              persistTasks();
+              broadcastTaskList();
+              break;
+            }
+          }
         }
       }
     });
@@ -581,46 +826,25 @@ wss.on("connection", (ws: WebSocket, req: IncomingMessage) => {
   }
 });
 
-// ── tmux cleanup ──────────────────────────────────────────────────────────
-
-/** Kill all tmux sessions matching the thos-agent prefix. */
-function killAllAgentSessions() {
-  try {
-    const sessions = execSync("tmux list-sessions -F '#{session_name}'", {
-      encoding: "utf-8",
-    })
-      .trim()
-      .split("\n")
-      .filter((s) => s.startsWith(TMUX_SESSION_PREFIX));
-
-    for (const s of sessions) {
-      try {
-        execSync(`tmux kill-session -t ${s}`, { stdio: "ignore" });
-        console.log(`[tmux] cleaned up stale session ${s}`);
-      } catch {}
-    }
-  } catch {
-    // tmux server not running or no sessions — fine
-  }
-}
+// ── Graceful shutdown ─────────────────────────────────────────────────────
 
 function shutdown() {
   console.log("[ws server] shutting down...");
 
-  // Persist all agents synchronously before exit
+  // Persist all agents synchronously before exit — do NOT kill tmux sessions
+  // so CLI processes can reconnect if the server restarts.
   const allPersisted = Array.from(agents.values()).map(toPersistedAgent);
   store.flushAll(allPersisted);
-  console.log(`[ws server] saved ${allPersisted.length} agents to disk`);
+  console.log(`[ws server] saved ${allPersisted.length} agents to disk (tmux sessions preserved)`);
 
-  killAllAgentSessions();
+  taskStore.flush(Array.from(tasks.values()));
+  console.log(`[ws server] saved ${tasks.size} tasks to disk`);
+
   wss.close();
   process.exit(0);
 }
 
 process.on("SIGTERM", shutdown);
 process.on("SIGINT", shutdown);
-
-// Clean up any orphaned tmux sessions from previous runs
-killAllAgentSessions();
 
 console.log(`[ws server] listening on port ${PORT}`);

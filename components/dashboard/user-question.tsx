@@ -25,7 +25,7 @@ export function UserQuestion({
   if (!uq) return null;
 
   return (
-    <div className="mx-auto w-full max-w-lg space-y-4 rounded-lg border-2 border-dashed border-muted-foreground/30 p-4">
+    <div className="mx-auto w-full max-w-lg space-y-4 rounded-lg border-2 border-dashed border-muted-foreground/30 p-3 md:p-4">
       {uq.questions.map((q, i) => (
         <QuestionBlock
           key={i}

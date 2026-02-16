@@ -25,7 +25,7 @@ export function Message({ message }: { message: ChatMessage }) {
     <div className={cn("flex", isUser ? "justify-end" : "justify-start")}>
       <div
         className={cn(
-          "max-w-[80%] rounded-lg px-3 py-2 text-sm whitespace-pre-wrap",
+          "max-w-[90%] md:max-w-[80%] rounded-lg px-3 py-2 text-sm whitespace-pre-wrap",
           isUser
             ? "bg-primary text-primary-foreground"
             : "bg-secondary text-secondary-foreground"

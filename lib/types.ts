@@ -7,6 +7,15 @@
  * 2. **Browser ↔ Server** — messages exchanged between the React client
  *    and the standalone WS relay server.
  * 3. **UI state** — view-model types consumed by React components.
+ *
+ * ## Key architecture notes
+ *
+ * - On browser connect, the server sends `agent_list` + `task_list` only.
+ * - Message histories are loaded lazily: the browser sends
+ *   `request_history` when selecting an agent, and the server responds
+ *   with `message_history` for that single agent.
+ * - Live messages for active agents are broadcast via `relay` in real time.
+ * - See `server/ws.ts` and `hooks/use-websocket.ts` for implementation.
  */
 
 // ── Claude NDJSON protocol messages (CLI → server) ────────────────────────
@@ -127,8 +136,78 @@ export interface BrowserControlResponse {
   allow: boolean;
 }
 
+/** Browser asks the server to kill a running agent's tmux session + CLI. */
+export interface BrowserKillAgent {
+  type: "kill_agent";
+  agentId: string;
+}
+
+/** Browser asks the server to permanently delete an agent. */
+export interface BrowserDeleteAgent {
+  type: "delete_agent";
+  agentId: string;
+}
+
+/** Browser asks the server to rename an agent. */
+export interface BrowserRenameAgent {
+  type: "rename_agent";
+  agentId: string;
+  label: string;
+}
+
+/** Browser asks the server to clear an agent's message history. */
+export interface BrowserClearHistory {
+  type: "clear_history";
+  agentId: string;
+}
+
+/** Browser requests message history for a specific agent (lazy loading). */
+export interface BrowserRequestHistory {
+  type: "request_history";
+  agentId: string;
+}
+
+/** Browser asks the server to create a new task. */
+export interface BrowserCreateTask {
+  type: "create_task";
+  title: string;
+  description: string;
+  priority: TaskPriority;
+}
+
+/** Browser asks to update a task's fields. */
+export interface BrowserUpdateTask {
+  type: "update_task";
+  taskId: string;
+  updates: Partial<Pick<Task, "title" | "description" | "status" | "priority">>;
+}
+
+/** Browser asks to delete a task. */
+export interface BrowserDeleteTask {
+  type: "delete_task";
+  taskId: string;
+}
+
+/** Browser asks to delegate a task to a new Claude agent. */
+export interface BrowserDelegateTask {
+  type: "delegate_task";
+  taskId: string;
+}
+
 /** Union of all messages the browser can send to the WS server. */
-export type BrowserMessage = BrowserSpawn | BrowserSendMessage | BrowserControlResponse;
+export type BrowserMessage =
+  | BrowserSpawn
+  | BrowserSendMessage
+  | BrowserControlResponse
+  | BrowserKillAgent
+  | BrowserDeleteAgent
+  | BrowserRenameAgent
+  | BrowserClearHistory
+  | BrowserRequestHistory
+  | BrowserCreateTask
+  | BrowserUpdateTask
+  | BrowserDeleteTask
+  | BrowserDelegateTask;
 
 /** Server relays a raw Claude NDJSON message to the browser. */
 export interface ServerRelay {
@@ -172,7 +251,7 @@ export interface ServerSpawned {
   agentId: string;
 }
 
-/** Server replays full message history for an agent on browser connect. */
+/** Server sends full message history for an agent (in response to `request_history`). */
 export interface ServerMessageHistory {
   type: "message_history";
   agentId: string;
@@ -191,6 +270,30 @@ export interface ServerCliConnected {
   agentId: string;
 }
 
+/** Server confirms message history was cleared for an agent. */
+export interface ServerHistoryCleared {
+  type: "history_cleared";
+  agentId: string;
+}
+
+/** Server sends the full task list to the browser. */
+export interface ServerTaskList {
+  type: "task_list";
+  tasks: Task[];
+}
+
+/** Server confirms a task was updated. */
+export interface ServerTaskUpdated {
+  type: "task_updated";
+  task: Task;
+}
+
+/** Server confirms a task was deleted. */
+export interface ServerTaskDeleted {
+  type: "task_deleted";
+  taskId: string;
+}
+
 /** Union of all messages the WS server can send to the browser. */
 export type ServerMessage =
   | ServerRelay
@@ -200,7 +303,11 @@ export type ServerMessage =
   | ServerSpawned
   | ServerMessageHistory
   | ServerCliDisconnected
-  | ServerCliConnected;
+  | ServerCliConnected
+  | ServerHistoryCleared
+  | ServerTaskList
+  | ServerTaskUpdated
+  | ServerTaskDeleted;
 
 // ── UI state ──────────────────────────────────────────────────────────────
 
@@ -236,6 +343,12 @@ export interface UserQuestion {
   multiSelect: boolean;
 }
 
+/** Info about a single tool_use block in an assistant message. */
+export interface ToolCallInfo {
+  name: string;
+  toolUseId?: string;
+}
+
 export interface ChatMessage {
   id: string;
   role: ChatMessageRole;
@@ -255,4 +368,26 @@ export interface ChatMessage {
     questions: UserQuestion[];
     resolved?: boolean;
   };
+  /** Tool calls found in this assistant message. */
+  toolCalls?: ToolCallInfo[];
+  /** True when this message has only tool_use/tool_result blocks and no text. */
+  isToolOnly?: boolean;
+}
+
+// ── Task system ──────────────────────────────────────────────────────────
+
+export type TaskStatus = "todo" | "in-progress" | "done";
+export type TaskPriority = "low" | "medium" | "high" | "urgent";
+
+/** A user-created task, optionally linked to a Claude agent. */
+export interface Task {
+  id: string;
+  title: string;
+  description: string;
+  status: TaskStatus;
+  priority: TaskPriority;
+  /** If delegated, the agentId of the spawned Claude agent. */
+  agentId: string | null;
+  createdAt: number;
+  updatedAt: number;
 }
