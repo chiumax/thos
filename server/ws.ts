@@ -55,6 +55,8 @@ import { WebSocketServer, WebSocket } from "ws";
 import { execSync, spawn } from "child_process";
 import { randomBytes } from "crypto";
 import type { IncomingMessage } from "http";
+import { readdirSync, statSync, existsSync } from "fs";
+import { join, dirname, basename } from "path";
 import type {
   BrowserMessage,
   ClaudeMessage,
@@ -62,9 +64,12 @@ import type {
   AgentStatus,
   AgentInfo,
   Task,
+  Workspace,
+  DirectoryEntry,
 } from "../lib/types";
 import { SessionStore, type PersistedAgent } from "./session-store";
 import { TaskStore } from "./task-store";
+import { WorkspaceStore } from "./workspace-store";
 
 const PORT = 9900;
 const TMUX_SESSION_PREFIX = "thos-agent";
@@ -85,7 +90,7 @@ function isAllowedIP(ip: string | undefined): boolean {
 
 const wss = new WebSocketServer({
   port: PORT,
-  verifyClient: (info) => {
+  verifyClient: (info: { req: { socket: { remoteAddress?: string } } }) => {
     const ip = info.req.socket.remoteAddress;
     const allowed = isAllowedIP(ip);
     if (!allowed) console.log(`[ws] rejected connection from ${ip}`);
@@ -106,6 +111,8 @@ interface AgentState {
   createdAt: number;
   /** Captured from system/init, used in subsequent user messages. */
   sessionId: string | null;
+  /** Workspace this agent belongs to. */
+  workspaceId: string | null;
   /** Stores control_request inputs keyed by request_id, for building control_responses. */
   pendingControlRequests: Map<string, Record<string, unknown>>;
   /** All messages sent to the browser for this agent (source of truth). */
@@ -117,9 +124,14 @@ interface AgentState {
 const agents = new Map<string, AgentState>();
 const taskStore = new TaskStore();
 const tasks = new Map<string, Task>();
+const workspaceStore = new WorkspaceStore();
+const workspaces = new Map<string, Workspace>();
 
 /** All active browser connections (supports multiple tabs). */
 const browserSockets = new Set<WebSocket>();
+
+/** Per-browser workspace scope (null = show all). */
+const browserWorkspaceScope = new Map<WebSocket, string | null>();
 
 /** Generate a short random agent ID. */
 function newAgentId(): string {
@@ -154,6 +166,7 @@ function toPersistedAgent(agent: AgentState): PersistedAgent {
       label: agent.label,
       createdAt: agent.createdAt,
       sessionId: agent.sessionId,
+      workspaceId: agent.workspaceId,
     },
     messageHistory: agent.messageHistory,
   };
@@ -205,6 +218,7 @@ function restoreAgents() {
       label: p.state.label,
       createdAt: p.state.createdAt,
       sessionId: p.state.sessionId,
+      workspaceId: p.state.workspaceId ?? null,
       pendingControlRequests: new Map(),
       messageHistory: compactHistory(p.messageHistory),
       pendingMessages: [],
@@ -252,18 +266,48 @@ function restoreTasks() {
 
 restoreTasks();
 
-/** Build the full task list sorted by creation time (newest first). */
-function buildTaskList(): Task[] {
-  return Array.from(tasks.values()).sort((a, b) => b.createdAt - a.createdAt);
+// ── Workspace restore + helpers ──────────────────────────────────────────
+
+function restoreWorkspaces() {
+  const persisted = workspaceStore.loadAll();
+  for (const w of persisted) {
+    workspaces.set(w.id, w);
+  }
+  console.log(`[restore] loaded ${persisted.length} workspaces from disk`);
 }
 
-/** Send the full task list to all browsers. */
-function broadcastTaskList() {
-  const payload = JSON.stringify({ type: "task_list", tasks: buildTaskList() });
+restoreWorkspaces();
+
+/** Persist all workspaces to disk (sync). */
+function persistWorkspaces() {
+  workspaceStore.saveSync(Array.from(workspaces.values()));
+}
+
+/** Send the full workspace list to all browsers. */
+function broadcastWorkspaceList() {
+  const payload = JSON.stringify({ type: "workspace_list", workspaces: Array.from(workspaces.values()) });
   for (const ws of browserSockets) {
     if (ws.readyState === WebSocket.OPEN) {
       ws.send(payload);
     }
+  }
+}
+
+/** Build the full task list sorted by creation time (newest first), optionally filtered by workspace. */
+function buildTaskList(workspaceId?: string | null): Task[] {
+  let list = Array.from(tasks.values());
+  if (workspaceId !== undefined && workspaceId !== null) {
+    list = list.filter((t) => t.workspaceId === workspaceId);
+  }
+  return list.sort((a, b) => b.createdAt - a.createdAt);
+}
+
+/** Send the full task list to all browsers (scoped per-browser workspace). */
+function broadcastTaskList() {
+  for (const ws of browserSockets) {
+    if (ws.readyState !== WebSocket.OPEN) continue;
+    const scope = browserWorkspaceScope.get(ws) ?? null;
+    ws.send(JSON.stringify({ type: "task_list", tasks: buildTaskList(scope) }));
   }
 }
 
@@ -284,20 +328,29 @@ function sendToBrowser(msg: ServerMessage) {
   }
 }
 
-/** Build a snapshot of all agents for the sidebar. */
-function buildAgentList(): AgentInfo[] {
-  return Array.from(agents.values()).map((a) => ({
+/** Build a snapshot of all agents for the sidebar, optionally filtered by workspace. */
+function buildAgentList(workspaceId?: string | null): AgentInfo[] {
+  let list = Array.from(agents.values());
+  if (workspaceId !== undefined && workspaceId !== null) {
+    list = list.filter((a) => a.workspaceId === workspaceId);
+  }
+  return list.map((a) => ({
     agentId: a.agentId,
     status: a.status,
     tmuxSession: a.tmuxSession,
     label: a.label,
     createdAt: a.createdAt,
+    workspaceId: a.workspaceId,
   }));
 }
 
-/** Send the full agent list to all browsers. */
+/** Send the full agent list to all browsers (scoped per-browser workspace). */
 function broadcastAgentList() {
-  sendToBrowser({ type: "agent_list", agents: buildAgentList() });
+  for (const ws of browserSockets) {
+    if (ws.readyState !== WebSocket.OPEN) continue;
+    const scope = browserWorkspaceScope.get(ws) ?? null;
+    ws.send(JSON.stringify({ type: "agent_list", agents: buildAgentList(scope) }));
+  }
 }
 
 /** Update an agent's status, notify browsers, broadcast list, and persist. */
@@ -317,6 +370,10 @@ function setAgentStatus(agentId: string, status: AgentStatus) {
  * - `assistant` — keyed by `message.id` (e.g. `msg_01VE1P7c...`)
  * - `user` (tool_result) — keyed by top-level `uuid` (e.g. `b217b852-...`)
  *
+ * Additionally, one-per-session messages are deduplicated by session_id:
+ * - `system/init` — keyed by `init:<session_id>`
+ * - `result` — keyed by `result:<session_id>`
+ *
  * We deduplicate by replacing the previous snapshot in `messageHistory`
  * instead of appending, reducing storage from O(n²) to O(n).
  */
@@ -328,6 +385,15 @@ function getRelayMessageId(msg: ServerMessage): string | null {
   }
   if (inner.type === "user") {
     return (inner as { uuid?: string }).uuid ?? null;
+  }
+  // Dedup system/init and result by session_id so they don't stack on reload
+  if (inner.type === "system" && (inner as { subtype?: string }).subtype === "init") {
+    const sid = (inner as { session_id?: string }).session_id;
+    return sid ? `init:${sid}` : null;
+  }
+  if (inner.type === "result") {
+    const sid = (inner as { session_id?: string }).session_id;
+    return sid ? `result:${sid}` : null;
   }
   return null;
 }
@@ -415,8 +481,9 @@ function deleteAgent(agentId: string) {
  *
  * Creates a new agent entry, spawns the CLI with `--sdk-url` pointing to
  * `/claude/<agentId>`, and sends a `spawned` message to the browser.
+ * If `workspaceId` is provided, the tmux session starts in that workspace's cwd.
  */
-function spawnClaude(prompt: string): string {
+function spawnClaude(prompt: string, workspaceId?: string | null): string {
   const agentId = newAgentId();
   const sessionName = `${TMUX_SESSION_PREFIX}-${agentId}`;
   const label = prompt.length > 60 ? prompt.slice(0, 57) + "..." : prompt;
@@ -430,6 +497,7 @@ function spawnClaude(prompt: string): string {
     label,
     createdAt: Date.now(),
     sessionId: null,
+    workspaceId: workspaceId ?? null,
     pendingControlRequests: new Map(),
     messageHistory: [],
     pendingMessages: [],
@@ -445,7 +513,15 @@ function spawnClaude(prompt: string): string {
   // tmux new-session runs detached (-d) so spawn() returns immediately.
   const claudeCmd = `unset CLAUDECODE; exec claude --dangerously-skip-permissions --sdk-url ws://localhost:${PORT}/claude/${agentId}`;
 
-  const tmux = spawn("tmux", ["new-session", "-d", "-s", sessionName, "bash", "-c", claudeCmd], {
+  // If the agent belongs to a workspace, start tmux in that workspace's cwd
+  const workspace = workspaceId ? workspaces.get(workspaceId) : null;
+  const tmuxArgs = ["new-session", "-d", "-s", sessionName];
+  if (workspace) {
+    tmuxArgs.push("-c", workspace.cwd);
+  }
+  tmuxArgs.push("bash", "-c", claudeCmd);
+
+  const tmux = spawn("tmux", tmuxArgs, {
     stdio: "ignore",
   });
 
@@ -568,9 +644,11 @@ function handleBrowserMessage(raw: string, senderWs: WebSocket) {
   console.log("[browser →]", msg.type);
 
   switch (msg.type) {
-    case "spawn":
-      spawnClaude(msg.prompt);
+    case "spawn": {
+      const scope = browserWorkspaceScope.get(senderWs) ?? msg.workspaceId ?? null;
+      spawnClaude(msg.prompt, scope);
       break;
+    }
 
     case "send_message": {
       const agent = agents.get(msg.agentId);
@@ -682,6 +760,7 @@ function handleBrowserMessage(raw: string, senderWs: WebSocket) {
         status: "todo",
         priority: msg.priority,
         agentId: null,
+        workspaceId: browserWorkspaceScope.get(senderWs) ?? null,
         createdAt: Date.now(),
         updatedAt: Date.now(),
       };
@@ -711,7 +790,7 @@ function handleBrowserMessage(raw: string, senderWs: WebSocket) {
       const task = tasks.get(msg.taskId);
       if (!task) break;
       const prompt = `Task: ${task.title}\n\n${task.description}`;
-      const agentId = spawnClaude(prompt);
+      const agentId = spawnClaude(prompt, task.workspaceId);
       task.agentId = agentId;
       task.status = "in-progress";
       task.updatedAt = Date.now();
@@ -719,20 +798,121 @@ function handleBrowserMessage(raw: string, senderWs: WebSocket) {
       broadcastTaskList();
       break;
     }
+
+    // ── Workspace messages ──────────────────────────────────────────────
+
+    case "set_workspace": {
+      browserWorkspaceScope.set(senderWs, msg.workspaceId);
+      // Re-send scoped agent list and task list to this browser
+      const scope = msg.workspaceId;
+      senderWs.send(JSON.stringify({ type: "agent_list", agents: buildAgentList(scope) }));
+      senderWs.send(JSON.stringify({ type: "task_list", tasks: buildTaskList(scope) }));
+      break;
+    }
+
+    case "create_workspace": {
+      const id = randomBytes(4).toString("hex");
+      const workspace: Workspace = {
+        id,
+        name: msg.name,
+        cwd: msg.cwd,
+        createdAt: Date.now(),
+      };
+      workspaces.set(id, workspace);
+      persistWorkspaces();
+      broadcastWorkspaceList();
+      break;
+    }
+
+    case "rename_workspace": {
+      const workspace = workspaces.get(msg.workspaceId);
+      if (!workspace) break;
+      workspace.name = msg.name;
+      persistWorkspaces();
+      broadcastWorkspaceList();
+      break;
+    }
+
+    case "delete_workspace": {
+      workspaces.delete(msg.workspaceId);
+      // Unlink agents and tasks from the deleted workspace
+      for (const agent of agents.values()) {
+        if (agent.workspaceId === msg.workspaceId) {
+          agent.workspaceId = null;
+          persistAgentSync(agent);
+        }
+      }
+      for (const task of tasks.values()) {
+        if (task.workspaceId === msg.workspaceId) {
+          task.workspaceId = null;
+        }
+      }
+      persistTasks();
+      persistWorkspaces();
+      broadcastWorkspaceList();
+      broadcastAgentList();
+      broadcastTaskList();
+      break;
+    }
+
+    case "browse_directory": {
+      const dirPath = msg.path;
+      try {
+        if (!existsSync(dirPath)) {
+          senderWs.send(JSON.stringify({ type: "directory_listing", path: dirPath, entries: [] }));
+          break;
+        }
+        const entries: DirectoryEntry[] = [];
+        // Add parent directory entry
+        const parent = dirname(dirPath);
+        if (parent !== dirPath) {
+          entries.push({ name: "..", path: parent });
+        }
+        // List subdirectories only
+        const items = readdirSync(dirPath);
+        for (const item of items) {
+          if (item.startsWith(".")) continue; // skip dotfiles
+          const fullPath = join(dirPath, item);
+          try {
+            const stat = statSync(fullPath);
+            if (stat.isDirectory()) {
+              entries.push({ name: item, path: fullPath });
+            }
+          } catch {
+            // skip inaccessible entries
+          }
+        }
+        // Sort: ".." first, then alphabetical
+        entries.sort((a, b) => {
+          if (a.name === "..") return -1;
+          if (b.name === "..") return 1;
+          return a.name.localeCompare(b.name);
+        });
+        senderWs.send(JSON.stringify({ type: "directory_listing", path: dirPath, entries }));
+      } catch (err) {
+        console.error(`[browse_directory] error reading ${dirPath}:`, err);
+        senderWs.send(JSON.stringify({ type: "directory_listing", path: dirPath, entries: [] }));
+      }
+      break;
+    }
   }
 }
 
 // ── Send message history to a single browser socket ────────────────────────
 
-/** Send initial state (agent list + tasks) to a newly connected browser. */
+/** Send initial state (workspaces, agent list, tasks) to a newly connected browser. */
 function sendFullStateToSocket(ws: WebSocket) {
   if (ws.readyState !== WebSocket.OPEN) return;
 
-  // Agent list (sidebar metadata) — message histories are loaded lazily on demand
-  ws.send(JSON.stringify({ type: "agent_list", agents: buildAgentList() }));
+  // Workspace list
+  ws.send(JSON.stringify({ type: "workspace_list", workspaces: Array.from(workspaces.values()) }));
 
-  // Task list
-  ws.send(JSON.stringify({ type: "task_list", tasks: buildTaskList() }));
+  // Agent list (sidebar metadata) — scoped if browser has a workspace set
+  const scope = browserWorkspaceScope.get(ws) ?? null;
+  ws.send(JSON.stringify({ type: "agent_list", agents: buildAgentList(scope) }));
+
+  // Task list — scoped if browser has a workspace set
+  ws.send(JSON.stringify({ type: "task_list", tasks: buildTaskList(scope) }));
 }
 
 /** Send message history for a single agent to a specific browser socket. */
@@ -766,6 +946,7 @@ wss.on("connection", (ws: WebSocket, req: IncomingMessage) => {
     ws.on("close", () => {
       console.log("[browser disconnected]");
       browserSockets.delete(ws);
+      browserWorkspaceScope.delete(ws);
       // Do NOT kill agents — keep them alive for reconnect
     });
   } else if (path.startsWith("/claude/")) {
@@ -793,6 +974,22 @@ wss.on("connection", (ws: WebSocket, req: IncomingMessage) => {
       }
       agent.pendingMessages = [];
       persistAgentSync(agent);
+    }
+
+    // Send the pending prompt immediately — CLI 2.1.42+ waits for the
+    // server to send the first user message rather than emitting
+    // hook_started/hook_response on connect.
+    if (agent.pendingPrompt && ws.readyState === WebSocket.OPEN) {
+      const userMsg = JSON.stringify({
+        type: "user",
+        message: { role: "user", content: agent.pendingPrompt },
+        parent_tool_use_id: null,
+        session_id: agent.sessionId ?? "",
+      });
+      console.log(`[server → claude:${agentId}] sending pending prompt`);
+      ws.send(userMsg + "\n");
+      agent.pendingPrompt = null;
+      setAgentStatus(agentId, "thinking");
     }
 
     ws.on("message", (data) => {
@@ -839,6 +1036,9 @@ function shutdown() {
 
   taskStore.flush(Array.from(tasks.values()));
   console.log(`[ws server] saved ${tasks.size} tasks to disk`);
+
+  persistWorkspaces();
+  console.log(`[ws server] saved ${workspaces.size} workspaces to disk`);
 
   wss.close();
   process.exit(0);

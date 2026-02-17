@@ -24,6 +24,7 @@ export interface PersistedAgent {
     label: string;
     createdAt: number;
     sessionId: string | null;
+    workspaceId: string | null;
   };
   messageHistory: ServerMessage[];
 }

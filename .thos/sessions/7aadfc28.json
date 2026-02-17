@@ -1,0 +1,13 @@
+{
+  "id": "7aadfc28",
+  "state": {
+    "agentId": "7aadfc28",
+    "status": "disconnected",
+    "tmuxSession": "thos-agent-7aadfc28",
+    "label": "can you trigger an example tool call",
+    "createdAt": 1771358845073,
+    "sessionId": null,
+    "workspaceId": null
+  },
+  "messageHistory": []
+}

@@ -51,6 +51,7 @@ import type {
   ClaudeMessage,
   ClaudeResult,
   ClaudeSystemInit,
+  DirectoryEntry,
   ServerMessage,
   ServerMessageHistory,
   ServerTaskList,
@@ -60,6 +61,7 @@ import type {
   TaskPriority,
   ToolCallInfo,
   UserQuestion,
+  Workspace,
 } from "@/lib/types";
 
 /** Connect to the WS server on the same host the page was loaded from. */
@@ -206,6 +208,7 @@ function relayChatMessage(agentId: string, relayMsg: ServerMessage): ChatMessage
           id: cr.request_id,
           tool_name: cr.request.tool_name,
           input: cr.request.input,
+          description: cr.request.description,
         },
       };
     }
@@ -244,6 +247,11 @@ export function useWebSocket() {
 
   // Task state
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  // Workspace state
+  const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
+  const [activeWorkspaceId, setActiveWorkspaceIdState] = useState<string | null>(null);
+  const [directoryListing, setDirectoryListing] = useState<{ path: string; entries: DirectoryEntry[] } | null>(null);
 
   // Per-agent deduplication: track count of processed messages per agent
   // to avoid duplicating messages already in local state during history replay.
@@ -313,6 +321,22 @@ export function useWebSocket() {
       }
 
       log("←", data.type, "agentId" in data ? (data as { agentId: string }).agentId : "");
+
+      // ── workspace_list: full workspace list from server ──
+      if (data.type === "workspace_list") {
+        const wsList = (data as { workspaces: Workspace[] }).workspaces;
+        log("workspace_list:", wsList.length, "workspaces");
+        setWorkspaces(wsList);
+        return;
+      }
+
+      // ── directory_listing: response to browse_directory ──
+      if (data.type === "directory_listing") {
+        const listing = data as { path: string; entries: DirectoryEntry[] };
+        log("directory_listing:", listing.path, listing.entries.length, "entries");
+        setDirectoryListing({ path: listing.path, entries: listing.entries });
+        return;
+      }
 
       // ── task_list: full task list from server ──
       if (data.type === "task_list") {
@@ -597,7 +621,7 @@ export function useWebSocket() {
         ...prev,
         messages: prev.messages.map((m) =>
           m.controlRequest?.id === requestId
-            ? { ...m, controlRequest: { ...m.controlRequest, resolved: true } }
+            ? { ...m, controlRequest: { ...m.controlRequest, resolved: true, allowed: allow } }
             : m
         ),
       }));
@@ -690,6 +714,45 @@ export function useWebSocket() {
     [send]
   );
 
+  // ── Workspace actions ──────────────────────────────────────────────────────
+
+  const setActiveWorkspaceId = useCallback(
+    (workspaceId: string | null) => {
+      setActiveWorkspaceIdState(workspaceId);
+      send({ type: "set_workspace", workspaceId });
+    },
+    [send]
+  );
+
+  const createWorkspace = useCallback(
+    (name: string, cwd: string) => {
+      send({ type: "create_workspace", name, cwd });
+    },
+    [send]
+  );
+
+  const renameWorkspace = useCallback(
+    (workspaceId: string, name: string) => {
+      send({ type: "rename_workspace", workspaceId, name });
+    },
+    [send]
+  );
+
+  const deleteWorkspace = useCallback(
+    (workspaceId: string) => {
+      send({ type: "delete_workspace", workspaceId });
+      setActiveWorkspaceIdState((prev) => (prev === workspaceId ? null : prev));
+    },
+    [send]
+  );
+
+  const browseDirectory = useCallback(
+    (path: string) => {
+      send({ type: "browse_directory", path });
+    },
+    [send]
+  );
+
   // Derived values for the active agent
   const activeAgent = activeAgentId ? agents.get(activeAgentId) : undefined;
   const activeStatus = useMemo<AgentStatus>(
@@ -730,5 +793,13 @@ export function useWebSocket() {
     updateTask,
     deleteTask,
     delegateTask,
+    workspaces,
+    activeWorkspaceId,
+    setActiveWorkspaceId,
+    createWorkspace,
+    renameWorkspace,
+    deleteWorkspace,
+    browseDirectory,
+    directoryListing,
   };
 }

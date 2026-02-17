@@ -14,9 +14,10 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EllipsisVertical, Plus } from "lucide-react";
-import type { AgentStatus } from "@/lib/types";
+import type { AgentStatus, Workspace } from "@/lib/types";
 import type { AgentClientState } from "@/hooks/use-websocket";
 import { cn } from "@/lib/utils";
+import { WorkspaceSwitcher } from "./workspace-switcher";
 
 /** Status dot color + optional pulse animation. */
 const STATUS_DOT: Record<AgentStatus, string> = {
@@ -51,6 +52,12 @@ export function AgentSidebar({
   onDelete,
   onRename,
   onClearHistory,
+  workspaces,
+  activeWorkspaceId,
+  onSelectWorkspace,
+  onRenameWorkspace,
+  onDeleteWorkspace,
+  onOpenFolder,
 }: {
   agents: Map<string, AgentClientState>;
   agentOrder: string[];
@@ -62,6 +69,12 @@ export function AgentSidebar({
   onDelete: (agentId: string) => void;
   onRename: (agentId: string, label: string) => void;
   onClearHistory: (agentId: string) => void;
+  workspaces: Workspace[];
+  activeWorkspaceId: string | null;
+  onSelectWorkspace: (workspaceId: string | null) => void;
+  onRenameWorkspace: (workspaceId: string, name: string) => void;
+  onDeleteWorkspace: (workspaceId: string) => void;
+  onOpenFolder: () => void;
 }) {
   const [ctxMenu, setCtxMenu] = useState<ContextMenuState | null>(null);
   const [renamingId, setRenamingId] = useState<string | null>(null);
@@ -163,10 +176,16 @@ export function AgentSidebar({
 
   return (
     <div className="flex h-full w-56 flex-col border-r bg-sidebar text-sidebar-foreground">
-      {/* Branding */}
-      <div className="flex items-center gap-2 border-b px-3 py-2">
-        <span className="text-primary font-bold text-sm tracking-tight">thos</span>
-        <span className="text-muted-foreground text-[10px]">orchestrator</span>
+      {/* Workspace switcher */}
+      <div className="border-b">
+        <WorkspaceSwitcher
+          workspaces={workspaces}
+          activeWorkspaceId={activeWorkspaceId}
+          onSelect={onSelectWorkspace}
+          onRename={onRenameWorkspace}
+          onDelete={onDeleteWorkspace}
+          onOpenFolder={onOpenFolder}
+        />
       </div>
 
       {/* Header */}

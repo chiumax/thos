@@ -14,18 +14,21 @@ const PRIORITY_COLORS: Record<TaskPriority, string> = {
 };
 
 const STATUS_COLORS: Record<TaskStatus, string> = {
+  icebox: "bg-purple-500/20 text-purple-400 border-purple-500/30",
   todo: "border-border text-muted-foreground",
   "in-progress": "bg-blue-500/20 text-blue-400 border-blue-500/30",
   done: "bg-green-500/20 text-green-400 border-green-500/30",
 };
 
 const STATUS_LABELS: Record<TaskStatus, string> = {
+  icebox: "icebox",
   todo: "todo",
   "in-progress": "in progress",
   done: "done",
 };
 
 const NEXT_STATUS: Record<TaskStatus, TaskStatus> = {
+  icebox: "todo",
   todo: "in-progress",
   "in-progress": "done",
   done: "todo",

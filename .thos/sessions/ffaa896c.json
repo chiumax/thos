@@ -1,0 +1,13 @@
+{
+  "id": "ffaa896c",
+  "state": {
+    "agentId": "ffaa896c",
+    "status": "disconnected",
+    "tmuxSession": "thos-agent-ffaa896c",
+    "label": "hi",
+    "createdAt": 1771358885446,
+    "sessionId": null,
+    "workspaceId": null
+  },
+  "messageHistory": []
+}

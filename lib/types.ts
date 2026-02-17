@@ -68,6 +68,7 @@ export interface ClaudeResult {
   error?: string;
   session_id: string;
   cost_usd: number;
+  total_cost_usd?: number;
   duration_ms: number;
   duration_api_ms: number;
   is_error: boolean;
@@ -113,12 +114,29 @@ export type ClaudeMessage =
   | ClaudeSystemHook
   | { type: string; subtype?: string; [key: string]: unknown };
 
+// ── Workspaces ───────────────────────────────────────────────────────────
+
+/** A workspace represents a project directory. */
+export interface Workspace {
+  id: string;
+  name: string;
+  cwd: string;
+  createdAt: number;
+}
+
+/** A directory entry returned by the server-side folder browser. */
+export interface DirectoryEntry {
+  name: string;
+  path: string;
+}
+
 // ── Browser ↔ Server messages ─────────────────────────────────────────────
 
 /** Browser asks the server to spawn a new Claude CLI process. */
 export interface BrowserSpawn {
   type: "spawn";
   prompt: string;
+  workspaceId?: string;
 }
 
 /** Browser sends a follow-up message to an already-running Claude session. */
@@ -194,6 +212,38 @@ export interface BrowserDelegateTask {
   taskId: string;
 }
 
+/** Browser tells the server which workspace to scope to. */
+export interface BrowserSetWorkspace {
+  type: "set_workspace";
+  workspaceId: string | null;
+}
+
+/** Browser asks the server to create a new workspace. */
+export interface BrowserCreateWorkspace {
+  type: "create_workspace";
+  name: string;
+  cwd: string;
+}
+
+/** Browser asks to rename a workspace. */
+export interface BrowserRenameWorkspace {
+  type: "rename_workspace";
+  workspaceId: string;
+  name: string;
+}
+
+/** Browser asks to delete a workspace. */
+export interface BrowserDeleteWorkspace {
+  type: "delete_workspace";
+  workspaceId: string;
+}
+
+/** Browser asks to browse a directory on the server. */
+export interface BrowserBrowseDirectory {
+  type: "browse_directory";
+  path: string;
+}
+
 /** Union of all messages the browser can send to the WS server. */
 export type BrowserMessage =
   | BrowserSpawn
@@ -207,7 +257,12 @@ export type BrowserMessage =
   | BrowserCreateTask
   | BrowserUpdateTask
   | BrowserDeleteTask
-  | BrowserDelegateTask;
+  | BrowserDelegateTask
+  | BrowserSetWorkspace
+  | BrowserCreateWorkspace
+  | BrowserRenameWorkspace
+  | BrowserDeleteWorkspace
+  | BrowserBrowseDirectory;
 
 /** Server relays a raw Claude NDJSON message to the browser. */
 export interface ServerRelay {
@@ -237,6 +292,7 @@ export interface AgentInfo {
   tmuxSession: string | null;
   label: string;
   createdAt: number;
+  workspaceId: string | null;
 }
 
 /** Server sends the full list of agents after every state change. */
@@ -276,6 +332,19 @@ export interface ServerHistoryCleared {
   agentId: string;
 }
 
+/** Server sends the full workspace list to the browser. */
+export interface ServerWorkspaceList {
+  type: "workspace_list";
+  workspaces: Workspace[];
+}
+
+/** Server responds with a directory listing for the folder browser. */
+export interface ServerDirectoryListing {
+  type: "directory_listing";
+  path: string;
+  entries: DirectoryEntry[];
+}
+
 /** Server sends the full task list to the browser. */
 export interface ServerTaskList {
   type: "task_list";
@@ -305,6 +374,8 @@ export type ServerMessage =
   | ServerCliDisconnected
   | ServerCliConnected
   | ServerHistoryCleared
+  | ServerWorkspaceList
+  | ServerDirectoryListing
   | ServerTaskList
   | ServerTaskUpdated
   | ServerTaskDeleted;
@@ -359,8 +430,12 @@ export interface ChatMessage {
     id: string;
     tool_name: string;
     input: Record<string, unknown>;
+    /** Tool description from the protocol, if available. */
+    description?: string;
     /** Set to true after the user allows or denies. */
     resolved?: boolean;
+    /** Whether the user allowed (true) or denied (false). */
+    allowed?: boolean;
   };
   /** Present when this message is an AskUserQuestion control request. */
   userQuestion?: {
@@ -376,7 +451,7 @@ export interface ChatMessage {
 
 // ── Task system ──────────────────────────────────────────────────────────
 
-export type TaskStatus = "todo" | "in-progress" | "done";
+export type TaskStatus = "icebox" | "todo" | "in-progress" | "done";
 export type TaskPriority = "low" | "medium" | "high" | "urgent";
 
 /** A user-created task, optionally linked to a Claude agent. */
@@ -388,6 +463,8 @@ export interface Task {
   priority: TaskPriority;
   /** If delegated, the agentId of the spawned Claude agent. */
   agentId: string | null;
+  /** Workspace this task belongs to. */
+  workspaceId: string | null;
   createdAt: number;
   updatedAt: number;
 }

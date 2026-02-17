@@ -1,0 +1,13 @@
+{
+  "id": "3a7bae92",
+  "state": {
+    "agentId": "3a7bae92",
+    "status": "disconnected",
+    "tmuxSession": "thos-agent-3a7bae92",
+    "label": "www",
+    "createdAt": 1771206224917,
+    "sessionId": null,
+    "workspaceId": null
+  },
+  "messageHistory": []
+}
