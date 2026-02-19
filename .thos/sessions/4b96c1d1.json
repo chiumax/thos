@@ -6,7 +6,8 @@
     "tmuxSession": "thos-agent-4b96c1d1",
     "label": "hi",
     "createdAt": 1770991044770,
-    "sessionId": "52f0207d-63c9-478d-b9dc-2c83172e28e0"
+    "sessionId": "52f0207d-63c9-478d-b9dc-2c83172e28e0",
+    "workspaceId": null
   },
   "messageHistory": [
     {

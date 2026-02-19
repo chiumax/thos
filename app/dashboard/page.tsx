@@ -24,7 +24,8 @@ import { useEffect, useState } from "react";
 import { useWebSocket } from "@/hooks/use-websocket";
 import { AgentSidebar } from "@/components/dashboard/agent-sidebar";
 import { Chat } from "@/components/dashboard/chat";
-import { TaskPanel } from "@/components/dashboard/task-panel";
+import { TaskPanel, type TaskViewMode } from "@/components/dashboard/kanban-board";
+import { FolderBrowser } from "@/components/dashboard/folder-browser";
 import { cn } from "@/lib/utils";
 
 export default function DashboardPage() {
@@ -52,10 +53,22 @@ export default function DashboardPage() {
     updateTask,
     deleteTask,
     delegateTask,
+    workspaces,
+    activeWorkspaceId,
+    setActiveWorkspaceId,
+    createWorkspace,
+    renameWorkspace,
+    deleteWorkspace,
+    browseDirectory,
+    directoryListing,
   } = useWebSocket();
 
-  const [showTasks, setShowTasks] = useState(false);
+  const [taskView, setTaskView] = useState<"hidden" | TaskViewMode>("hidden");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [folderBrowserOpen, setFolderBrowserOpen] = useState(false);
+
+  // Derive initial path from first workspace or fallback to "/"
+  const initialBrowsePath = workspaces.length > 0 ? workspaces[0].cwd : "/";
 
   useEffect(() => {
     document.title = "thos — dashboard";
@@ -95,11 +108,17 @@ export default function DashboardPage() {
           onDelete={deleteAgent}
           onRename={renameAgent}
           onClearHistory={clearHistory}
+          workspaces={workspaces}
+          activeWorkspaceId={activeWorkspaceId}
+          onSelectWorkspace={setActiveWorkspaceId}
+          onRenameWorkspace={renameWorkspace}
+          onDeleteWorkspace={deleteWorkspace}
+          onOpenFolder={() => setFolderBrowserOpen(true)}
         />
       </div>
 
-      {/* Main chat area */}
-      <div className="flex min-w-0 flex-1 flex-col">
+      {/* Main chat area (hidden in board mode) */}
+      <div className={cn("flex min-w-0 flex-1 flex-col", taskView === "board" && "hidden")}>
         <Chat
           connected={connected}
           loading={!initialLoadDone || historyLoading}
@@ -110,27 +129,34 @@ export default function DashboardPage() {
           onSpawnAgent={spawnAgent}
           onRespondToControl={respondToControl}
           onRespondToUserQuestion={respondToUserQuestion}
-          showTasks={showTasks}
-          onToggleTasks={() => setShowTasks((v) => !v)}
+          showTasks={taskView !== "hidden"}
+          onToggleTasks={() => setTaskView((v) => (v === "hidden" ? "list" : "hidden"))}
           onToggleSidebar={() => setSidebarOpen((v) => !v)}
         />
       </div>
 
       {/* Task panel backdrop (mobile only) */}
-      {showTasks && (
+      {taskView !== "hidden" && (
         <div
           className="fixed inset-0 z-40 bg-black/50 md:hidden"
-          onClick={() => setShowTasks(false)}
+          onClick={() => setTaskView("hidden")}
         />
       )}
 
       {/* Task panel drawer */}
-      {showTasks && (
+      {taskView !== "hidden" && (
         <div
-          className="fixed inset-y-0 right-0 z-50 w-80 max-w-[calc(100vw-3rem)] border-l bg-background flex flex-col md:relative md:z-auto md:max-w-none"
+          className={cn(
+            "fixed inset-y-0 right-0 z-50 border-l bg-background flex flex-col min-w-0 md:relative md:z-auto",
+            taskView === "board"
+              ? "w-full max-w-none"
+              : "w-80 max-w-[calc(100vw-3rem)] md:max-w-none"
+          )}
         >
           <TaskPanel
             tasks={tasks}
+            mode={taskView}
+            onModeChange={(mode) => setTaskView(mode)}
             onCreateTask={createTask}
             onUpdateTask={updateTask}
             onDeleteTask={deleteTask}
@@ -138,10 +164,23 @@ export default function DashboardPage() {
             onSelectAgent={(agentId) => {
               setActiveAgentId(agentId);
             }}
-            onClose={() => setShowTasks(false)}
+            onClose={() => setTaskView("hidden")}
           />
         </div>
       )}
+
+      {/* Folder browser modal */}
+      <FolderBrowser
+        open={folderBrowserOpen}
+        onClose={() => setFolderBrowserOpen(false)}
+        directoryListing={directoryListing}
+        onBrowse={browseDirectory}
+        onCreate={(name, cwd) => {
+          createWorkspace(name, cwd);
+          setFolderBrowserOpen(false);
+        }}
+        initialPath={initialBrowsePath}
+      />
     </div>
   );
 }

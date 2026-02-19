@@ -1,0 +1,13 @@
+{
+  "id": "a4dc2263",
+  "state": {
+    "agentId": "a4dc2263",
+    "status": "done",
+    "tmuxSession": "thos-agent-a4dc2263",
+    "label": "test",
+    "createdAt": 1771206258517,
+    "sessionId": null,
+    "workspaceId": null
+  },
+  "messageHistory": []
+}

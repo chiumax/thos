@@ -12,7 +12,7 @@ function isAllowedIP(ip: string): boolean {
 }
 
 export function middleware(req: NextRequest) {
-  const ip = req.ip ?? req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "";
+  const ip = (req as NextRequest & { ip?: string }).ip ?? req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "";
   if (!ip || isAllowedIP(ip)) return NextResponse.next();
   return new NextResponse("Forbidden", { status: 403 });
 }

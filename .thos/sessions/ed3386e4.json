@@ -1,0 +1,19 @@
+{
+  "id": "ed3386e4",
+  "state": {
+    "agentId": "ed3386e4",
+    "status": "error",
+    "tmuxSession": null,
+    "label": "hi",
+    "createdAt": 1771206165404,
+    "sessionId": null,
+    "workspaceId": null
+  },
+  "messageHistory": [
+    {
+      "type": "error",
+      "agentId": "ed3386e4",
+      "error": "tmux error: spawn tmux ENOENT"
+    }
+  ]
+}
