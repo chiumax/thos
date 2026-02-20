@@ -16,13 +16,16 @@
  */
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { ListTodo, MessageSquare, Terminal } from "lucide-react";
 import type { AgentStatus, ChatMessage, ClaudeMessage } from "@/lib/types";
 import { condenseMessages } from "@/lib/condense-messages";
 import { StatusBar } from "./status-bar";
+import { AgentSummary } from "./agent-summary";
 import { Message } from "./message";
 import { ControlRequest } from "./control-request";
 import { UserQuestion } from "./user-question";
 import { CondensedToolGroup } from "./condensed-tool-group";
+import { SlashCommandMenu, filterCommands, type SlashCommand } from "./slash-command-menu";
 import { Button } from "@/components/ui/button";
 
 export function Chat({
@@ -35,6 +38,7 @@ export function Chat({
   onSpawnAgent,
   onRespondToControl,
   onRespondToUserQuestion,
+  onClearHistory,
   showTasks,
   onToggleTasks,
   onToggleSidebar,
@@ -48,13 +52,18 @@ export function Chat({
   onSpawnAgent: (prompt: string) => void;
   onRespondToControl: (requestId: string, allow: boolean) => void;
   onRespondToUserQuestion: (requestId: string, answers: Record<string, string>) => void;
+  onClearHistory?: () => void;
   showTasks?: boolean;
   onToggleTasks?: () => void;
   onToggleSidebar?: () => void;
 }) {
   const [input, setInput] = useState("");
   const [showRaw, setShowRaw] = useState(false);
+  const [showSlashMenu, setShowSlashMenu] = useState(false);
+  const [slashQuery, setSlashQuery] = useState("");
+  const [slashHighlight, setSlashHighlight] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -78,6 +87,65 @@ export function Chat({
       onSpawnAgent(trimmed);
     }
     setInput("");
+    setShowSlashMenu(false);
+  }
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    setInput(value);
+
+    if (value.startsWith("/")) {
+      setShowSlashMenu(true);
+      setSlashQuery(value.slice(1));
+      setSlashHighlight(0);
+    } else {
+      setShowSlashMenu(false);
+      setSlashQuery("");
+    }
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (!showSlashMenu) return;
+    const filtered = filterCommands(slashQuery);
+    if (filtered.length === 0) return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSlashHighlight((i) => (i + 1) % filtered.length);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSlashHighlight((i) => (i - 1 + filtered.length) % filtered.length);
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      handleCommandSelect(filtered[slashHighlight]);
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      setShowSlashMenu(false);
+    } else if (e.key === "Tab") {
+      e.preventDefault();
+      setInput(`/${filtered[slashHighlight].name} `);
+      setShowSlashMenu(false);
+    }
+  }
+
+  function handleCommandSelect(command: SlashCommand) {
+    setShowSlashMenu(false);
+    setSlashQuery("");
+    setInput("");
+
+    if (command.clientSide) {
+      if (command.name === "clear") {
+        onClearHistory?.();
+      }
+      return;
+    }
+
+    const commandText = `/${command.name}`;
+    if (isActive) {
+      onSendMessage(commandText);
+    } else {
+      onSpawnAgent(commandText);
+    }
   }
 
   return (
@@ -91,6 +159,8 @@ export function Chat({
         onToggleTasks={onToggleTasks}
         onToggleSidebar={onToggleSidebar}
       />
+
+      <AgentSummary rawMessages={rawMessages} />
 
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-2 md:p-4 space-y-2">
         {loading ? (
@@ -119,8 +189,28 @@ export function Chat({
         ) : (
           <>
             {messages.length === 0 && (
-              <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
-                Type a prompt to spawn a Claude agent
+              <div className="flex h-full flex-col items-center justify-center gap-4 text-muted-foreground">
+                <Terminal className="size-10 opacity-30" />
+                <div className="text-center">
+                  <p className="text-sm font-medium text-foreground/80">No agent selected</p>
+                  <p className="mt-1 text-xs">Type a prompt below to spawn a Claude agent</p>
+                </div>
+                <div className="mt-2 grid grid-cols-2 gap-3 text-[11px]">
+                  <div className="flex items-start gap-2 rounded-lg border p-3">
+                    <MessageSquare className="mt-0.5 size-3.5 shrink-0 text-primary" />
+                    <div>
+                      <p className="font-medium text-foreground/80">Chat</p>
+                      <p className="mt-0.5">Send prompts and review tool calls in real time</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2 rounded-lg border p-3">
+                    <ListTodo className="mt-0.5 size-3.5 shrink-0 text-primary" />
+                    <div>
+                      <p className="font-medium text-foreground/80">Tasks</p>
+                      <p className="mt-0.5">Track work with a kanban board and delegate to agents</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
             {displayItems.map((item) => {
@@ -155,12 +245,22 @@ export function Chat({
       ) : (
         <form
           onSubmit={handleSubmit}
-          className="flex gap-2 border-t px-2 py-2 md:px-4 md:py-3"
+          className="relative flex gap-2 border-t px-2 py-2 md:px-4 md:py-3"
         >
+          {showSlashMenu && (
+            <SlashCommandMenu
+              query={slashQuery}
+              highlightedIndex={slashHighlight}
+              onSelect={handleCommandSelect}
+              onHighlight={setSlashHighlight}
+            />
+          )}
           <input
+            ref={inputRef}
             type="text"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
             placeholder={isActive ? "Send a follow-up..." : "Enter a prompt to spawn agent..."}
             className="flex-1 rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
           />
