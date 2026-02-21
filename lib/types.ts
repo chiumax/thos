@@ -418,6 +418,8 @@ export interface UserQuestion {
 export interface ToolCallInfo {
   name: string;
   toolUseId?: string;
+  /** Truncated one-line preview of the tool result, if available. */
+  resultPreview?: string;
 }
 
 export interface ChatMessage {

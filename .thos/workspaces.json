@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": "7f1b064c",
+    "name": "work",
+    "cwd": "/Users/chiu.fyi/work",
+    "createdAt": 1771361638904
+  },
+  {
+    "id": "4021243d",
+    "name": "thos",
+    "cwd": "/Users/chiu.fyi/thos",
+    "createdAt": 1771361655132
+  }
+]

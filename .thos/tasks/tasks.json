@@ -113,11 +113,11 @@
     "id": "16504819",
     "title": "Tool call result previews",
     "description": "Condensed tool groups tell you what was called but not the results. Showing truncated output inline would add context.",
-    "status": "in-progress",
+    "status": "done",
     "priority": "low",
     "agentId": "f43ee125",
     "createdAt": 1771216643571,
-    "updatedAt": 1771279821945,
+    "updatedAt": 1771361618354,
     "workspaceId": "eef21536"
   },
   {
@@ -266,12 +266,12 @@
   {
     "id": "fc3cbed0",
     "title": "add sfx to code updates",
-    "description": "",
-    "status": "todo",
+    "description": "use https://www.soundcn.xyz/?category=Impact",
+    "status": "in-progress",
     "priority": "medium",
-    "agentId": null,
+    "agentId": "b5046123",
     "createdAt": 1771287792365,
-    "updatedAt": 1771287792365,
+    "updatedAt": 1771363763463,
     "workspaceId": "eef21536"
   },
   {

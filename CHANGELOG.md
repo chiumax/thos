@@ -1,5 +1,250 @@
 # Changelog
 
+## 2026-03-03 — Custom scrollbar styling
+
+Styled all scrollbars to be thin (6px) with subtle translucent thumbs and transparent tracks. Thumbs brighten on hover. Uses both `scrollbar-width`/`scrollbar-color` (Firefox) and `::-webkit-scrollbar` pseudo-elements (Chrome/Safari/Edge). Light theme overrides included.
+
+### Changes
+
+- **`app/globals.css`** — Added `scrollbar-width: thin` and `scrollbar-color` to the universal `*` selector. Added `::-webkit-scrollbar`, `::-webkit-scrollbar-track`, `::-webkit-scrollbar-thumb`, `::-webkit-scrollbar-thumb:hover`, and `::-webkit-scrollbar-corner` rules. Light theme overrides via `.light` selectors.
+
+## Known limitations — Connection resilience
+
+When the laptop sleeps or internet drops, two things can break independently:
+
+1. **Browser ↔ thos WS server** — Auto-reconnects after 2s (`use-websocket.ts` `onclose` handler). On reconnect the server re-sends `agent_list` + `task_list`, and message histories are lazy-loaded per agent. This path is already resilient.
+
+2. **Claude CLI ↔ Anthropic API** — If the CLI's HTTP request to Anthropic fails mid-stream (laptop sleep, network drop), that's between the CLI process and Anthropic's servers. thos has no visibility into it and can't retry on the CLI's behalf.
+
+**Double-sending a message** does not help — the server queues messages in `pendingMessages` and flushes all of them when the CLI reconnects, so a duplicate prompt gets sent twice and likely confuses Claude.
+
+### Possible future improvements
+
+- **Heartbeat on the CLI socket** — `ws.ping()` with a timeout to detect dead CLI connections faster than TCP keepalive (which can take minutes). Surface a "stale" status on the dashboard.
+- **Track `keep_alive` timestamps** — Claude CLI already sends `keep_alive` messages (`server/ws.ts` line 575). Could track last-seen time per agent and flag agents that go silent.
+- **Deduplicate outgoing user messages** — Prevent accidental double-sends from being queued and flushed as two separate prompts.
+
+## 2026-02-27 — Move agent to workspace
+
+Added a "Move to…" option in the agent sidebar context menu that lets you reassign an agent to a different workspace (or unassign it entirely).
+
+- Right-click an agent → hover "Move to…" → pick a workspace from the submenu
+- Lists all workspaces except the agent's current one
+- "No workspace" option appears when the agent is already assigned
+- New `move_agent` WebSocket message type, server handler, and hook callback
+- `AgentClientState` now tracks `workspaceId` from the server
+
+### Changes
+
+- **`lib/types.ts`** — Added `BrowserMoveAgent` interface + union member
+- **`server/ws.ts`** — Added `move_agent` case handler
+- **`hooks/use-websocket.ts`** — Added `workspaceId` to `AgentClientState`, `moveAgent` callback
+- **`app/dashboard/page.tsx`** — Pass `onMoveAgent` to sidebar
+- **`components/dashboard/agent-sidebar.tsx`** — New `onMoveAgent` prop, `ContextMenuSub` hover submenu component, "Move to…" menu item
+
+## 2026-02-27 — IDE-like collapsible diffs + agent sidebar improvements
+
+### Collapsible diffs
+
+Diffs now render with an IDE-style collapsible file header and start **collapsed by default**. The header shows the tool type dot, tool name, file basename (full path on hover), and +/- line change counts. Click to expand and see the full syntax-highlighted diff.
+
+- Diffs in messages and the diffs panel start collapsed
+- Diffs toggled open in condensed tool groups start expanded (since user explicitly opened them)
+
+### Agent sidebar
+
+Each agent row now shows the agent ID and workspace name below the label.
+
+### Changes
+
+- **`components/dashboard/diff-viewer.tsx`** — Added collapsible header bar with chevron, tool dot, basename, +/- counts. New `defaultExpanded` prop (defaults to `false`). Diff content only renders when expanded.
+- **`components/dashboard/condensed-tool-group.tsx`** — Pass `defaultExpanded` to `DiffViewer` when user toggles a diff open
+- **`components/dashboard/agent-sidebar.tsx`** — Show agent ID and workspace name below label in each agent row
+
+## 2026-02-26 — Virtualized chat message list
+
+Replaced the plain scrollable div with react-virtuoso for the processed chat view. Only ~20-30 message DOM nodes are mounted at any time regardless of total message count, significantly improving performance for long agent sessions with hundreds of messages.
+
+- Auto-scrolls to bottom when at the latest message; stops following when you scroll up to read older messages
+- "Latest" button appears when scrolled away from bottom
+- Starts at the bottom (most recent messages) when loading a chat
+- Empty state and context usage card use Virtuoso's built-in EmptyPlaceholder and Footer components
+- Raw message view (debug) remains non-virtualized
+
+### Changes
+
+- **`package.json`** — Added `react-virtuoso` dependency
+- **`components/dashboard/chat.tsx`** — Replaced scroll container with `<Virtuoso>`. Removed manual `scrollRef` and auto-scroll `useEffect`. Added `atBottom` state for smart follow-output, `VirtuosoHandle` ref for scroll-to-bottom button, and `initialTopMostItemIndex` for starting at the bottom. Spacing migrated from `space-y-2` to per-item `pb-2` wrapper with a `Header` component for top padding.
+- **`components/dashboard/message.tsx`** — Wrapped `Message` in `React.memo` to skip re-renders when props haven't changed (avoids re-running react-markdown on every parent update)
+- **`components/dashboard/control-request.tsx`** — Wrapped `ControlRequest` in `React.memo`
+- **`components/dashboard/condensed-tool-group.tsx`** — Wrapped `CondensedToolGroup` in `React.memo`
+- **`components/dashboard/user-question.tsx`** — Wrapped `UserQuestion` in `React.memo`
+
+## 2026-02-19 — Context usage visual card
+
+The `/context` slash command output is now rendered as a styled card instead of raw markdown tables. Shows model badge, token usage progress bar, stacked category breakdown with colored bars, and collapsible sections for memory files and skills.
+
+### Changes
+
+- **`components/dashboard/context-usage-card.tsx`** — New component: parses `/context` CLI markdown output into structured data and renders a visual card with progress bars, category breakdown, and collapsible memory/skills sections
+- **`components/dashboard/message.tsx`** — Detect context usage responses and route to `ContextUsageCard` instead of default markdown rendering
+
+## 2026-02-19 — Pinned agents, icebox, + recency sort in sidebar
+
+Agent sidebar now has four sections: **Pinned**, **Active**, **Icebox**, and **Archived**. Agents within each section are sorted by creation time (most recent first). Pin/Unpin and Icebox/Un-icebox are available via right-click context menu. Both states persist across server restarts.
+
+- **Pinned** — Agents you want quick access to, always at the top.
+- **Active** — Non-pinned agents that are currently spawning/connected/thinking.
+- **Icebox** — Agents you want to return to later but aren't working on now (dimmed).
+- **Archived** — Finished/disconnected/errored agents (dimmed).
+
+### Changes
+
+- **`lib/types.ts`** — Added `pinned` and `iceboxed` fields to `AgentInfo`, added `BrowserPinAgent` and `BrowserIceboxAgent` message types
+- **`server/session-store.ts`** — Added `pinned` and `iceboxed` to `PersistedAgent` state
+- **`server/ws.ts`** — Added `pinned` and `iceboxed` to `AgentState`, handle `pin_agent` and `icebox_agent` messages, include in `buildAgentList` and `toPersistedAgent`, restore from disk
+- **`hooks/use-websocket.ts`** — Added `pinned` and `iceboxed` to `AgentClientState`, sync from `agent_list`, expose `pinAgent` and `iceboxAgent` actions
+- **`components/dashboard/agent-sidebar.tsx`** — Four-section layout (Pinned/Active/Icebox/Archived), recency sort within each, Pin/Unpin and Icebox/Un-icebox in context menu, pin and snowflake icon indicators
+- **`app/dashboard/page.tsx`** — Wire `pinAgent` and `iceboxAgent` to sidebar props
+
+## 2026-02-19 — Model selector in status bar
+
+Added a model selector dropdown to the status bar. Shows the active agent's model name and lets you choose which model to use for the next spawn. Includes presets for Claude Sonnet 4, Opus 4, Qwen3 Coder (Ollama), and Devstral (Ollama), plus a custom model input. Enables Ollama/local model support via Claude Code's `--model` flag.
+
+### Changes
+
+- **`lib/types.ts`** — Added `model` field to `AgentInfo` and `BrowserSpawn`
+- **`server/session-store.ts`** — Added `model` to `PersistedAgent` state
+- **`server/ws.ts`** — Store model on `AgentState`, capture from `system/init`, pass `--model` flag to spawned CLI, include in `buildAgentList`, persist/restore model
+- **`hooks/use-websocket.ts`** — Added `model` to `AgentClientState`, extract from `system/init` relay and `agent_list`, expose `activeModel`, pass model in spawn message
+- **`components/dashboard/status-bar.tsx`** — Model display with short labels, dropdown selector with presets and custom input, click-outside/Escape dismiss
+- **`components/dashboard/chat.tsx`** — Pass `activeModel`, `selectedModel`, `onModelChange` through to StatusBar
+- **`app/dashboard/page.tsx`** — `selectedModel` state, wire model props to Chat, pass selected model on spawn
+
+## 2026-02-18 — Single submit button + "Other" option for questions
+
+When Claude asks multiple questions at once, the UI now shows a single shared "Submit" button at the bottom instead of one per question. Each question also has an "Other" chip that reveals a freeform text input, matching Claude Code's built-in behavior.
+
+### Changes
+
+- **`components/dashboard/user-question.tsx`** — Lifted selection state into the parent `UserQuestion` for a single submit button. Added "Other" chip per question with a text input that appears when active. For single-select, picking "Other" clears predefined selections and vice versa. For multi-select, "Other" can be combined with predefined options.
+
+## 2026-02-18 — Diff comments
+
+Click a line number in any diff to open an inline comment input. Type a comment and press Enter — it gets sent to the active Claude session as a message with file path, line number, and code context. Works in the diffs panel, condensed tool groups, and standalone message diffs.
+
+### Changes
+
+- **`components/dashboard/diff-viewer.tsx`** — Added `onComment` prop and `onLineNumberClick` handler. Shows inline comment bar below the diff with file:line context, send/cancel buttons, Enter to submit, Escape to dismiss.
+- **`components/dashboard/diffs-panel.tsx`** — Thread `onSendMessage` → `DiffViewer.onComment`
+- **`components/dashboard/condensed-tool-group.tsx`** — Thread `onSendMessage` → `DiffViewer.onComment`
+- **`components/dashboard/message.tsx`** — Thread `onSendMessage` → `DiffViewer.onComment`
+- **`components/dashboard/chat.tsx`** — Pass `onSendMessage` to `Message` and `CondensedToolGroup`
+- **`app/dashboard/page.tsx`** — Pass `sendMessage` to `DiffsPanel` as `onSendMessage`
+
+## 2026-02-18 — Add SFX for user message send
+
+Added a "select" sound effect that plays when the user sends a message in the chat.
+
+### Changes
+
+- **`lib/sfx.ts`** — Added `send` pool with `select-{001..003}` sounds, new `sfxSend()` export, and "Message Send" category in `SFX_CATEGORIES`.
+
+- **`lib/select-{001..003}.ts`** — New sound assets (installed via `npx shadcn add @soundcn/select-{001..003}`).
+
+- **`hooks/use-websocket.ts`** — Call `sfxSend()` in the `sendMessage` callback when the user sends a message.
+
+## 2026-02-18 — Swap Bash and Session Start SFX + fix duplicate key warning
+
+Replaced Bash sounds (computer-noise → glitch) and Session Start sounds (begin/power-up → maximize) for better feel. Fixed React duplicate key warning in condensed tool groups.
+
+### Changes
+
+- **`lib/sfx.ts`** — Swapped Bash pool from `computer-noise-{000..003}` to `glitch-{001..004}` (digital glitch sounds). Swapped Session Start pool from `begin`/`power-up-1` to `maximize-{001..004}` (window-open rising tones).
+
+- **`lib/glitch-{001..004}.ts`** — New sound assets (installed via `npx shadcn add @soundcn/glitch-{001..004}`).
+
+- **`lib/maximize-{001..004}.ts`** — New sound assets (installed via `npx shadcn add @soundcn/maximize-{001..004}`).
+
+- **`components/dashboard/condensed-tool-group.tsx`** — Fixed React duplicate key warning by appending index to `toolUseId` in the key prop (`${tc.toolUseId}-${i}`), preventing collisions when the same tool_use_id appears in cumulative snapshots.
+
+## 2026-02-18 — SFX settings panel
+
+Added a sound settings modal accessible from the Volume2 icon in the status bar. Lets you inspect, preview, and configure all sound categories.
+
+Features:
+- Master volume slider + mute-all toggle
+- Per-category rows with colored dots, labels, tool descriptions
+- Per-category volume slider and enable/disable checkbox
+- Preview button plays a random sound from that category's pool
+- Settings persisted to localStorage (`thos-sfx-settings`)
+- Respects all settings in real-time — muted categories are silent, volumes scale with master
+
+### Changes
+
+- **`lib/sfx.ts`** — Refactored to settings-aware architecture. Added `SfxSettings` type, `SFX_CATEGORIES` registry, `getSfxSettings()`/`setSfxSettings()` with localStorage persistence, `sfxPreview()` for the settings UI. All `sfx*` functions now check enabled state and multiply category volume by master volume.
+
+- **`components/dashboard/sfx-settings.tsx`** — New modal component. Master volume row, 8 category rows with color dot, label, description, volume slider, preview button, and enable/disable checkbox. Follows FolderBrowser modal pattern. Closes on Escape and click-outside.
+
+- **`components/dashboard/status-bar.tsx`** — Added Volume2 icon button next to the existing toggles. Passes `onOpenSfxSettings` callback.
+
+- **`components/dashboard/chat.tsx`** — Added `onOpenSfxSettings` prop, passed through to StatusBar.
+
+- **`app/dashboard/page.tsx`** — Added `sfxSettingsOpen` state and `<SfxSettings>` modal render.
+
+## 2026-02-18 — Diff viewer with sidebar panel
+
+File diffs render inline in the chat view and in a dedicated sidebar panel using `@pierre/diffs`. When Claude edits or writes files, the old/new content is shown as a syntax-highlighted diff. In condensed tool groups, click a file name to expand the diff. The diffs panel (toggle via status bar) collects all file changes from the session, grouped by file path.
+
+### Changes
+
+- **`@pierre/diffs`** — Added as dependency for diff rendering (`MultiFileDiff` component)
+- **`lib/types.ts`** — Added optional `input` field to `ToolCallInfo` to carry tool input data for Edit/Write/MultiEdit
+- **`hooks/use-websocket.ts`** — Preserve tool input in `relayChatMessage()` for diff-capable tools
+- **`components/dashboard/diff-viewer.tsx`** — New component wrapping `MultiFileDiff`, handles Edit (old→new), Write (empty→new), and MultiEdit (concatenated hunks). Skips diffs over 100KB.
+- **`components/dashboard/diffs-panel.tsx`** — New sidebar panel collecting all file diffs from the session, grouped by file path with collapsible sections per file
+- **`components/dashboard/condensed-tool-group.tsx`** — Per-tool-call expandable diffs in collapsed view, shows file basename
+- **`components/dashboard/message.tsx`** — Inline diffs for standalone assistant messages with file-modifying tool calls
+- **`components/dashboard/status-bar.tsx`** — Added diffs toggle button (GitCompareArrows icon)
+- **`components/dashboard/chat.tsx`** — Thread `showDiffs`/`onToggleDiffs` props to StatusBar
+- **`app/dashboard/page.tsx`** — Added `showDiffs` state, diffs panel drawer (w-96, right side), mobile backdrop
+
+## 2026-02-18 — SFX on everything
+
+Every agent event now has a sound effect — different sound pools per tool type, plus sounds for session start, task completion, errors, and control requests. Random variant selection from each pool keeps it from getting monotonous. All sounds from soundcn (Kenney, CC0 licensed), embedded as base64 data URIs using the Web Audio API.
+
+Sound mapping:
+- **Write / Edit / MultiEdit** — impact-generic-light (percussive hit)
+- **Read** — click (soft tap)
+- **Bash** — computer-noise (electronic blip)
+- **Grep / Glob / search tools** — tick (quick scan)
+- **Session start** — begin / power-up
+- **Task result (success)** — confirmation chime
+- **Error** — error buzz
+- **Control request / question** — question tone
+
+### Changes
+
+- **`lib/sfx.ts`** — New file. Central SFX module with sound pools mapped to tool names and event types. Exports `sfxTool()`, `sfxDone()`, `sfxError()`, `sfxQuestion()`, `sfxBegin()`. Each picks a random variant from the pool and plays via `playSound()` at calibrated volumes.
+
+- **`hooks/use-websocket.ts`** — Replaced old code-write-only SFX with full coverage. Imports from `lib/sfx.ts`. Triggers: `sfxTool()` on every relay with tool calls (first tool in message), `sfxDone()`/`sfxError()` on result messages, `sfxQuestion()` on control requests, `sfxBegin()` on session init, `sfxError()` on error messages.
+
+- **`hooks/use-sound.ts`** — New file (installed via `npx shadcn add @soundcn/use-sound`). React hook for declarative sound playback using Web Audio API.
+
+- **`lib/sound-engine.ts`** — New file (installed via soundcn). Shared AudioContext singleton, base64 decoding with buffer cache, and imperative `playSound()` function.
+
+- **`lib/sound-types.ts`** — New file (installed via soundcn). TypeScript interfaces for `SoundAsset`, `UseSoundOptions`, and `UseSoundReturn`.
+
+- **Sound assets** (all installed via `npx shadcn add @soundcn/...`):
+  - `lib/impact-generic-light-{000..004}.ts` — 5 impact sounds
+  - `lib/click-{soft,001..004}.ts` — 5 click sounds
+  - `lib/computer-noise-{000..003}.ts` — 4 computer noise sounds
+  - `lib/tick-{001,002,004}.ts` — 3 tick sounds
+  - `lib/confirmation-{001..004}.ts` — 4 confirmation sounds
+  - `lib/error-{001..003}.ts` — 3 error sounds
+  - `lib/question-{001..003}.ts` — 3 question sounds
+  - `lib/begin.ts`, `lib/power-up-1.ts` — 2 session start sounds
+
 ## 2026-02-18 — Workspaces with server-side folder browser
 
 Added workspaces to group agents and tasks by project directory. Each workspace has a name and an absolute `cwd` path. Agents spawned within a workspace start their tmux session in that directory. The sidebar workspace switcher filters agents and tasks per-workspace, or shows everything in "All Workspaces" mode.
