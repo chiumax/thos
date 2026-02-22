@@ -7,7 +7,8 @@
     "label": "Task: workspace for agents\n\nthis way we can handle multip...",
     "createdAt": 1771353619335,
     "sessionId": "ea7612d5-98f5-4aae-91f7-52466fb08171",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

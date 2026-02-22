@@ -7,7 +7,8 @@
     "label": "can you explain the chat window to me, all kinds of messa...",
     "createdAt": 1771202552035,
     "sessionId": "e15ca9f5-c72c-429c-a074-4d5a05969e30",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

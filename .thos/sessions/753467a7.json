@@ -7,7 +7,8 @@
     "label": "why is spawn an agent rendering below existing chat window",
     "createdAt": 1771277896995,
     "sessionId": "e1843fe2-de25-4ff7-a17f-f4385058331f",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

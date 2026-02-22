@@ -7,7 +7,8 @@
     "label": "hi",
     "createdAt": 1771206165404,
     "sessionId": null,
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

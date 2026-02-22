@@ -7,7 +7,8 @@
     "label": "Task: inspect task\n\ncurrently tasks in the sidebar are no...",
     "createdAt": 1771275066102,
     "sessionId": "6d4f0e19-8410-45a1-9d0f-86e7775087f2",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

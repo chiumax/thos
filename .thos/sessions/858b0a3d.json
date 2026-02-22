@@ -2,12 +2,13 @@
   "id": "858b0a3d",
   "state": {
     "agentId": "858b0a3d",
-    "status": "disconnected",
+    "status": "done",
     "tmuxSession": "thos-agent-858b0a3d",
     "label": "test",
     "createdAt": 1771206184474,
     "sessionId": null,
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": []
 }

@@ -7,7 +7,8 @@
     "label": "Task: Markdown rendering\n\nAssistant messages are rendered...",
     "createdAt": 1771217362004,
     "sessionId": "f19a97aa-4e3e-4860-a00f-66b6346e14cf",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

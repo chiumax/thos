@@ -7,7 +7,8 @@
     "label": "Task: Connection status toast\n\nWebSocket reconnection hap...",
     "createdAt": 1771278372021,
     "sessionId": "aba7d7a0-8a7e-44bd-a2dc-bc10478a83ef",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

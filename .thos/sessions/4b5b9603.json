@@ -7,7 +7,8 @@
     "label": "Task: messages are still being duplicated sometime x4 int...",
     "createdAt": 1771277803448,
     "sessionId": "3bc5bbd1-ddbf-40a5-8ec5-1665bedc9aa7",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

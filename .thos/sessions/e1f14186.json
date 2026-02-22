@@ -7,7 +7,8 @@
     "label": "Task: Empty state\n\nWhen no agent is selected, the chat ar...",
     "createdAt": 1771277329935,
     "sessionId": "a36fc3e1-8eb4-4960-b11e-76b5cb81aab7",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

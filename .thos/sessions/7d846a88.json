@@ -7,7 +7,8 @@
     "label": "Task: Agent cost/duration summary\n\nThe result message has...",
     "createdAt": 1771277335352,
     "sessionId": "a03f5084-c0cf-42f8-a6fb-db9e59d2e836",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

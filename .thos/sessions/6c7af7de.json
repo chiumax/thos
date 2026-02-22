@@ -7,7 +7,8 @@
     "label": "Task: initial message from user does not show up in chat ...",
     "createdAt": 1771276770512,
     "sessionId": "279c217b-1b0b-4d44-ad60-b7f8bdb76f62",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

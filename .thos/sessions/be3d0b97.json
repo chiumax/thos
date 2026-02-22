@@ -2,12 +2,13 @@
   "id": "be3d0b97",
   "state": {
     "agentId": "be3d0b97",
-    "status": "disconnected",
+    "status": "done",
     "tmuxSession": "thos-agent-be3d0b97",
     "label": ".",
     "createdAt": 1771358894373,
     "sessionId": null,
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": []
 }
