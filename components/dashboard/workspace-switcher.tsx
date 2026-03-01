@@ -11,6 +11,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronDown, FolderOpen, Pencil, Trash2 } from "lucide-react";
 import type { Workspace } from "@/lib/types";
+import { Tip } from "@/components/ui/tip";
 import { cn } from "@/lib/utils";
 
 export function WorkspaceSwitcher({
@@ -70,13 +71,17 @@ export function WorkspaceSwitcher({
         className="flex w-full items-center gap-1.5 rounded px-3 py-2 text-left text-sm transition-colors hover:bg-sidebar-accent"
       >
         <span className="flex min-w-0 flex-1 flex-col">
-          <span className="text-primary font-bold text-sm tracking-tight truncate">
-            {activeWorkspace?.name ?? "All Workspaces"}
-          </span>
-          {activeWorkspace && (
-            <span className="text-[10px] text-muted-foreground truncate">
-              {activeWorkspace.cwd}
+          <Tip text={activeWorkspace?.name ?? "All Workspaces"} side="right">
+            <span className="text-primary font-bold text-sm tracking-tight truncate">
+              {activeWorkspace?.name ?? "All Workspaces"}
             </span>
+          </Tip>
+          {activeWorkspace && (
+            <Tip text={activeWorkspace.cwd} side="right">
+              <span className="text-[10px] text-muted-foreground truncate">
+                {activeWorkspace.cwd}
+              </span>
+            </Tip>
           )}
         </span>
         <ChevronDown className={cn("size-3.5 shrink-0 text-muted-foreground transition-transform", open && "rotate-180")} />
@@ -120,7 +125,7 @@ export function WorkspaceSwitcher({
                 />
               ) : (
                 <>
-                  <span className="min-w-0 flex-1 truncate">{ws.name}</span>
+                  <Tip text={ws.name} side="right"><span className="min-w-0 flex-1 truncate">{ws.name}</span></Tip>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
