@@ -13,9 +13,11 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { EllipsisVertical, Plus } from "lucide-react";
+import { createPortal } from "react-dom";
+import { EllipsisVertical, Pin, Snowflake, Plus, ChevronRight } from "lucide-react";
 import type { AgentStatus, Workspace } from "@/lib/types";
 import type { AgentClientState } from "@/hooks/use-websocket";
+import { Tip } from "@/components/ui/tip";
 import { cn } from "@/lib/utils";
 import { WorkspaceSwitcher } from "./workspace-switcher";
 
@@ -52,6 +54,9 @@ export function AgentSidebar({
   onDelete,
   onRename,
   onClearHistory,
+  onPin,
+  onIcebox,
+  onMoveAgent,
   workspaces,
   activeWorkspaceId,
   onSelectWorkspace,
@@ -69,6 +74,9 @@ export function AgentSidebar({
   onDelete: (agentId: string) => void;
   onRename: (agentId: string, label: string) => void;
   onClearHistory: (agentId: string) => void;
+  onPin: (agentId: string, pinned: boolean) => void;
+  onIcebox: (agentId: string, iceboxed: boolean) => void;
+  onMoveAgent: (agentId: string, workspaceId: string | null) => void;
   workspaces: Workspace[];
   activeWorkspaceId: string | null;
   onSelectWorkspace: (workspaceId: string | null) => void;
@@ -80,15 +88,38 @@ export function AgentSidebar({
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Split agents into active and archived
-  const activeIds = agentOrder.filter((id) => {
-    const a = agents.get(id);
-    return a && !ARCHIVED.has(a.status);
-  });
-  const archivedIds = agentOrder.filter((id) => {
-    const a = agents.get(id);
-    return a && ARCHIVED.has(a.status);
-  });
+  // Sort helper: most recent first by createdAt
+  const byRecency = (a: string, b: string) => {
+    const ca = agents.get(a)?.createdAt ?? 0;
+    const cb = agents.get(b)?.createdAt ?? 0;
+    return cb - ca;
+  };
+
+  // Split agents into pinned, active, icebox, and archived
+  const pinnedIds = agentOrder
+    .filter((id) => {
+      const a = agents.get(id);
+      return a && a.pinned && !a.iceboxed;
+    })
+    .sort(byRecency);
+  const activeIds = agentOrder
+    .filter((id) => {
+      const a = agents.get(id);
+      return a && !a.pinned && !a.iceboxed && !ARCHIVED.has(a.status);
+    })
+    .sort(byRecency);
+  const iceboxIds = agentOrder
+    .filter((id) => {
+      const a = agents.get(id);
+      return a && a.iceboxed;
+    })
+    .sort(byRecency);
+  const archivedIds = agentOrder
+    .filter((id) => {
+      const a = agents.get(id);
+      return a && !a.pinned && !a.iceboxed && ARCHIVED.has(a.status);
+    })
+    .sort(byRecency);
 
   // Close context menu on click-outside or Escape
   useEffect(() => {
@@ -126,7 +157,7 @@ export function AgentSidebar({
 
   const closeMenu = useCallback(() => setCtxMenu(null), []);
 
-  function renderAgentRow(id: string, archived: boolean) {
+  function renderAgentRow(id: string, dimmed: boolean) {
     const agent = agents.get(id);
     if (!agent) return null;
     const isActive = id === activeAgentId;
@@ -138,7 +169,7 @@ export function AgentSidebar({
         className={cn(
           "group flex w-full cursor-pointer items-start gap-0.5 px-3 py-2 text-left text-xs transition-colors",
           isActive ? "bg-sidebar-accent" : "hover:bg-sidebar-accent/50",
-          archived && "opacity-60"
+          dimmed && "opacity-60"
         )}
       >
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -154,14 +185,22 @@ export function AgentSidebar({
                 onCancel={() => setRenamingId(null)}
               />
             ) : (
-              <span className="truncate">{agent.label || "new agent"}</span>
+              <Tip text={agent.label || "new agent"} side="right"><span className="truncate">{agent.label || "new agent"}</span></Tip>
+            )}
+            {agent.pinned && (
+              <Pin className="size-2.5 shrink-0 text-muted-foreground" />
+            )}
+            {agent.iceboxed && (
+              <Snowflake className="size-2.5 shrink-0 text-muted-foreground" />
             )}
           </span>
-          {agent.tmuxSession && (
-            <span className="pl-4 text-[10px] text-muted-foreground truncate">
-              {agent.tmuxSession}
-            </span>
-          )}
+          <span className="pl-4 text-[10px] text-muted-foreground truncate font-mono">
+            {id}
+            {(() => {
+              const ws = workspaces.find((w) => w.id === agent.workspaceId);
+              return ws ? <span className="opacity-60"> · {ws.name}</span> : null;
+            })()}
+          </span>
         </div>
         <button
           onClick={(e) => handleMenuButton(e, id)}
@@ -217,8 +256,40 @@ export function AgentSidebar({
           </div>
         ) : null}
 
+        {/* Pinned agents */}
+        {pinnedIds.length > 0 && (
+          <>
+            <div className="flex items-center gap-2 px-3 pt-2 pb-1">
+              <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">pinned</span>
+              <div className="flex-1 border-t" />
+            </div>
+            {pinnedIds.map((id) => renderAgentRow(id, false))}
+          </>
+        )}
+
         {/* Active agents */}
-        {activeIds.map((id) => renderAgentRow(id, false))}
+        {activeIds.length > 0 && (
+          <>
+            {pinnedIds.length > 0 && (
+              <div className="flex items-center gap-2 px-3 pt-3 pb-1">
+                <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">active</span>
+                <div className="flex-1 border-t" />
+              </div>
+            )}
+            {activeIds.map((id) => renderAgentRow(id, false))}
+          </>
+        )}
+
+        {/* Icebox agents */}
+        {iceboxIds.length > 0 && (
+          <>
+            <div className="flex items-center gap-2 px-3 pt-3 pb-1">
+              <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">icebox</span>
+              <div className="flex-1 border-t" />
+            </div>
+            {iceboxIds.map((id) => renderAgentRow(id, true))}
+          </>
+        )}
 
         {/* Archived divider + agents */}
         {archivedIds.length > 0 && (
@@ -232,16 +303,58 @@ export function AgentSidebar({
         )}
       </div>
 
-      {/* Context menu */}
+      {/* Context menu — portaled to body to escape sidebar stacking context */}
       {ctxMenu && (() => {
         const agent = agents.get(ctxMenu.agentId);
         if (!agent) return null;
-        return (
+        return createPortal(
           <div
             ref={menuRef}
-            className="fixed z-50 min-w-[160px] rounded-md border bg-popover py-1 text-popover-foreground shadow-md"
+            className="fixed z-[9999] min-w-[160px] rounded-md border bg-popover py-1 text-popover-foreground shadow-md"
             style={{ left: ctxMenu.x, top: ctxMenu.y }}
           >
+            <ContextMenuItem
+              label={agent.pinned ? "Unpin" : "Pin"}
+              onClick={() => {
+                onPin(ctxMenu.agentId, !agent.pinned);
+                closeMenu();
+              }}
+            />
+            <ContextMenuItem
+              label={agent.iceboxed ? "Un-icebox" : "Icebox"}
+              onClick={() => {
+                onIcebox(ctxMenu.agentId, !agent.iceboxed);
+                closeMenu();
+              }}
+            />
+            {workspaces.length > 0 && (
+              <ContextMenuSub label="Move to…">
+                {workspaces
+                  .filter((w) => w.id !== agent.workspaceId)
+                  .map((w) => (
+                    <ContextMenuItem
+                      key={w.id}
+                      label={w.name}
+                      onClick={() => {
+                        onMoveAgent(ctxMenu.agentId, w.id);
+                        closeMenu();
+                      }}
+                    />
+                  ))}
+                {agent.workspaceId && (
+                  <>
+                    <div className="my-1 border-t" />
+                    <ContextMenuItem
+                      label="No workspace"
+                      onClick={() => {
+                        onMoveAgent(ctxMenu.agentId, null);
+                        closeMenu();
+                      }}
+                    />
+                  </>
+                )}
+              </ContextMenuSub>
+            )}
             <ContextMenuItem
               label="Rename"
               onClick={() => {
@@ -276,7 +389,8 @@ export function AgentSidebar({
                 }
               }}
             />
-          </div>
+          </div>,
+          document.body
         );
       })()}
     </div>
@@ -305,6 +419,40 @@ function ContextMenuItem({
     >
       {label}
     </button>
+  );
+}
+
+/** A context menu item with a hover-triggered submenu. */
+function ContextMenuSub({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const enter = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setOpen(true);
+  };
+  const leave = () => {
+    timeoutRef.current = setTimeout(() => setOpen(false), 150);
+  };
+
+  return (
+    <div className="relative" onMouseEnter={enter} onMouseLeave={leave}>
+      <button className="flex w-full items-center justify-between px-3 py-1.5 text-xs transition-colors hover:bg-accent">
+        {label}
+        <ChevronRight className="ml-2 h-3 w-3 text-muted-foreground" />
+      </button>
+      {open && (
+        <div className="absolute left-full top-0 z-[10000] min-w-[140px] rounded-md border bg-popover py-1 text-popover-foreground shadow-md">
+          {children}
+        </div>
+      )}
+    </div>
   );
 }
 

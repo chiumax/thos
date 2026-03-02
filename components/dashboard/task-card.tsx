@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Play, Pencil, Trash2, ExternalLink, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Tip } from "@/components/ui/tip";
 import { cn } from "@/lib/utils";
 import type { Task, TaskStatus, TaskPriority } from "@/lib/types";
 
@@ -91,15 +92,17 @@ export function TaskCard({ task, onUpdate, onDelete, onDelegate, onSelectAgent }
               autoFocus
             />
           ) : (
-            <span
-              className={cn(
-                "truncate font-medium cursor-pointer",
-                task.status === "done" && "line-through text-muted-foreground"
-              )}
-              onDoubleClick={startEditing}
-            >
-              {task.title}
-            </span>
+            <Tip text={task.title}>
+              <span
+                className={cn(
+                  "truncate font-medium cursor-pointer",
+                  task.status === "done" && "line-through text-muted-foreground"
+                )}
+                onDoubleClick={startEditing}
+              >
+                {task.title}
+              </span>
+            </Tip>
           )}
         </div>
         <div className="flex shrink-0 items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -170,7 +173,7 @@ export function TaskCard({ task, onUpdate, onDelete, onDelegate, onSelectAgent }
         </div>
       ) : (
         task.description && (
-          <p className="mt-1 text-muted-foreground line-clamp-2">{task.description}</p>
+          <Tip text={task.description}><p className="mt-1 text-muted-foreground line-clamp-2">{task.description}</p></Tip>
         )
       )}
 
