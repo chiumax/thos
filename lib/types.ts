@@ -137,6 +137,10 @@ export interface BrowserSpawn {
   type: "spawn";
   prompt: string;
   workspaceId?: string;
+  /** Optional model override (e.g. "claude-opus-4-20250514", "qwen3-coder"). */
+  model?: string;
+  /** Optional system prompt appended via --append-system-prompt. */
+  systemPrompt?: string;
 }
 
 /** Browser sends a follow-up message to an already-running Claude session. */
@@ -177,6 +181,27 @@ export interface BrowserRenameAgent {
 export interface BrowserClearHistory {
   type: "clear_history";
   agentId: string;
+}
+
+/** Browser asks the server to pin or unpin an agent. */
+export interface BrowserPinAgent {
+  type: "pin_agent";
+  agentId: string;
+  pinned: boolean;
+}
+
+/** Browser asks the server to icebox or un-icebox an agent. */
+export interface BrowserIceboxAgent {
+  type: "icebox_agent";
+  agentId: string;
+  iceboxed: boolean;
+}
+
+/** Browser asks the server to move an agent to a different workspace. */
+export interface BrowserMoveAgent {
+  type: "move_agent";
+  agentId: string;
+  workspaceId: string | null;
 }
 
 /** Browser requests message history for a specific agent (lazy loading). */
@@ -253,6 +278,9 @@ export type BrowserMessage =
   | BrowserDeleteAgent
   | BrowserRenameAgent
   | BrowserClearHistory
+  | BrowserPinAgent
+  | BrowserIceboxAgent
+  | BrowserMoveAgent
   | BrowserRequestHistory
   | BrowserCreateTask
   | BrowserUpdateTask
@@ -293,6 +321,12 @@ export interface AgentInfo {
   label: string;
   createdAt: number;
   workspaceId: string | null;
+  /** Model name reported by system/init, or the model requested at spawn time. */
+  model?: string | null;
+  /** Whether this agent is pinned to the top of the sidebar. */
+  pinned?: boolean;
+  /** Whether this agent is in the icebox (parked for later). */
+  iceboxed?: boolean;
 }
 
 /** Server sends the full list of agents after every state change. */
@@ -420,6 +454,8 @@ export interface ToolCallInfo {
   toolUseId?: string;
   /** Truncated one-line preview of the tool result, if available. */
   resultPreview?: string;
+  /** Raw tool input data, preserved for file-modifying tools (Edit, Write, MultiEdit). */
+  input?: Record<string, unknown>;
 }
 
 export interface ChatMessage {
@@ -452,6 +488,22 @@ export interface ChatMessage {
 }
 
 // ── Task system ──────────────────────────────────────────────────────────
+
+// ── Notifications ──────────────────────────────────────────────────────────
+
+export type NotificationType = "done" | "error" | "control_request" | "question";
+
+export interface NotificationItem {
+  id: string;
+  type: NotificationType;
+  agentId: string;
+  agentLabel: string;
+  message: string;
+  timestamp: number;
+  read: boolean;
+}
+
+// ── Tasks ──────────────────────────────────────────────────────────────────
 
 export type TaskStatus = "icebox" | "todo" | "in-progress" | "done";
 export type TaskPriority = "low" | "medium" | "high" | "urgent";
