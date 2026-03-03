@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Play, Trash2, ExternalLink, Check } from "lucide-react";
+import { Play, Pencil, Trash2, ExternalLink, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Task, TaskStatus, TaskPriority } from "@/lib/types";
@@ -42,20 +42,31 @@ interface TaskCardProps {
   onSelectAgent: (agentId: string) => void;
 }
 
+const PRIORITIES: TaskPriority[] = ["low", "medium", "high", "urgent"];
+
 export function TaskCard({ task, onUpdate, onDelete, onDelegate, onSelectAgent }: TaskCardProps) {
   const [editing, setEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(task.title);
   const [editDesc, setEditDesc] = useState(task.description);
+  const [editPriority, setEditPriority] = useState(task.priority);
+
+  const startEditing = () => {
+    setEditTitle(task.title);
+    setEditDesc(task.description);
+    setEditPriority(task.priority);
+    setEditing(true);
+  };
 
   const handleSaveEdit = () => {
     if (!editTitle.trim()) return;
-    onUpdate(task.id, { title: editTitle.trim(), description: editDesc.trim() });
+    onUpdate(task.id, { title: editTitle.trim(), description: editDesc.trim(), priority: editPriority });
     setEditing(false);
   };
 
   const handleCancelEdit = () => {
     setEditTitle(task.title);
     setEditDesc(task.description);
+    setEditPriority(task.priority);
     setEditing(false);
   };
 
@@ -85,7 +96,7 @@ export function TaskCard({ task, onUpdate, onDelete, onDelegate, onSelectAgent }
                 "truncate font-medium cursor-pointer",
                 task.status === "done" && "line-through text-muted-foreground"
               )}
-              onDoubleClick={() => setEditing(true)}
+              onDoubleClick={startEditing}
             >
               {task.title}
             </span>
@@ -102,6 +113,14 @@ export function TaskCard({ task, onUpdate, onDelete, onDelegate, onSelectAgent }
               <Play className="size-3" />
             </Button>
           )}
+          <Button
+            variant="ghost"
+            size="icon-xs"
+            onClick={startEditing}
+            title="Edit task"
+          >
+            <Pencil className="size-3" />
+          </Button>
           <Button
             variant="ghost"
             size="icon-xs"
@@ -122,6 +141,23 @@ export function TaskCard({ task, onUpdate, onDelete, onDelegate, onSelectAgent }
             rows={2}
             placeholder="Description..."
           />
+          <div className="flex items-center gap-1">
+            {PRIORITIES.map((p) => (
+              <button
+                key={p}
+                className={cn(
+                  "rounded px-1.5 py-0.5 text-[10px] font-medium border transition-colors",
+                  editPriority === p
+                    ? PRIORITY_COLORS[p]
+                    : "border-transparent text-muted-foreground/50 hover:text-muted-foreground"
+                )}
+                onClick={() => setEditPriority(p)}
+                type="button"
+              >
+                {p}
+              </button>
+            ))}
+          </div>
           <div className="flex gap-1">
             <Button size="xs" onClick={handleSaveEdit}>
               <Check className="size-3 mr-1" />

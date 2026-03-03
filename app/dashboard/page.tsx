@@ -20,12 +20,14 @@
  * Sidebar uses `!initialLoadDone`, chat uses `!initialLoadDone || historyLoading`.
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { useWebSocket } from "@/hooks/use-websocket";
 import { AgentSidebar } from "@/components/dashboard/agent-sidebar";
 import { Chat } from "@/components/dashboard/chat";
 import { TaskPanel, type TaskViewMode } from "@/components/dashboard/kanban-board";
 import { FolderBrowser } from "@/components/dashboard/folder-browser";
+import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 
 export default function DashboardPage() {
@@ -69,6 +71,19 @@ export default function DashboardPage() {
 
   // Derive initial path from first workspace or fallback to "/"
   const initialBrowsePath = workspaces.length > 0 ? workspaces[0].cwd : "/";
+
+  // Connection status toasts (skip initial connection)
+  const hasConnectedRef = useRef(false);
+  useEffect(() => {
+    if (connected) {
+      if (hasConnectedRef.current) {
+        toast.success("Reconnected");
+      }
+      hasConnectedRef.current = true;
+    } else if (hasConnectedRef.current) {
+      toast.error("Connection lost");
+    }
+  }, [connected]);
 
   useEffect(() => {
     document.title = "thos — dashboard";
@@ -129,6 +144,7 @@ export default function DashboardPage() {
           onSpawnAgent={spawnAgent}
           onRespondToControl={respondToControl}
           onRespondToUserQuestion={respondToUserQuestion}
+          onClearHistory={() => { if (activeAgentId) clearHistory(activeAgentId); }}
           showTasks={taskView !== "hidden"}
           onToggleTasks={() => setTaskView((v) => (v === "hidden" ? "list" : "hidden"))}
           onToggleSidebar={() => setSidebarOpen((v) => !v)}
@@ -181,6 +197,8 @@ export default function DashboardPage() {
         }}
         initialPath={initialBrowsePath}
       />
+
+      <Toaster />
     </div>
   );
 }

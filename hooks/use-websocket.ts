@@ -149,11 +149,26 @@ function relayChatMessage(agentId: string, relayMsg: ServerMessage): ChatMessage
 
       const blocks = assistant.message?.content ?? [];
       const hasText = blocks.some((b) => b.type === "text" && b.text.trim());
+
+      // Build a map of tool_result blocks keyed by tool_use_id for preview extraction
+      const resultMap = new Map<string, string>();
+      for (const b of blocks) {
+        if (b.type === "tool_result") {
+          const tr = b as { tool_use_id?: string; content?: unknown };
+          if (tr.tool_use_id) {
+            const raw = typeof tr.content === "string" ? tr.content : JSON.stringify(tr.content ?? "");
+            const firstLine = raw.split("\n")[0];
+            resultMap.set(tr.tool_use_id, firstLine.length > 120 ? firstLine.slice(0, 117) + "..." : firstLine);
+          }
+        }
+      }
+
       const toolCalls: ToolCallInfo[] = blocks
         .filter((b) => b.type === "tool_use")
         .map((b) => ({
           name: (b as { name: string }).name,
           toolUseId: (b as { id: string }).id,
+          resultPreview: resultMap.get((b as { id: string }).id),
         }));
       const isToolOnly = !hasText && toolCalls.length > 0;
 

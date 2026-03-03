@@ -2,7 +2,7 @@
   "id": "567b4597",
   "state": {
     "agentId": "567b4597",
-    "status": "connected",
+    "status": "done",
     "tmuxSession": "thos-agent-567b4597",
     "label": "Task: workspace for agents\n\nthis way we can handle multip...",
     "createdAt": 1771353619335,

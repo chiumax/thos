@@ -583,9 +583,10 @@ function handleClaudeMessage(agentId: string, raw: string) {
     agent.pendingPrompt &&
     agent.claudeSocket?.readyState === WebSocket.OPEN
   ) {
+    const promptContent = agent.pendingPrompt;
     const userMsg = JSON.stringify({
       type: "user",
-      message: { role: "user", content: agent.pendingPrompt },
+      message: { role: "user", content: promptContent },
       parent_tool_use_id: null,
       session_id: agent.sessionId ?? "",
     });
@@ -593,6 +594,13 @@ function handleClaudeMessage(agentId: string, raw: string) {
     agent.claudeSocket.send(userMsg + "\n");
     agent.pendingPrompt = null;
     setAgentStatus(agentId, "thinking");
+
+    // Record the initial user message so it appears in chat and persists across reloads
+    recordAndSend(agentId, {
+      type: "relay",
+      agentId,
+      message: { type: "user", message: { role: "user", content: promptContent } } as ClaudeMessage,
+    });
   }
 
   // Track status based on message type
@@ -776,6 +784,14 @@ function handleBrowserMessage(raw: string, senderWs: WebSocket) {
       Object.assign(task, msg.updates, { updatedAt: Date.now() });
       persistTasks();
       broadcastTaskList();
+
+      // Archive the linked agent when a task is marked as done
+      if (task.status === "done" && task.agentId) {
+        const linkedAgent = agents.get(task.agentId);
+        if (linkedAgent && linkedAgent.status !== "done") {
+          stopAgent(task.agentId);
+        }
+      }
       break;
     }
 
@@ -980,9 +996,10 @@ wss.on("connection", (ws: WebSocket, req: IncomingMessage) => {
     // server to send the first user message rather than emitting
     // hook_started/hook_response on connect.
     if (agent.pendingPrompt && ws.readyState === WebSocket.OPEN) {
+      const promptContent = agent.pendingPrompt;
       const userMsg = JSON.stringify({
         type: "user",
-        message: { role: "user", content: agent.pendingPrompt },
+        message: { role: "user", content: promptContent },
         parent_tool_use_id: null,
         session_id: agent.sessionId ?? "",
       });
@@ -990,6 +1007,13 @@ wss.on("connection", (ws: WebSocket, req: IncomingMessage) => {
       ws.send(userMsg + "\n");
       agent.pendingPrompt = null;
       setAgentStatus(agentId, "thinking");
+
+      // Record the initial user message so it appears in chat and persists across reloads
+      recordAndSend(agentId, {
+        type: "relay",
+        agentId,
+        message: { type: "user", message: { role: "user", content: promptContent } } as ClaudeMessage,
+      });
     }
 
     ws.on("message", (data) => {
