@@ -7,7 +7,8 @@
     "label": "help me build a task management system for this project",
     "createdAt": 1771105821189,
     "sessionId": "f9498c12-c6cd-4272-9899-c1e57bf8b305",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

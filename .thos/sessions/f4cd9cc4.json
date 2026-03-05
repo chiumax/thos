@@ -7,7 +7,8 @@
     "label": "any improvments you can think of for the chat window",
     "createdAt": 1771105861734,
     "sessionId": "38593ee6-1414-48d6-847b-5d7fee245202",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

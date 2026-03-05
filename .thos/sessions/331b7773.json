@@ -2,12 +2,13 @@
   "id": "331b7773",
   "state": {
     "agentId": "331b7773",
-    "status": "connected",
+    "status": "done",
     "tmuxSession": "thos-agent-331b7773",
     "label": "edit tasks ui is gone",
     "createdAt": 1771362182058,
     "sessionId": "ccfabcc1-f777-42e0-a942-2017980ee7a3",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": "claude-opus-4-6"
   },
   "messageHistory": [
     {

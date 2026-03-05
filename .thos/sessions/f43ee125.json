@@ -7,7 +7,8 @@
     "label": "Task: Tool call result previews\n\nCondensed tool groups te...",
     "createdAt": 1771279821939,
     "sessionId": "33eeb568-3fc1-4036-9ca5-8292f9aa368d",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

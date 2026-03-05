@@ -1,0 +1,930 @@
+{
+  "id": "70c825dd",
+  "state": {
+    "agentId": "70c825dd",
+    "status": "connected",
+    "tmuxSession": "thos-agent-70c825dd",
+    "label": "how would i productionize this? like make it a web app pe...",
+    "createdAt": 1772487686698,
+    "sessionId": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb",
+    "workspaceId": null,
+    "model": "claude-opus-4-6"
+  },
+  "messageHistory": [
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "how would i productionize this? like make it a web app people can use? they would need to install a helper utility correct"
+        }
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "system",
+        "subtype": "init",
+        "cwd": "/Users/chiu.fyi/thos",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb",
+        "tools": [
+          "Task",
+          "TaskOutput",
+          "Bash",
+          "Glob",
+          "Grep",
+          "ExitPlanMode",
+          "Read",
+          "Edit",
+          "Write",
+          "NotebookEdit",
+          "WebFetch",
+          "TodoWrite",
+          "WebSearch",
+          "TaskStop",
+          "AskUserQuestion",
+          "Skill",
+          "EnterPlanMode",
+          "EnterWorktree",
+          "ToolSearch"
+        ],
+        "mcp_servers": [
+          {
+            "name": "claude.ai Gmail",
+            "status": "needs-auth"
+          },
+          {
+            "name": "claude.ai Figma",
+            "status": "failed"
+          },
+          {
+            "name": "claude.ai Google Calendar",
+            "status": "needs-auth"
+          }
+        ],
+        "model": "claude-opus-4-6",
+        "permissionMode": "bypassPermissions",
+        "slash_commands": [
+          "keybindings-help",
+          "debug",
+          "claude-developer-platform",
+          "compact",
+          "context",
+          "cost",
+          "init",
+          "pr-comments",
+          "release-notes",
+          "review",
+          "security-review",
+          "extra-usage",
+          "insights"
+        ],
+        "apiKeySource": "none",
+        "claude_code_version": "2.1.59",
+        "output_style": "default",
+        "agents": [
+          "general-purpose",
+          "statusline-setup",
+          "Explore",
+          "Plan"
+        ],
+        "skills": [
+          "keybindings-help",
+          "debug",
+          "claude-developer-platform"
+        ],
+        "plugins": [],
+        "uuid": "0453a97f-1875-4ff3-a092-7df05190cee7",
+        "fast_mode_state": "off"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_01T3zWpqvxA8HEoGQe3Tb5rp",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01PvpNDMgNdSJWPg9fTc5hGD",
+              "name": "Read",
+              "input": {
+                "file_path": "/Users/chiu.fyi/thos/middleware.ts"
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 3,
+            "cache_creation_input_tokens": 4113,
+            "cache_read_input_tokens": 18624,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 4113
+            },
+            "output_tokens": 10,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb",
+        "uuid": "9b84b1df-0a38-4a90-8446-bf10983d5590"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_017YN31ANGY44cAbPHEAydCD",
+              "type": "tool_result",
+              "content": "     1→{\n     2→  \"name\": \"thos-scaffold\",\n     3→  \"version\": \"0.1.0\",\n     4→  \"private\": true,\n     5→  \"scripts\": {\n     6→    \"dev\": \"concurrently -n next,ws -c cyan,yellow \\\"next dev --turbopack -H 0.0.0.0\\\" \\\"tsx watch server/ws.ts\\\"\",\n     7→    \"dev:next\": \"next dev --turbopack\",\n     8→    \"dev:ws\": \"tsx watch server/ws.ts\",\n     9→    \"build\": \"next build\",\n    10→    \"start\": \"next start\",\n    11→    \"lint\": \"eslint\"\n    12→  },\n    13→  \"dependencies\": {\n    14→    \"@pierre/diffs\": \"^1.0.11\",\n    15→    \"@react-three/drei\": \"^10.7.7\",\n    16→    \"@react-three/fiber\": \"^9.5.0\",\n    17→    \"class-variance-authority\": \"^0.7.1\",\n    18→    \"clsx\": \"^2.1.1\",\n    19→    \"lucide-react\": \"^0.563.0\",\n    20→    \"next\": \"16.1.6\",\n    21→    \"radix-ui\": \"^1.4.3\",\n    22→    \"react\": \"19.2.3\",\n    23→    \"react-dom\": \"19.2.3\",\n    24→    \"react-markdown\": \"^10.1.0\",\n    25→    \"react-virtuoso\": \"^4.18.1\",\n    26→    \"remark-gfm\": \"^4.0.1\",\n    27→    \"sonner\": \"^2.0.7\",\n    28→    \"tailwind-merge\": \"^3.4.0\",\n    29→    \"three\": \"^0.182.0\",\n    30→    \"ws\": \"^8.19.0\"\n    31→  },\n    32→  \"devDependencies\": {\n    33→    \"@tailwindcss/postcss\": \"^4\",\n    34→    \"@types/node\": \"^20\",\n    35→    \"@types/react\": \"^19\",\n    36→    \"@types/react-dom\": \"^19\",\n    37→    \"@types/three\": \"^0.182.0\",\n    38→    \"@types/ws\": \"^8.18.1\",\n    39→    \"concurrently\": \"^9.2.1\",\n    40→    \"eslint\": \"^9\",\n    41→    \"eslint-config-next\": \"16.1.6\",\n    42→    \"shadcn\": \"^3.8.4\",\n    43→    \"tailwindcss\": \"^4\",\n    44→    \"tsx\": \"^4.21.0\",\n    45→    \"tw-animate-css\": \"^1.4.0\",\n    46→    \"typescript\": \"^5\"\n    47→  },\n    48→  \"packageManager\": \"pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39\"\n    49→}\n    50→"
+            }
+          ]
+        },
+        "parent_tool_use_id": null,
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb",
+        "uuid": "0b89f1a9-e4c8-4654-bf52-dd82a5c9ead8",
+        "tool_use_result": {
+          "type": "text",
+          "file": {
+            "filePath": "/Users/chiu.fyi/thos/package.json",
+            "content": "{\n  \"name\": \"thos-scaffold\",\n  \"version\": \"0.1.0\",\n  \"private\": true,\n  \"scripts\": {\n    \"dev\": \"concurrently -n next,ws -c cyan,yellow \\\"next dev --turbopack -H 0.0.0.0\\\" \\\"tsx watch server/ws.ts\\\"\",\n    \"dev:next\": \"next dev --turbopack\",\n    \"dev:ws\": \"tsx watch server/ws.ts\",\n    \"build\": \"next build\",\n    \"start\": \"next start\",\n    \"lint\": \"eslint\"\n  },\n  \"dependencies\": {\n    \"@pierre/diffs\": \"^1.0.11\",\n    \"@react-three/drei\": \"^10.7.7\",\n    \"@react-three/fiber\": \"^9.5.0\",\n    \"class-variance-authority\": \"^0.7.1\",\n    \"clsx\": \"^2.1.1\",\n    \"lucide-react\": \"^0.563.0\",\n    \"next\": \"16.1.6\",\n    \"radix-ui\": \"^1.4.3\",\n    \"react\": \"19.2.3\",\n    \"react-dom\": \"19.2.3\",\n    \"react-markdown\": \"^10.1.0\",\n    \"react-virtuoso\": \"^4.18.1\",\n    \"remark-gfm\": \"^4.0.1\",\n    \"sonner\": \"^2.0.7\",\n    \"tailwind-merge\": \"^3.4.0\",\n    \"three\": \"^0.182.0\",\n    \"ws\": \"^8.19.0\"\n  },\n  \"devDependencies\": {\n    \"@tailwindcss/postcss\": \"^4\",\n    \"@types/node\": \"^20\",\n    \"@types/react\": \"^19\",\n    \"@types/react-dom\": \"^19\",\n    \"@types/three\": \"^0.182.0\",\n    \"@types/ws\": \"^8.18.1\",\n    \"concurrently\": \"^9.2.1\",\n    \"eslint\": \"^9\",\n    \"eslint-config-next\": \"16.1.6\",\n    \"shadcn\": \"^3.8.4\",\n    \"tailwindcss\": \"^4\",\n    \"tsx\": \"^4.21.0\",\n    \"tw-animate-css\": \"^1.4.0\",\n    \"typescript\": \"^5\"\n  },\n  \"packageManager\": \"pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39\"\n}\n",
+            "numLines": 50,
+            "startLine": 1,
+            "totalLines": 50
+          }
+        }
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_017cRmJzX6Pc1AjDMP6nCYa2",
+              "type": "tool_result",
+              "content": "     1→/**\n     2→ * Standalone WebSocket relay server for the thos dashboard.\n     3→ *\n     4→ * Runs on port 9900 alongside Next.js (started via `concurrently` in the\n     5→ * `dev` script). It cannot be a Next.js API route because API routes don't\n     6→ * support persistent WebSocket connections.\n     7→ *\n     8→ * ## Architecture\n     9→ *\n    10→ * Two WebSocket path families:\n    11→ * - `/browser`          — the React dashboard connects here (supports multiple tabs).\n    12→ * - `/claude/:agentId`  — each Claude CLI connects here (passed as `--sdk-url`).\n    13→ *\n    14→ * The server supports multiple concurrent agents, each tracked in the\n    15→ * `agents` Map keyed by a short random ID.\n    16→ *\n    17→ * ## Connection flow (browser)\n    18→ *\n    19→ * On browser connect, the server sends two small messages:\n    20→ * 1. `agent_list`  — metadata for all agents (sidebar).\n    21→ * 2. `task_list`   — all tasks.\n    22→ *\n    23→ * Message histories are NOT sent eagerly. They are loaded lazily: the\n    24→ * browser sends `{ type: \"request_history\", agentId }` when the user\n    25→ * selects an agent, and the server responds with `message_history` for\n    26→ * that single agent. This avoids sending megabytes of JSON on connect,\n    27→ * which caused multi-minute loading times on mobile networks.\n    28→ *\n    29→ * Live messages for active agents are still broadcast to all browsers\n    30→ * via `relay` messages in real time.\n    31→ *\n    32→ * ## Message flow (spawning)\n    33→ *\n    34→ * 1. Browser sends `{ type: \"spawn\", prompt }`.\n    35→ * 2. Server creates agent entry, spawns `claude --sdk-url ws://localhost:9900/claude/<agentId>`.\n    36→ * 3. CLI connects on `/claude/<agentId>`, sends `system/hook_started` then `system/hook_response`.\n    37→ * 4. On `hook_response`, server forwards the pending prompt to the CLI.\n    38→ * 5. CLI sends `system/init`, then `assistant` messages, then `result`.\n    39→ * 6. All CLI messages are relayed to the browser as `{ type: \"relay\", agentId, message }`.\n    40→ * 7. `control_request` messages (tool approval) are relayed to the browser;\n    41→ *    the browser's `control_response` (with `agentId`) is forwarded back to the right CLI.\n    42→ *\n    43→ * ## Resilience features\n    44→ *\n    45→ * - **Server-side message history** — every relay message is stored per-agent.\n    46→ * - **File persistence** — agent state + history persisted to disk, survives restarts.\n    47→ * - **Multi-browser** — multiple tabs can connect simultaneously.\n    48→ * - **tmux survival** — tmux sessions are NOT killed on server restart; CLI processes\n    49→ *   can reconnect to the new server if they retry their WebSocket connection.\n    50→ * - **Message queuing** — messages sent while CLI is disconnected are queued and flushed on reconnect.\n    51→ * - **Disconnect notifications** — browser is notified of CLI disconnect/reconnect.\n    52→ * - **Lazy history** — message histories loaded on demand per agent, not on connect.\n    53→ */\n    54→import { WebSocketServer, WebSocket } from \"ws\";\n    55→import { execSync, spawn } from \"child_process\";\n    56→import { randomBytes } from \"crypto\";\n    57→import type { IncomingMessage } from \"http\";\n    58→import { readdirSync, statSync, existsSync } from \"fs\";\n    59→import { join, dirname, basename } from \"path\";\n    60→import type {\n    61→  BrowserMessage,\n    62→  ClaudeMessage,\n    63→  ServerMessage,\n    64→  AgentStatus,\n    65→  AgentInfo,\n    66→  Task,\n    67→  Workspace,\n    68→  DirectoryEntry,\n    69→} from \"../lib/types\";\n    70→import { SessionStore, type PersistedAgent } from \"./session-store\";\n    71→import { TaskStore } from \"./task-store\";\n    72→import { WorkspaceStore } from \"./workspace-store\";\n    73→\n    74→const PORT = 9900;\n    75→const TMUX_SESSION_PREFIX = \"thos-agent\";\n    76→\n    77→/** Check if an IP is localhost or in the Tailscale CGNAT range (100.64.0.0/10). */\n    78→function isAllowedIP(ip: string | undefined): boolean {\n    79→  if (!ip) return false;\n    80→  // Strip IPv6-mapped IPv4 prefix\n    81→  const addr = ip.startsWith(\"::ffff:\") ? ip.slice(7) : ip;\n    82→  if (addr === \"127.0.0.1\" || addr === \"::1\" || addr === \"localhost\") return true;\n    83→  // Tailscale CGNAT: 100.64.0.0/10 → 100.64.0.0 – 100.127.255.255\n    84→  const parts = addr.split(\".\");\n    85→  if (parts.length !== 4) return false;\n    86→  const first = parseInt(parts[0], 10);\n    87→  const second = parseInt(parts[1], 10);\n    88→  return first === 100 && second >= 64 && second <= 127;\n    89→}\n    90→\n    91→const wss = new WebSocketServer({\n    92→  port: PORT,\n    93→  verifyClient: (info: { req: { socket: { remoteAddress?: string } } }) => {\n    94→    const ip = info.req.socket.remoteAddress;\n    95→    const allowed = isAllowedIP(ip);\n    96→    if (!allowed) console.log(`[ws] rejected connection from ${ip}`);\n    97→    return allowed;\n    98→  },\n    99→});\n   100→const store = new SessionStore();\n   101→\n   102→// ── Multi-agent state ──────────────────────────────────────────────────────\n   103→\n   104→interface AgentState {\n   105→  agentId: string;\n   106→  claudeSocket: WebSocket | null;\n   107→  tmuxSession: string | null;\n   108→  pendingPrompt: string | null;\n   109→  status: AgentStatus;\n   110→  label: string;\n   111→  createdAt: number;\n   112→  /** Captured from system/init, used in subsequent user messages. */\n   113→  sessionId: string | null;\n   114→  /** Workspace this agent belongs to. */\n   115→  workspaceId: string | null;\n   116→  /** Model name from system/init or requested at spawn time. */\n   117→  model: string | null;\n   118→  /** Whether this agent is pinned to the top of the sidebar. */\n   119→  pinned: boolean;\n   120→  /** Whether this agent is in the icebox (parked for later). */\n   121→  iceboxed: boolean;\n   122→  /** Stores control_request inputs keyed by request_id, for building control_responses. */\n   123→  pendingControlRequests: Map<string, Record<string, unknown>>;\n   124→  /** All messages sent to the browser for this agent (source of truth). */\n   125→  messageHistory: ServerMessage[];\n   126→  /** Messages queued while CLI is disconnected, flushed on reconnect. */\n   127→  pendingMessages: string[];\n   128→}\n   129→\n   130→const agents = new Map<string, AgentState>();\n   131→const taskStore = new TaskStore();\n   132→const tasks = new Map<string, Task>();\n   133→const workspaceStore = new WorkspaceStore();\n   134→const workspaces = new Map<string, Workspace>();\n   135→\n   136→/** All active browser connections (supports multiple tabs). */\n   137→const browserSockets = new Set<WebSocket>();\n   138→\n   139→/** Per-browser workspace scope (null = show all). */\n   140→const browserWorkspaceScope = new Map<WebSocket, string | null>();\n   141→\n   142→/** Generate a short random agent ID. */\n   143→function newAgentId(): string {\n   144→  return randomBytes(4).toString(\"hex\");\n   145→}\n   146→\n   147→// ── tmux helpers ───────────────────────────────────────────────────────────\n   148→\n   149→/** Return the set of currently alive tmux session names matching the thos prefix. */\n   150→function listAliveTmuxSessions(): Set<string> {\n   151→  try {\n   152→    const output = execSync(\"tmux list-sessions -F '#{session_name}'\", {\n   153→      encoding: \"utf-8\",\n   154→    }).trim();\n   155→    if (!output) return new Set();\n   156→    return new Set(output.split(\"\\n\").filter((s) => s.startsWith(TMUX_SESSION_PREFIX)));\n   157→  } catch {\n   158→    return new Set();\n   159→  }\n   160→}\n   161→\n   162→// ── Persistence helpers ────────────────────────────────────────────────────\n   163→\n   164→/** Build a PersistedAgent snapshot from live state. */\n   165→function toPersistedAgent(agent: AgentState): PersistedAgent {\n   166→  return {\n   167→    id: agent.agentId,\n   168→    state: {\n   169→      agentId: agent.agentId,\n   170→      status: agent.status,\n   171→      tmuxSession: agent.tmuxSession,\n   172→      label: agent.label,\n   173→      createdAt: agent.createdAt,\n   174→      sessionId: agent.sessionId,\n   175→      workspaceId: agent.workspaceId,\n   176→      model: agent.model,\n   177→      pinned: agent.pinned || undefined,\n   178→      iceboxed: agent.iceboxed || undefined,\n   179→    },\n   180→    messageHistory: agent.messageHistory,\n   181→  };\n   182→}\n   183→\n   184→/**\n   185→ * Compact a message history by deduplicating cumulative snapshots.\n   186→ * Keeps only the last version of each assistant/user message ID.\n   187→ * Called on restore to shrink legacy bloated histories.\n   188→ */\n   189→function compactHistory(history: ServerMessage[]): ServerMessage[] {\n   190→  // Build a map of msgId → last index\n   191→  const lastIndex = new Map<string, number>();\n   192→  for (let i = 0; i < history.length; i++) {\n   193→    const id = getRelayMessageId(history[i]);\n   194→    if (id) lastIndex.set(id, i);\n   195→  }\n   196→  // Keep only messages that are either non-deduplicable or the last occurrence\n   197→  return history.filter((msg, i) => {\n   198→    const id = getRelayMessageId(msg);\n   199→    if (!id) return true; // non-relay or no message ID — always keep\n   200→    return lastIndex.get(id) === i;\n   201→  });\n   202→}\n   203→\n   204→/** Persist agent state (debounced — use for streaming events). */\n   205→function persistAgent(agent: AgentState) {\n   206→  store.save(toPersistedAgent(agent));\n   207→}\n   208→\n   209→/** Persist agent state immediately (use for critical state changes). */\n   210→function persistAgentSync(agent: AgentState) {\n   211→  store.saveSync(toPersistedAgent(agent));\n   212→}\n   213→\n   214→// ── Restore from disk on startup ───────────────────────────────────────────\n   215→\n   216→function restoreAgents() {\n   217→  const persisted = store.loadAll();\n   218→  const aliveSessions = listAliveTmuxSessions();\n   219→\n   220→  for (const p of persisted) {\n   221→    const agent: AgentState = {\n   222→      agentId: p.state.agentId,\n   223→      claudeSocket: null,\n   224→      tmuxSession: p.state.tmuxSession,\n   225→      pendingPrompt: null,\n   226→      status: p.state.status,\n   227→      label: p.state.label,\n   228→      createdAt: p.state.createdAt,\n   229→      sessionId: p.state.sessionId,\n   230→      workspaceId: p.state.workspaceId ?? null,\n   231→      model: p.state.model ?? null,\n   232→      pinned: p.state.pinned ?? false,\n   233→      iceboxed: p.state.iceboxed ?? false,\n   234→      pendingControlRequests: new Map(),\n   235→      messageHistory: compactHistory(p.messageHistory),\n   236→      pendingMessages: [],\n   237→    };\n   238→\n   239→    // Determine status for agents that were active when the server last ran\n   240→    if (agent.status !== \"done\" && agent.status !== \"error\") {\n   241→      const tmuxAlive = agent.tmuxSession ? aliveSessions.has(agent.tmuxSession) : false;\n   242→      if (tmuxAlive) {\n   243→        // tmux session still alive — CLI may reconnect to this server\n   244→        agent.status = \"disconnected\";\n   245→        console.log(`[restore] agent ${agent.agentId} — tmux alive, waiting for CLI reconnect`);\n   246→      } else {\n   247→        // tmux session gone — agent is archived\n   248→        agent.status = \"done\";\n   249→        console.log(`[restore] agent ${agent.agentId} — tmux dead, archived`);\n   250→      }\n   251→    }\n   252→\n   253→    agents.set(agent.agentId, agent);\n   254→    const originalCount = p.messageHistory.length;\n   255→    const compactedCount = agent.messageHistory.length;\n   256→    const saved = originalCount - compactedCount;\n   257→    console.log(`[restore] agent ${agent.agentId} (status=${agent.status}, ${compactedCount} messages${saved > 0 ? `, compacted from ${originalCount} (−${saved})` : \"\"})`);\n   258→\n   259→    // Persist compacted history back to disk\n   260→    if (saved > 0) {\n   261→      persistAgentSync(agent);\n   262→    }\n   263→  }\n   264→  console.log(`[restore] loaded ${persisted.length} agents from disk`);\n   265→}\n   266→\n   267→restoreAgents();\n   268→\n   269→// ── Task restore + helpers ────────────────────────────────────────────────\n   270→\n   271→function restoreTasks() {\n   272→  const persisted = taskStore.loadAll();\n   273→  for (const t of persisted) {\n   274→    tasks.set(t.id, t);\n   275→  }\n   276→  console.log(`[restore] loaded ${persisted.length} tasks from disk`);\n   277→}\n   278→\n   279→restoreTasks();\n   280→\n   281→// ── Workspace restore + helpers ──────────────────────────────────────────\n   282→\n   283→function restoreWorkspaces() {\n   284→  const persisted = workspaceStore.loadAll();\n   285→  for (const w of persisted) {\n   286→    workspaces.set(w.id, w);\n   287→  }\n   288→  console.log(`[restore] loaded ${persisted.length} workspaces from disk`);\n   289→}\n   290→\n   291→restoreWorkspaces();\n   292→\n   293→/** Persist all workspaces to disk (sync). */\n   294→function persistWorkspaces() {\n   295→  workspaceStore.saveSync(Array.from(workspaces.values()));\n   296→}\n   297→\n   298→/** Send the full workspace list to all browsers. */\n   299→function broadcastWorkspaceList() {\n   300→  const payload = JSON.stringify({ type: \"workspace_list\", workspaces: Array.from(workspaces.values()) });\n   301→  for (const ws of browserSockets) {\n   302→    if (ws.readyState === WebSocket.OPEN) {\n   303→      ws.send(payload);\n   304→    }\n   305→  }\n   306→}\n   307→\n   308→/** Build the full task list sorted by creation time (newest first), optionally filtered by workspace. */\n   309→function buildTaskList(workspaceId?: string | null): Task[] {\n   310→  let list = Array.from(tasks.values());\n   311→  if (workspaceId !== undefined && workspaceId !== null) {\n   312→    list = list.filter((t) => t.workspaceId === workspaceId);\n   313→  }\n   314→  return list.sort((a, b) => b.createdAt - a.createdAt);\n   315→}\n   316→\n   317→/** Send the full task list to all browsers (scoped per-browser workspace). */\n   318→function broadcastTaskList() {\n   319→  for (const ws of browserSockets) {\n   320→    if (ws.readyState !== WebSocket.OPEN) continue;\n   321→    const scope = browserWorkspaceScope.get(ws) ?? null;\n   322→    ws.send(JSON.stringify({ type: \"task_list\", tasks: buildTaskList(scope) }));\n   323→  }\n   324→}\n   325→\n   326→/** Persist all tasks to disk (sync). */\n   327→function persistTasks() {\n   328→  taskStore.saveSync(Array.from(tasks.values()));\n   329→}\n   330→\n   331→// ── Helpers ────────────────────────────────────────────────────────────────\n   332→\n   333→/** Send a JSON message to all connected browsers. */\n   334→function sendToBrowser(msg: ServerMessage) {\n   335→  const payload = JSON.stringify(msg);\n   336→  for (const ws of browserSockets) {\n   337→    if (ws.readyState === WebSocket.OPEN) {\n   338→      ws.send(payload);\n   339→    }\n   340→  }\n   341→}\n   342→\n   343→/** Build a snapshot of all agents for the sidebar, optionally filtered by workspace. */\n   344→function buildAgentList(workspaceId?: string | null): AgentInfo[] {\n   345→  let list = Array.from(agents.values());\n   346→  if (workspaceId !== undefined && workspaceId !== null) {\n   347→    list = list.filter((a) => a.workspaceId === workspaceId);\n   348→  }\n   349→  return list.map((a) => ({\n   350→    agentId: a.agentId,\n   351→    status: a.status,\n   352→    tmuxSession: a.tmuxSession,\n   353→    label: a.label,\n   354→    createdAt: a.createdAt,\n   355→    workspaceId: a.workspaceId,\n   356→    model: a.model,\n   357→    pinned: a.pinned || undefined,\n   358→    iceboxed: a.iceboxed || undefined,\n   359→  }));\n   360→}\n   361→\n   362→/** Send the full agent list to all browsers (scoped per-browser workspace). */\n   363→function broadcastAgentList() {\n   364→  for (const ws of browserSockets) {\n   365→    if (ws.readyState !== WebSocket.OPEN) continue;\n   366→    const scope = browserWorkspaceScope.get(ws) ?? null;\n   367→    ws.send(JSON.stringify({ type: \"agent_list\", agents: buildAgentList(scope) }));\n   368→  }\n   369→}\n   370→\n   371→/** Update an agent's status, notify browsers, broadcast list, and persist. */\n   372→function setAgentStatus(agentId: string, status: AgentStatus) {\n   373→  const agent = agents.get(agentId);\n   374→  if (!agent) return;\n   375→  agent.status = status;\n   376→  sendToBrowser({ type: \"status\", agentId, status });\n   377→  broadcastAgentList();\n   378→  persistAgentSync(agent);\n   379→}\n   380→\n   381→/**\n   382→ * Extract a stable dedup key from a relay message, if present.\n   383→ *\n   384→ * Claude NDJSON sends cumulative snapshots for two message types:\n   385→ * - `assistant` — keyed by `message.id` (e.g. `msg_01VE1P7c...`)\n   386→ * - `user` (tool_result) — keyed by top-level `uuid` (e.g. `b217b852-...`)\n   387→ *\n   388→ * Additionally, one-per-session messages are deduplicated by session_id:\n   389→ * - `system/init` — keyed by `init:<session_id>`\n   390→ * - `result` — keyed by `result:<session_id>`\n   391→ *\n   392→ * We deduplicate by replacing the previous snapshot in `messageHistory`\n   393→ * instead of appending, reducing storage from O(n²) to O(n).\n   394→ */\n   395→function getRelayMessageId(msg: ServerMessage): string | null {\n   396→  if (msg.type !== \"relay\") return null;\n   397→  const inner = msg.message;\n   398→  if (inner.type === \"assistant\") {\n   399→    return (inner as { message?: { id?: string } }).message?.id ?? null;\n   400→  }\n   401→  if (inner.type === \"user\") {\n   402→    return (inner as { uuid?: string }).uuid ?? null;\n   403→  }\n   404→  // Dedup system/init and result by session_id so they don't stack on reload\n   405→  if (inner.type === \"system\" && (inner as { subtype?: string }).subtype === \"init\") {\n   406→    const sid = (inner as { session_id?: string }).session_id;\n   407→    return sid ? `init:${sid}` : null;\n   408→  }\n   409→  if (inner.type === \"result\") {\n   410→    const sid = (inner as { session_id?: string }).session_id;\n   411→    return sid ? `result:${sid}` : null;\n   412→  }\n   413→  return null;\n   414→}\n   415→\n   416→/**\n   417→ * Record a message in the agent's history and send to all browsers.\n   418→ *\n   419→ * For cumulative snapshot messages (assistant, user/tool_result), replaces the\n   420→ * previous snapshot with the same message ID instead of appending. This keeps\n   421→ * only the final version of each message, dramatically reducing file sizes\n   422→ * (e.g. 38 MB → ~1 MB for a typical session).\n   423→ */\n   424→function recordAndSend(agentId: string, msg: ServerMessage) {\n   425→  const agent = agents.get(agentId);\n   426→  if (agent) {\n   427→    const msgId = getRelayMessageId(msg);\n   428→    if (msgId) {\n   429→      // Replace previous snapshot with same message ID (search from end for speed)\n   430→      let replaced = false;\n   431→      for (let i = agent.messageHistory.length - 1; i >= 0; i--) {\n   432→        if (getRelayMessageId(agent.messageHistory[i]) === msgId) {\n   433→          agent.messageHistory[i] = msg;\n   434→          replaced = true;\n   435→          break;\n   436→        }\n   437→      }\n   438→      if (!replaced) {\n   439→        agent.messageHistory.push(msg);\n   440→      }\n   441→    } else {\n   442→      agent.messageHistory.push(msg);\n   443→    }\n   444→    persistAgent(agent); // debounced — streaming messages come fast\n   445→  }\n   446→  sendToBrowser(msg);\n   447→}\n   448→\n   449→// ── Agent lifecycle ────────────────────────────────────────────────────────\n   450→\n   451→/**\n   452→ * Stop a running agent by killing its tmux session and closing the CLI socket.\n   453→ * The agent remains in the Map (status set to \"done\") so it can be viewed/deleted later.\n   454→ */\n   455→function stopAgent(agentId: string) {\n   456→  const agent = agents.get(agentId);\n   457→  if (!agent) return;\n   458→\n   459→  if (agent.tmuxSession) {\n   460→    try {\n   461→      execSync(`tmux kill-session -t ${agent.tmuxSession}`, { stdio: \"ignore\" });\n   462→      console.log(`[tmux] killed session ${agent.tmuxSession}`);\n   463→    } catch {\n   464→      // Session may already be dead\n   465→    }\n   466→  }\n   467→  if (agent.claudeSocket?.readyState === WebSocket.OPEN) {\n   468→    agent.claudeSocket.close();\n   469→  }\n   470→  agent.claudeSocket = null;\n   471→  setAgentStatus(agentId, \"done\");\n   472→}\n   473→\n   474→/**\n   475→ * Permanently delete an agent: stop it, remove from Map, remove from disk.\n   476→ */\n   477→function deleteAgent(agentId: string) {\n   478→  const agent = agents.get(agentId);\n   479→  if (!agent) return;\n   480→\n   481→  if (agent.tmuxSession) {\n   482→    try {\n   483→      execSync(`tmux kill-session -t ${agent.tmuxSession}`, { stdio: \"ignore\" });\n   484→    } catch {}\n   485→  }\n   486→  if (agent.claudeSocket?.readyState === WebSocket.OPEN) {\n   487→    agent.claudeSocket.close();\n   488→  }\n   489→  agents.delete(agentId);\n   490→  store.remove(agentId);\n   491→  broadcastAgentList();\n   492→}\n   493→\n   494→/**\n   495→ * Spawn a new Claude CLI process inside a tmux session.\n   496→ *\n   497→ * Creates a new agent entry, spawns the CLI with `--sdk-url` pointing to\n   498→ * `/claude/<agentId>`, and sends a `spawned` message to the browser.\n   499→ * If `workspaceId` is provided, the tmux session starts in that workspace's cwd.\n   500→ */\n   501→function spawnClaude(prompt: string, workspaceId?: string | null, model?: string | null): string {\n   502→  const agentId = newAgentId();\n   503→  const sessionName = `${TMUX_SESSION_PREFIX}-${agentId}`;\n   504→  const label = prompt.length > 60 ? prompt.slice(0, 57) + \"...\" : prompt;\n   505→\n   506→  const agent: AgentState = {\n   507→    agentId,\n   508→    claudeSocket: null,\n   509→    tmuxSession: null,\n   510→    pendingPrompt: prompt,\n   511→    status: \"spawning\",\n   512→    label,\n   513→    createdAt: Date.now(),\n   514→    sessionId: null,\n   515→    workspaceId: workspaceId ?? null,\n   516→    model: model ?? null,\n   517→    pinned: false,\n   518→    iceboxed: false,\n   519→    pendingControlRequests: new Map(),\n   520→    messageHistory: [],\n   521→    pendingMessages: [],\n   522→  };\n   523→  agents.set(agentId, agent);\n   524→\n   525→  // Notify browsers\n   526→  sendToBrowser({ type: \"spawned\", agentId });\n   527→  broadcastAgentList();\n   528→  persistAgentSync(agent);\n   529→\n   530→  // Build the claude command with CLAUDECODE unset to bypass nesting protection.\n   531→  // tmux new-session runs detached (-d) so spawn() returns immediately.\n   532→  const modelFlag = model ? ` --model ${model}` : \"\";\n   533→  const claudeCmd = `unset CLAUDECODE; exec claude --dangerously-skip-permissions${modelFlag} --sdk-url ws://localhost:${PORT}/claude/${agentId}`;\n   534→\n   535→  // If the agent belongs to a workspace, start tmux in that workspace's cwd\n   536→  const workspace = workspaceId ? workspaces.get(workspaceId) : null;\n   537→  const tmuxArgs = [\"new-session\", \"-d\", \"-s\", sessionName];\n   538→  if (workspace) {\n   539→    tmuxArgs.push(\"-c\", workspace.cwd);\n   540→  }\n   541→  tmuxArgs.push(\"bash\", \"-c\", claudeCmd);\n   542→\n   543→  const tmux = spawn(\"tmux\", tmuxArgs, {\n   544→    stdio: \"ignore\",\n   545→  });\n   546→\n   547→  tmux.on(\"error\", (err) => {\n   548→    console.error(\"[tmux spawn error]\", err);\n   549→    setAgentStatus(agentId, \"error\");\n   550→    recordAndSend(agentId, { type: \"error\", agentId, error: `tmux error: ${err.message}` });\n   551→  });\n   552→\n   553→  tmux.on(\"exit\", (code) => {\n   554→    if (code !== 0) {\n   555→      console.error(`[tmux] new-session exited with code ${code}`);\n   556→      setAgentStatus(agentId, \"error\");\n   557→      recordAndSend(agentId, { type: \"error\", agentId, error: `tmux exited with code ${code}` });\n   558→      return;\n   559→    }\n   560→    console.log(`[tmux] session ${sessionName} created — attach with: tmux attach -t ${sessionName}`);\n   561→    agent.tmuxSession = sessionName;\n   562→    broadcastAgentList();\n   563→    persistAgentSync(agent);\n   564→  });\n   565→\n   566→  return agentId;\n   567→}\n   568→\n   569→// ── Message handlers ───────────────────────────────────────────────────────\n   570→\n   571→/**\n   572→ * Process an incoming NDJSON message from a specific Claude CLI.\n   573→ *\n   574→ * Status flow matches the Companion protocol:\n   575→ * - hook_response → send pending prompt → \"thinking\"\n   576→ * - system/init   → \"connected\" + capture session_id\n   577→ * - assistant      → \"thinking\"\n   578→ * - result         → \"connected\" (CLI stays alive for multi-turn)\n   579→ * - CLI disconnect → \"done\" (handled in connection close handler)\n   580→ */\n   581→function handleClaudeMessage(agentId: string, raw: string) {\n   582→  const agent = agents.get(agentId);\n   583→  if (!agent) return;\n   584→\n   585→  let msg: ClaudeMessage;\n   586→  try {\n   587→    msg = JSON.parse(raw);\n   588→  } catch {\n   589→    console.error(`[claude:${agentId}] invalid JSON:`, raw);\n   590→    return;\n   591→  }\n   592→\n   593→  // Silently ignore keep_alive messages\n   594→  if (msg.type === \"keep_alive\") return;\n   595→\n   596→  console.log(`[claude:${agentId} →]`, msg.type, (msg as { subtype?: string }).subtype ?? \"\");\n   597→\n   598→  // After hook_response, send the pending prompt\n   599→  if (\n   600→    msg.type === \"system\" &&\n   601→    (msg as { subtype?: string }).subtype === \"hook_response\" &&\n   602→    agent.pendingPrompt &&\n   603→    agent.claudeSocket?.readyState === WebSocket.OPEN\n   604→  ) {\n   605→    const promptContent = agent.pendingPrompt;\n   606→    const userMsg = JSON.stringify({\n   607→      type: \"user\",\n   608→      message: { role: \"user\", content: promptContent },\n   609→      parent_tool_use_id: null,\n   610→      session_id: agent.sessionId ?? \"\",\n   611→    });\n   612→    console.log(`[server → claude:${agentId}]`, userMsg);\n   613→    agent.claudeSocket.send(userMsg + \"\\n\");\n   614→    agent.pendingPrompt = null;\n   615→    setAgentStatus(agentId, \"thinking\");\n   616→\n   617→    // Record the initial user message so it appears in chat and persists across reloads\n   618→    recordAndSend(agentId, {\n   619→      type: \"relay\",\n   620→      agentId,\n   621→      message: { type: \"user\", message: { role: \"user\", content: promptContent } } as ClaudeMessage,\n   622→    });\n   623→  }\n   624→\n   625→  // Track status based on message type\n   626→  if (msg.type === \"system\" && (msg as { subtype?: string }).subtype === \"init\") {\n   627→    // Capture session_id and model for subsequent user messages\n   628→    agent.sessionId = (msg as { session_id?: string }).session_id ?? null;\n   629→    agent.model = (msg as { model?: string }).model ?? agent.model;\n   630→    setAgentStatus(agentId, \"connected\");\n   631→  } else if (msg.type === \"assistant\") {\n   632→    setAgentStatus(agentId, \"thinking\");\n   633→  } else if (msg.type === \"result\") {\n   634→    // CLI stays alive after result — ready for the next turn.\n   635→    // Status only goes to \"done\" when the CLI WebSocket actually closes.\n   636→    setAgentStatus(agentId, \"connected\");\n   637→  }\n   638→\n   639→  // Store control_request inputs for building proper responses later\n   640→  if (msg.type === \"control_request\") {\n   641→    const cr = msg as { request_id?: string; request?: { input?: Record<string, unknown> } };\n   642→    if (cr.request_id && cr.request?.input) {\n   643→      agent.pendingControlRequests.set(cr.request_id, cr.request.input);\n   644→    }\n   645→  }\n   646→\n   647→  // Record in history and relay to browsers\n   648→  recordAndSend(agentId, { type: \"relay\", agentId, message: msg });\n   649→}\n   650→\n   651→/**\n   652→ * Process an incoming JSON message from the browser.\n   653→ * - `spawn`: create a new agent (does NOT kill others).\n   654→ * - `send_message`: forward a follow-up user message to the specified agent.\n   655→ * - `control_response`: forward a tool allow/deny decision to the specified agent.\n   656→ * - `kill_agent`: stop the CLI and tmux session.\n   657→ * - `delete_agent`: permanently remove an agent.\n   658→ * - `rename_agent`: update an agent's label.\n   659→ * - `clear_history`: wipe an agent's message history.\n   660→ * - `request_history`: send message history for a single agent (lazy loading).\n   661→ * - `create_task` / `update_task` / `delete_task` / `delegate_task`: task CRUD.\n   662→ */\n   663→function handleBrowserMessage(raw: string, senderWs: WebSocket) {\n   664→  let msg: BrowserMessage;\n   665→  try {\n   666→    msg = JSON.parse(raw);\n   667→  } catch {\n   668→    console.error(\"[browser] invalid JSON:\", raw);\n   669→    return;\n   670→  }\n   671→\n   672→  console.log(\"[browser →]\", msg.type);\n   673→\n   674→  switch (msg.type) {\n   675→    case \"spawn\": {\n   676→      const scope = browserWorkspaceScope.get(senderWs) ?? msg.workspaceId ?? null;\n   677→      spawnClaude(msg.prompt, scope, msg.model);\n   678→      break;\n   679→    }\n   680→\n   681→    case \"send_message\": {\n   682→      const agent = agents.get(msg.agentId);\n   683→      if (!agent) {\n   684→        sendToBrowser({ type: \"error\", agentId: msg.agentId, error: \"Unknown agent\" });\n   685→        break;\n   686→      }\n   687→\n   688→      // Record the user message in history so it persists across reloads.\n   689→      // Do NOT broadcast — the sending browser already has it optimistically,\n   690→      // and other browsers will get it when they request_history.\n   691→      agent.messageHistory.push({\n   692→        type: \"relay\",\n   693→        agentId: msg.agentId,\n   694→        message: { type: \"user\", message: { role: \"user\", content: msg.content } },\n   695→      } as ServerMessage);\n   696→      persistAgent(agent);\n   697→\n   698→      if (agent.claudeSocket?.readyState === WebSocket.OPEN) {\n   699→        const userMsg = JSON.stringify({\n   700→          type: \"user\",\n   701→          message: { role: \"user\", content: msg.content },\n   702→          parent_tool_use_id: null,\n   703→          session_id: agent.sessionId ?? \"\",\n   704→        });\n   705→        agent.claudeSocket.send(userMsg + \"\\n\");\n   706→        setAgentStatus(msg.agentId, \"thinking\");\n   707→      } else {\n   708→        // Queue message for delivery when CLI reconnects\n   709→        const userMsg = JSON.stringify({\n   710→          type: \"user\",\n   711→          message: { role: \"user\", content: msg.content },\n   712→          parent_tool_use_id: null,\n   713→          session_id: agent.sessionId ?? \"\",\n   714→        });\n   715→        agent.pendingMessages.push(userMsg);\n   716→        console.log(`[queue] queued message for agent ${msg.agentId} (${agent.pendingMessages.length} pending)`);\n   717→        persistAgentSync(agent);\n   718→      }\n   719→      break;\n   720→    }\n   721→\n   722→    case \"control_response\": {\n   723→      const agent = agents.get(msg.agentId);\n   724→      if (agent?.claudeSocket?.readyState === WebSocket.OPEN) {\n   725→        // Retrieve the original tool input to include as updatedInput (required by protocol)\n   726→        const originalInput = agent.pendingControlRequests.get(msg.request_id) ?? {};\n   727→        agent.pendingControlRequests.delete(msg.request_id);\n   728→\n   729→        // If the browser sent answers (from AskUserQuestion), merge them into the input\n   730→        const answers = (msg as { answers?: Record<string, string> }).answers;\n   731→        const updatedInput = answers\n   732→          ? { ...originalInput, answers }\n   733→          : originalInput;\n   734→\n   735→        const response = JSON.stringify({\n   736→          type: \"control_response\",\n   737→          response: {\n   738→            subtype: \"success\",\n   739→            request_id: msg.request_id,\n   740→            response: msg.allow\n   741→              ? { behavior: \"allow\", updatedInput }\n   742→              : { behavior: \"deny\", message: \"Denied by user\" },\n   743→          },\n   744→        });\n   745→        agent.claudeSocket.send(response + \"\\n\");\n   746→      }\n   747→      break;\n   748→    }\n   749→\n   750→    case \"kill_agent\":\n   751→      stopAgent(msg.agentId);\n   752→      break;\n   753→\n   754→    case \"delete_agent\":\n   755→      deleteAgent(msg.agentId);\n   756→      break;\n   757→\n   758→    case \"rename_agent\": {\n   759→      const agent = agents.get(msg.agentId);\n   760→      if (!agent) break;\n   761→      agent.label = msg.label;\n   762→      broadcastAgentList();\n   763→      persistAgentSync(agent);\n   764→      break;\n   765→    }\n   766→\n   767→    case \"clear_history\": {\n   768→      const agent = agents.get(msg.agentId);\n   769→      if (!agent) break;\n   770→      agent.messageHistory = [];\n   771→      persistAgentSync(agent);\n   772→      sendToBrowser({ type: \"history_cleared\", agentId: msg.agentId });\n   773→      break;\n   774→    }\n   775→\n   776→    case \"pin_agent\": {\n   777→      const agent = agents.get(msg.agentId);\n   778→      if (!agent) break;\n   779→      agent.pinned = msg.pinned;\n   780→      broadcastAgentList();\n   781→      persistAgentSync(agent);\n   782→      break;\n   783→    }\n   784→\n   785→    case \"icebox_agent\": {\n   786→      const agent = agents.get(msg.agentId);\n   787→      if (!agent) break;\n   788→      agent.iceboxed = msg.iceboxed;\n   789→      broadcastAgentList();\n   790→      persistAgentSync(agent);\n   791→      break;\n   792→    }\n   793→\n   794→    case \"move_agent\": {\n   795→      const agent = agents.get(msg.agentId);\n   796→      if (!agent) break;\n   797→      agent.workspaceId = msg.workspaceId;\n   798→      broadcastAgentList();\n   799→      persistAgentSync(agent);\n   800→      break;\n   801→    }\n   802→\n   803→    case \"request_history\": {\n   804→      console.log(`[browser] request_history for ${msg.agentId}`);\n   805→      sendHistoryToSocket(senderWs, msg.agentId);\n   806→      break;\n   807→    }\n   808→\n   809→    case \"create_task\": {\n   810→      const taskId = randomBytes(4).toString(\"hex\");\n   811→      const task: Task = {\n   812→        id: taskId,\n   813→        title: msg.title,\n   814→        description: msg.description,\n   815→        status: \"todo\",\n   816→        priority: msg.priority,\n   817→        agentId: null,\n   818→        workspaceId: browserWorkspaceScope.get(senderWs) ?? null,\n   819→        createdAt: Date.now(),\n   820→        updatedAt: Date.now(),\n   821→      };\n   822→      tasks.set(taskId, task);\n   823→      persistTasks();\n   824→      broadcastTaskList();\n   825→      break;\n   826→    }\n   827→\n   828→    case \"update_task\": {\n   829→      const task = tasks.get(msg.taskId);\n   830→      if (!task) break;\n   831→      Object.assign(task, msg.updates, { updatedAt: Date.now() });\n   832→      persistTasks();\n   833→      broadcastTaskList();\n   834→\n   835→      // Archive the linked agent when a task is marked as done\n   836→      if (task.status === \"done\" && task.agentId) {\n   837→        const linkedAgent = agents.get(task.agentId);\n   838→        if (linkedAgent && linkedAgent.status !== \"done\") {\n   839→          stopAgent(task.agentId);\n   840→        }\n   841→      }\n   842→      break;\n   843→    }\n   844→\n   845→    case \"delete_task\": {\n   846→      tasks.delete(msg.taskId);\n   847→      persistTasks();\n   848→      broadcastTaskList();\n   849→      break;\n   850→    }\n   851→\n   852→    case \"delegate_task\": {\n   853→      const task = tasks.get(msg.taskId);\n   854→      if (!task) break;\n   855→      const prompt = `Task: ${task.title}\\n\\n${task.description}`;\n   856→      const agentId = spawnClaude(prompt, task.workspaceId);\n   857→      task.agentId = agentId;\n   858→      task.status = \"in-progress\";\n   859→      task.updatedAt = Date.now();\n   860→      persistTasks();\n   861→      broadcastTaskList();\n   862→      break;\n   863→    }\n   864→\n   865→    // ── Workspace messages ──────────────────────────────────────────────\n   866→\n   867→    case \"set_workspace\": {\n   868→      browserWorkspaceScope.set(senderWs, msg.workspaceId);\n   869→      // Re-send scoped agent list and task list to this browser\n   870→      const scope = msg.workspaceId;\n   871→      senderWs.send(JSON.stringify({ type: \"agent_list\", agents: buildAgentList(scope) }));\n   872→      senderWs.send(JSON.stringify({ type: \"task_list\", tasks: buildTaskList(scope) }));\n   873→      break;\n   874→    }\n   875→\n   876→    case \"create_workspace\": {\n   877→      const id = randomBytes(4).toString(\"hex\");\n   878→      const workspace: Workspace = {\n   879→        id,\n   880→        name: msg.name,\n   881→        cwd: msg.cwd,\n   882→        createdAt: Date.now(),\n   883→      };\n   884→      workspaces.set(id, workspace);\n   885→      persistWorkspaces();\n   886→      broadcastWorkspaceList();\n   887→      break;\n   888→    }\n   889→\n   890→    case \"rename_workspace\": {\n   891→      const workspace = workspaces.get(msg.workspaceId);\n   892→      if (!workspace) break;\n   893→      workspace.name = msg.name;\n   894→      persistWorkspaces();\n   895→      broadcastWorkspaceList();\n   896→      break;\n   897→    }\n   898→\n   899→    case \"delete_workspace\": {\n   900→      workspaces.delete(msg.workspaceId);\n   901→      // Unlink agents and tasks from the deleted workspace\n   902→      for (const agent of agents.values()) {\n   903→        if (agent.workspaceId === msg.workspaceId) {\n   904→          agent.workspaceId = null;\n   905→          persistAgentSync(agent);\n   906→        }\n   907→      }\n   908→      for (const task of tasks.values()) {\n   909→        if (task.workspaceId === msg.workspaceId) {\n   910→          task.workspaceId = null;\n   911→        }\n   912→      }\n   913→      persistTasks();\n   914→      persistWorkspaces();\n   915→      broadcastWorkspaceList();\n   916→      broadcastAgentList();\n   917→      broadcastTaskList();\n   918→      break;\n   919→    }\n   920→\n   921→    case \"browse_directory\": {\n   922→      const dirPath = msg.path;\n   923→      try {\n   924→        if (!existsSync(dirPath)) {\n   925→          senderWs.send(JSON.stringify({ type: \"directory_listing\", path: dirPath, entries: [] }));\n   926→          break;\n   927→        }\n   928→        const entries: DirectoryEntry[] = [];\n   929→        // Add parent directory entry\n   930→        const parent = dirname(dirPath);\n   931→        if (parent !== dirPath) {\n   932→          entries.push({ name: \"..\", path: parent });\n   933→        }\n   934→        // List subdirectories only\n   935→        const items = readdirSync(dirPath);\n   936→        for (const item of items) {\n   937→          if (item.startsWith(\".\")) continue; // skip dotfiles\n   938→          const fullPath = join(dirPath, item);\n   939→          try {\n   940→            const stat = statSync(fullPath);\n   941→            if (stat.isDirectory()) {\n   942→              entries.push({ name: item, path: fullPath });\n   943→            }\n   944→          } catch {\n   945→            // skip inaccessible entries\n   946→          }\n   947→        }\n   948→        // Sort: \"..\" first, then alphabetical\n   949→        entries.sort((a, b) => {\n   950→          if (a.name === \"..\") return -1;\n   951→          if (b.name === \"..\") return 1;\n   952→          return a.name.localeCompare(b.name);\n   953→        });\n   954→        senderWs.send(JSON.stringify({ type: \"directory_listing\", path: dirPath, entries }));\n   955→      } catch (err) {\n   956→        console.error(`[browse_directory] error reading ${dirPath}:`, err);\n   957→        senderWs.send(JSON.stringify({ type: \"directory_listing\", path: dirPath, entries: [] }));\n   958→      }\n   959→      break;\n   960→    }\n   961→  }\n   962→}\n   963→\n   964→// ── Send message history to a single browser socket ────────────────────────\n   965→\n   966→/** Send initial state (workspaces, agent list, tasks) to a newly connected browser. */\n   967→function sendFullStateToSocket(ws: WebSocket) {\n   968→  if (ws.readyState !== WebSocket.OPEN) return;\n   969→\n   970→  // Workspace list\n   971→  ws.send(JSON.stringify({ type: \"workspace_list\", workspaces: Array.from(workspaces.values()) }));\n   972→\n   973→  // Agent list (sidebar metadata) — scoped if browser has a workspace set\n   974→  const scope = browserWorkspaceScope.get(ws) ?? null;\n   975→  ws.send(JSON.stringify({ type: \"agent_list\", agents: buildAgentList(scope) }));\n   976→\n   977→  // Task list — scoped if browser has a workspace set\n   978→  ws.send(JSON.stringify({ type: \"task_list\", tasks: buildTaskList(scope) }));\n   979→}\n   980→\n   981→/** Send message history for a single agent to a specific browser socket. */\n   982→function sendHistoryToSocket(ws: WebSocket, agentId: string) {\n   983→  const agent = agents.get(agentId);\n   984→  if (!agent || ws.readyState !== WebSocket.OPEN) return;\n   985→  ws.send(\n   986→    JSON.stringify({\n   987→      type: \"message_history\",\n   988→      agentId: agent.agentId,\n   989→      messages: agent.messageHistory,\n   990→    })\n   991→  );\n   992→}\n   993→\n   994→// ── Connection handler — route by URL path ────────────────────────────────\n   995→wss.on(\"connection\", (ws: WebSocket, req: IncomingMessage) => {\n   996→  const path = req.url ?? \"/\";\n   997→  console.log(`[ws connected] path=${path}`);\n   998→\n   999→  if (path === \"/browser\") {\n  1000→    // Send full state BEFORE adding to browserSockets so that live\n  1001→    // relay broadcasts don't interleave with the history replay.\n  1002→    sendFullStateToSocket(ws);\n  1003→    browserSockets.add(ws);\n  1004→\n  1005→    ws.on(\"message\", (data) => {\n  1006→      handleBrowserMessage(data.toString(), ws);\n  1007→    });\n  1008→\n  1009→    ws.on(\"close\", () => {\n  1010→      console.log(\"[browser disconnected]\");\n  1011→      browserSockets.delete(ws);\n  1012→      browserWorkspaceScope.delete(ws);\n  1013→      // Do NOT kill agents — keep them alive for reconnect\n  1014→    });\n  1015→  } else if (path.startsWith(\"/claude/\")) {\n  1016→    // Parse agentId from /claude/<agentId>\n  1017→    const agentId = path.slice(\"/claude/\".length);\n  1018→    const agent = agents.get(agentId);\n  1019→\n  1020→    if (!agent) {\n  1021→      console.log(`[ws] unknown agentId: ${agentId}, closing`);\n  1022→      ws.close();\n  1023→      return;\n  1024→    }\n  1025→\n  1026→    agent.claudeSocket = ws;\n  1027→    console.log(`[claude:${agentId} CLI connected via WebSocket]`);\n  1028→\n  1029→    // Notify browsers that CLI is connected\n  1030→    sendToBrowser({ type: \"cli_connected\", agentId });\n  1031→\n  1032→    // Flush any pending messages queued while CLI was disconnected\n  1033→    if (agent.pendingMessages.length > 0) {\n  1034→      console.log(`[flush] sending ${agent.pendingMessages.length} queued messages to agent ${agentId}`);\n  1035→      for (const queued of agent.pendingMessages) {\n  1036→        ws.send(queued + \"\\n\");\n  1037→      }\n  1038→      agent.pendingMessages = [];\n  1039→      persistAgentSync(agent);\n  1040→    }\n  1041→\n  1042→    // Send the pending prompt immediately — CLI 2.1.42+ waits for the\n  1043→    // server to send the first user message rather than emitting\n  1044→    // hook_started/hook_response on connect.\n  1045→    if (agent.pendingPrompt && ws.readyState === WebSocket.OPEN) {\n  1046→      const promptContent = agent.pendingPrompt;\n  1047→      const userMsg = JSON.stringify({\n  1048→        type: \"user\",\n  1049→        message: { role: \"user\", content: promptContent },\n  1050→        parent_tool_use_id: null,\n  1051→        session_id: agent.sessionId ?? \"\",\n  1052→      });\n  1053→      console.log(`[server → claude:${agentId}] sending pending prompt`);\n  1054→      ws.send(userMsg + \"\\n\");\n  1055→      agent.pendingPrompt = null;\n  1056→      setAgentStatus(agentId, \"thinking\");\n  1057→\n  1058→      // Record the initial user message so it appears in chat and persists across reloads\n  1059→      recordAndSend(agentId, {\n  1060→        type: \"relay\",\n  1061→        agentId,\n  1062→        message: { type: \"user\", message: { role: \"user\", content: promptContent } } as ClaudeMessage,\n  1063→      });\n  1064→    }\n  1065→\n  1066→    ws.on(\"message\", (data) => {\n  1067→      handleClaudeMessage(agentId, data.toString());\n  1068→    });\n  1069→\n  1070→    ws.on(\"close\", () => {\n  1071→      console.log(`[claude:${agentId} CLI disconnected]`);\n  1072→      if (agent.claudeSocket === ws) {\n  1073→        agent.claudeSocket = null;\n  1074→        if (agent.status !== \"error\") {\n  1075→          setAgentStatus(agentId, \"done\");\n  1076→          sendToBrowser({ type: \"cli_disconnected\", agentId });\n  1077→\n  1078→          // Auto-complete any task linked to this agent\n  1079→          for (const task of tasks.values()) {\n  1080→            if (task.agentId === agentId && task.status !== \"done\") {\n  1081→              task.status = \"done\";\n  1082→              task.updatedAt = Date.now();\n  1083→              persistTasks();\n  1084→              broadcastTaskList();\n  1085→              break;\n  1086→            }\n  1087→          }\n  1088→        }\n  1089→      }\n  1090→    });\n  1091→  } else {\n  1092→    console.log(`[ws] unknown path: ${path}, closing`);\n  1093→    ws.close();\n  1094→  }\n  1095→});\n  1096→\n  1097→// ── Graceful shutdown ─────────────────────────────────────────────────────\n  1098→\n  1099→function shutdown() {\n  1100→  console.log(\"[ws server] shutting down...\");\n  1101→\n  1102→  // Persist all agents synchronously before exit — do NOT kill tmux sessions\n  1103→  // so CLI processes can reconnect if the server restarts.\n  1104→  const allPersisted = Array.from(agents.values()).map(toPersistedAgent);\n  1105→  store.flushAll(allPersisted);\n  1106→  console.log(`[ws server] saved ${allPersisted.length} agents to disk (tmux sessions preserved)`);\n  1107→\n  1108→  taskStore.flush(Array.from(tasks.values()));\n  1109→  console.log(`[ws server] saved ${tasks.size} tasks to disk`);\n  1110→\n  1111→  persistWorkspaces();\n  1112→  console.log(`[ws server] saved ${workspaces.size} workspaces to disk`);\n  1113→\n  1114→  wss.close();\n  1115→  process.exit(0);\n  1116→}\n  1117→\n  1118→process.on(\"SIGTERM\", shutdown);\n  1119→process.on(\"SIGINT\", shutdown);\n  1120→\n  1121→console.log(`[ws server] listening on port ${PORT}`);\n  1122→"
+            }
+          ]
+        },
+        "parent_tool_use_id": null,
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb",
+        "uuid": "e4ceb342-d4c9-4e74-bed0-10bea8d0d7bd",
+        "tool_use_result": {
+          "type": "text",
+          "file": {
+            "filePath": "/Users/chiu.fyi/thos/server/ws.ts",
+            "content": "/**\n * Standalone WebSocket relay server for the thos dashboard.\n *\n * Runs on port 9900 alongside Next.js (started via `concurrently` in the\n * `dev` script). It cannot be a Next.js API route because API routes don't\n * support persistent WebSocket connections.\n *\n * ## Architecture\n *\n * Two WebSocket path families:\n * - `/browser`          — the React dashboard connects here (supports multiple tabs).\n * - `/claude/:agentId`  — each Claude CLI connects here (passed as `--sdk-url`).\n *\n * The server supports multiple concurrent agents, each tracked in the\n * `agents` Map keyed by a short random ID.\n *\n * ## Connection flow (browser)\n *\n * On browser connect, the server sends two small messages:\n * 1. `agent_list`  — metadata for all agents (sidebar).\n * 2. `task_list`   — all tasks.\n *\n * Message histories are NOT sent eagerly. They are loaded lazily: the\n * browser sends `{ type: \"request_history\", agentId }` when the user\n * selects an agent, and the server responds with `message_history` for\n * that single agent. This avoids sending megabytes of JSON on connect,\n * which caused multi-minute loading times on mobile networks.\n *\n * Live messages for active agents are still broadcast to all browsers\n * via `relay` messages in real time.\n *\n * ## Message flow (spawning)\n *\n * 1. Browser sends `{ type: \"spawn\", prompt }`.\n * 2. Server creates agent entry, spawns `claude --sdk-url ws://localhost:9900/claude/<agentId>`.\n * 3. CLI connects on `/claude/<agentId>`, sends `system/hook_started` then `system/hook_response`.\n * 4. On `hook_response`, server forwards the pending prompt to the CLI.\n * 5. CLI sends `system/init`, then `assistant` messages, then `result`.\n * 6. All CLI messages are relayed to the browser as `{ type: \"relay\", agentId, message }`.\n * 7. `control_request` messages (tool approval) are relayed to the browser;\n *    the browser's `control_response` (with `agentId`) is forwarded back to the right CLI.\n *\n * ## Resilience features\n *\n * - **Server-side message history** — every relay message is stored per-agent.\n * - **File persistence** — agent state + history persisted to disk, survives restarts.\n * - **Multi-browser** — multiple tabs can connect simultaneously.\n * - **tmux survival** — tmux sessions are NOT killed on server restart; CLI processes\n *   can reconnect to the new server if they retry their WebSocket connection.\n * - **Message queuing** — messages sent while CLI is disconnected are queued and flushed on reconnect.\n * - **Disconnect notifications** — browser is notified of CLI disconnect/reconnect.\n * - **Lazy history** — message histories loaded on demand per agent, not on connect.\n */\nimport { WebSocketServer, WebSocket } from \"ws\";\nimport { execSync, spawn } from \"child_process\";\nimport { randomBytes } from \"crypto\";\nimport type { IncomingMessage } from \"http\";\nimport { readdirSync, statSync, existsSync } from \"fs\";\nimport { join, dirname, basename } from \"path\";\nimport type {\n  BrowserMessage,\n  ClaudeMessage,\n  ServerMessage,\n  AgentStatus,\n  AgentInfo,\n  Task,\n  Workspace,\n  DirectoryEntry,\n} from \"../lib/types\";\nimport { SessionStore, type PersistedAgent } from \"./session-store\";\nimport { TaskStore } from \"./task-store\";\nimport { WorkspaceStore } from \"./workspace-store\";\n\nconst PORT = 9900;\nconst TMUX_SESSION_PREFIX = \"thos-agent\";\n\n/** Check if an IP is localhost or in the Tailscale CGNAT range (100.64.0.0/10). */\nfunction isAllowedIP(ip: string | undefined): boolean {\n  if (!ip) return false;\n  // Strip IPv6-mapped IPv4 prefix\n  const addr = ip.startsWith(\"::ffff:\") ? ip.slice(7) : ip;\n  if (addr === \"127.0.0.1\" || addr === \"::1\" || addr === \"localhost\") return true;\n  // Tailscale CGNAT: 100.64.0.0/10 → 100.64.0.0 – 100.127.255.255\n  const parts = addr.split(\".\");\n  if (parts.length !== 4) return false;\n  const first = parseInt(parts[0], 10);\n  const second = parseInt(parts[1], 10);\n  return first === 100 && second >= 64 && second <= 127;\n}\n\nconst wss = new WebSocketServer({\n  port: PORT,\n  verifyClient: (info: { req: { socket: { remoteAddress?: string } } }) => {\n    const ip = info.req.socket.remoteAddress;\n    const allowed = isAllowedIP(ip);\n    if (!allowed) console.log(`[ws] rejected connection from ${ip}`);\n    return allowed;\n  },\n});\nconst store = new SessionStore();\n\n// ── Multi-agent state ──────────────────────────────────────────────────────\n\ninterface AgentState {\n  agentId: string;\n  claudeSocket: WebSocket | null;\n  tmuxSession: string | null;\n  pendingPrompt: string | null;\n  status: AgentStatus;\n  label: string;\n  createdAt: number;\n  /** Captured from system/init, used in subsequent user messages. */\n  sessionId: string | null;\n  /** Workspace this agent belongs to. */\n  workspaceId: string | null;\n  /** Model name from system/init or requested at spawn time. */\n  model: string | null;\n  /** Whether this agent is pinned to the top of the sidebar. */\n  pinned: boolean;\n  /** Whether this agent is in the icebox (parked for later). */\n  iceboxed: boolean;\n  /** Stores control_request inputs keyed by request_id, for building control_responses. */\n  pendingControlRequests: Map<string, Record<string, unknown>>;\n  /** All messages sent to the browser for this agent (source of truth). */\n  messageHistory: ServerMessage[];\n  /** Messages queued while CLI is disconnected, flushed on reconnect. */\n  pendingMessages: string[];\n}\n\nconst agents = new Map<string, AgentState>();\nconst taskStore = new TaskStore();\nconst tasks = new Map<string, Task>();\nconst workspaceStore = new WorkspaceStore();\nconst workspaces = new Map<string, Workspace>();\n\n/** All active browser connections (supports multiple tabs). */\nconst browserSockets = new Set<WebSocket>();\n\n/** Per-browser workspace scope (null = show all). */\nconst browserWorkspaceScope = new Map<WebSocket, string | null>();\n\n/** Generate a short random agent ID. */\nfunction newAgentId(): string {\n  return randomBytes(4).toString(\"hex\");\n}\n\n// ── tmux helpers ───────────────────────────────────────────────────────────\n\n/** Return the set of currently alive tmux session names matching the thos prefix. */\nfunction listAliveTmuxSessions(): Set<string> {\n  try {\n    const output = execSync(\"tmux list-sessions -F '#{session_name}'\", {\n      encoding: \"utf-8\",\n    }).trim();\n    if (!output) return new Set();\n    return new Set(output.split(\"\\n\").filter((s) => s.startsWith(TMUX_SESSION_PREFIX)));\n  } catch {\n    return new Set();\n  }\n}\n\n// ── Persistence helpers ────────────────────────────────────────────────────\n\n/** Build a PersistedAgent snapshot from live state. */\nfunction toPersistedAgent(agent: AgentState): PersistedAgent {\n  return {\n    id: agent.agentId,\n    state: {\n      agentId: agent.agentId,\n      status: agent.status,\n      tmuxSession: agent.tmuxSession,\n      label: agent.label,\n      createdAt: agent.createdAt,\n      sessionId: agent.sessionId,\n      workspaceId: agent.workspaceId,\n      model: agent.model,\n      pinned: agent.pinned || undefined,\n      iceboxed: agent.iceboxed || undefined,\n    },\n    messageHistory: agent.messageHistory,\n  };\n}\n\n/**\n * Compact a message history by deduplicating cumulative snapshots.\n * Keeps only the last version of each assistant/user message ID.\n * Called on restore to shrink legacy bloated histories.\n */\nfunction compactHistory(history: ServerMessage[]): ServerMessage[] {\n  // Build a map of msgId → last index\n  const lastIndex = new Map<string, number>();\n  for (let i = 0; i < history.length; i++) {\n    const id = getRelayMessageId(history[i]);\n    if (id) lastIndex.set(id, i);\n  }\n  // Keep only messages that are either non-deduplicable or the last occurrence\n  return history.filter((msg, i) => {\n    const id = getRelayMessageId(msg);\n    if (!id) return true; // non-relay or no message ID — always keep\n    return lastIndex.get(id) === i;\n  });\n}\n\n/** Persist agent state (debounced — use for streaming events). */\nfunction persistAgent(agent: AgentState) {\n  store.save(toPersistedAgent(agent));\n}\n\n/** Persist agent state immediately (use for critical state changes). */\nfunction persistAgentSync(agent: AgentState) {\n  store.saveSync(toPersistedAgent(agent));\n}\n\n// ── Restore from disk on startup ───────────────────────────────────────────\n\nfunction restoreAgents() {\n  const persisted = store.loadAll();\n  const aliveSessions = listAliveTmuxSessions();\n\n  for (const p of persisted) {\n    const agent: AgentState = {\n      agentId: p.state.agentId,\n      claudeSocket: null,\n      tmuxSession: p.state.tmuxSession,\n      pendingPrompt: null,\n      status: p.state.status,\n      label: p.state.label,\n      createdAt: p.state.createdAt,\n      sessionId: p.state.sessionId,\n      workspaceId: p.state.workspaceId ?? null,\n      model: p.state.model ?? null,\n      pinned: p.state.pinned ?? false,\n      iceboxed: p.state.iceboxed ?? false,\n      pendingControlRequests: new Map(),\n      messageHistory: compactHistory(p.messageHistory),\n      pendingMessages: [],\n    };\n\n    // Determine status for agents that were active when the server last ran\n    if (agent.status !== \"done\" && agent.status !== \"error\") {\n      const tmuxAlive = agent.tmuxSession ? aliveSessions.has(agent.tmuxSession) : false;\n      if (tmuxAlive) {\n        // tmux session still alive — CLI may reconnect to this server\n        agent.status = \"disconnected\";\n        console.log(`[restore] agent ${agent.agentId} — tmux alive, waiting for CLI reconnect`);\n      } else {\n        // tmux session gone — agent is archived\n        agent.status = \"done\";\n        console.log(`[restore] agent ${agent.agentId} — tmux dead, archived`);\n      }\n    }\n\n    agents.set(agent.agentId, agent);\n    const originalCount = p.messageHistory.length;\n    const compactedCount = agent.messageHistory.length;\n    const saved = originalCount - compactedCount;\n    console.log(`[restore] agent ${agent.agentId} (status=${agent.status}, ${compactedCount} messages${saved > 0 ? `, compacted from ${originalCount} (−${saved})` : \"\"})`);\n\n    // Persist compacted history back to disk\n    if (saved > 0) {\n      persistAgentSync(agent);\n    }\n  }\n  console.log(`[restore] loaded ${persisted.length} agents from disk`);\n}\n\nrestoreAgents();\n\n// ── Task restore + helpers ────────────────────────────────────────────────\n\nfunction restoreTasks() {\n  const persisted = taskStore.loadAll();\n  for (const t of persisted) {\n    tasks.set(t.id, t);\n  }\n  console.log(`[restore] loaded ${persisted.length} tasks from disk`);\n}\n\nrestoreTasks();\n\n// ── Workspace restore + helpers ──────────────────────────────────────────\n\nfunction restoreWorkspaces() {\n  const persisted = workspaceStore.loadAll();\n  for (const w of persisted) {\n    workspaces.set(w.id, w);\n  }\n  console.log(`[restore] loaded ${persisted.length} workspaces from disk`);\n}\n\nrestoreWorkspaces();\n\n/** Persist all workspaces to disk (sync). */\nfunction persistWorkspaces() {\n  workspaceStore.saveSync(Array.from(workspaces.values()));\n}\n\n/** Send the full workspace list to all browsers. */\nfunction broadcastWorkspaceList() {\n  const payload = JSON.stringify({ type: \"workspace_list\", workspaces: Array.from(workspaces.values()) });\n  for (const ws of browserSockets) {\n    if (ws.readyState === WebSocket.OPEN) {\n      ws.send(payload);\n    }\n  }\n}\n\n/** Build the full task list sorted by creation time (newest first), optionally filtered by workspace. */\nfunction buildTaskList(workspaceId?: string | null): Task[] {\n  let list = Array.from(tasks.values());\n  if (workspaceId !== undefined && workspaceId !== null) {\n    list = list.filter((t) => t.workspaceId === workspaceId);\n  }\n  return list.sort((a, b) => b.createdAt - a.createdAt);\n}\n\n/** Send the full task list to all browsers (scoped per-browser workspace). */\nfunction broadcastTaskList() {\n  for (const ws of browserSockets) {\n    if (ws.readyState !== WebSocket.OPEN) continue;\n    const scope = browserWorkspaceScope.get(ws) ?? null;\n    ws.send(JSON.stringify({ type: \"task_list\", tasks: buildTaskList(scope) }));\n  }\n}\n\n/** Persist all tasks to disk (sync). */\nfunction persistTasks() {\n  taskStore.saveSync(Array.from(tasks.values()));\n}\n\n// ── Helpers ────────────────────────────────────────────────────────────────\n\n/** Send a JSON message to all connected browsers. */\nfunction sendToBrowser(msg: ServerMessage) {\n  const payload = JSON.stringify(msg);\n  for (const ws of browserSockets) {\n    if (ws.readyState === WebSocket.OPEN) {\n      ws.send(payload);\n    }\n  }\n}\n\n/** Build a snapshot of all agents for the sidebar, optionally filtered by workspace. */\nfunction buildAgentList(workspaceId?: string | null): AgentInfo[] {\n  let list = Array.from(agents.values());\n  if (workspaceId !== undefined && workspaceId !== null) {\n    list = list.filter((a) => a.workspaceId === workspaceId);\n  }\n  return list.map((a) => ({\n    agentId: a.agentId,\n    status: a.status,\n    tmuxSession: a.tmuxSession,\n    label: a.label,\n    createdAt: a.createdAt,\n    workspaceId: a.workspaceId,\n    model: a.model,\n    pinned: a.pinned || undefined,\n    iceboxed: a.iceboxed || undefined,\n  }));\n}\n\n/** Send the full agent list to all browsers (scoped per-browser workspace). */\nfunction broadcastAgentList() {\n  for (const ws of browserSockets) {\n    if (ws.readyState !== WebSocket.OPEN) continue;\n    const scope = browserWorkspaceScope.get(ws) ?? null;\n    ws.send(JSON.stringify({ type: \"agent_list\", agents: buildAgentList(scope) }));\n  }\n}\n\n/** Update an agent's status, notify browsers, broadcast list, and persist. */\nfunction setAgentStatus(agentId: string, status: AgentStatus) {\n  const agent = agents.get(agentId);\n  if (!agent) return;\n  agent.status = status;\n  sendToBrowser({ type: \"status\", agentId, status });\n  broadcastAgentList();\n  persistAgentSync(agent);\n}\n\n/**\n * Extract a stable dedup key from a relay message, if present.\n *\n * Claude NDJSON sends cumulative snapshots for two message types:\n * - `assistant` — keyed by `message.id` (e.g. `msg_01VE1P7c...`)\n * - `user` (tool_result) — keyed by top-level `uuid` (e.g. `b217b852-...`)\n *\n * Additionally, one-per-session messages are deduplicated by session_id:\n * - `system/init` — keyed by `init:<session_id>`\n * - `result` — keyed by `result:<session_id>`\n *\n * We deduplicate by replacing the previous snapshot in `messageHistory`\n * instead of appending, reducing storage from O(n²) to O(n).\n */\nfunction getRelayMessageId(msg: ServerMessage): string | null {\n  if (msg.type !== \"relay\") return null;\n  const inner = msg.message;\n  if (inner.type === \"assistant\") {\n    return (inner as { message?: { id?: string } }).message?.id ?? null;\n  }\n  if (inner.type === \"user\") {\n    return (inner as { uuid?: string }).uuid ?? null;\n  }\n  // Dedup system/init and result by session_id so they don't stack on reload\n  if (inner.type === \"system\" && (inner as { subtype?: string }).subtype === \"init\") {\n    const sid = (inner as { session_id?: string }).session_id;\n    return sid ? `init:${sid}` : null;\n  }\n  if (inner.type === \"result\") {\n    const sid = (inner as { session_id?: string }).session_id;\n    return sid ? `result:${sid}` : null;\n  }\n  return null;\n}\n\n/**\n * Record a message in the agent's history and send to all browsers.\n *\n * For cumulative snapshot messages (assistant, user/tool_result), replaces the\n * previous snapshot with the same message ID instead of appending. This keeps\n * only the final version of each message, dramatically reducing file sizes\n * (e.g. 38 MB → ~1 MB for a typical session).\n */\nfunction recordAndSend(agentId: string, msg: ServerMessage) {\n  const agent = agents.get(agentId);\n  if (agent) {\n    const msgId = getRelayMessageId(msg);\n    if (msgId) {\n      // Replace previous snapshot with same message ID (search from end for speed)\n      let replaced = false;\n      for (let i = agent.messageHistory.length - 1; i >= 0; i--) {\n        if (getRelayMessageId(agent.messageHistory[i]) === msgId) {\n          agent.messageHistory[i] = msg;\n          replaced = true;\n          break;\n        }\n      }\n      if (!replaced) {\n        agent.messageHistory.push(msg);\n      }\n    } else {\n      agent.messageHistory.push(msg);\n    }\n    persistAgent(agent); // debounced — streaming messages come fast\n  }\n  sendToBrowser(msg);\n}\n\n// ── Agent lifecycle ────────────────────────────────────────────────────────\n\n/**\n * Stop a running agent by killing its tmux session and closing the CLI socket.\n * The agent remains in the Map (status set to \"done\") so it can be viewed/deleted later.\n */\nfunction stopAgent(agentId: string) {\n  const agent = agents.get(agentId);\n  if (!agent) return;\n\n  if (agent.tmuxSession) {\n    try {\n      execSync(`tmux kill-session -t ${agent.tmuxSession}`, { stdio: \"ignore\" });\n      console.log(`[tmux] killed session ${agent.tmuxSession}`);\n    } catch {\n      // Session may already be dead\n    }\n  }\n  if (agent.claudeSocket?.readyState === WebSocket.OPEN) {\n    agent.claudeSocket.close();\n  }\n  agent.claudeSocket = null;\n  setAgentStatus(agentId, \"done\");\n}\n\n/**\n * Permanently delete an agent: stop it, remove from Map, remove from disk.\n */\nfunction deleteAgent(agentId: string) {\n  const agent = agents.get(agentId);\n  if (!agent) return;\n\n  if (agent.tmuxSession) {\n    try {\n      execSync(`tmux kill-session -t ${agent.tmuxSession}`, { stdio: \"ignore\" });\n    } catch {}\n  }\n  if (agent.claudeSocket?.readyState === WebSocket.OPEN) {\n    agent.claudeSocket.close();\n  }\n  agents.delete(agentId);\n  store.remove(agentId);\n  broadcastAgentList();\n}\n\n/**\n * Spawn a new Claude CLI process inside a tmux session.\n *\n * Creates a new agent entry, spawns the CLI with `--sdk-url` pointing to\n * `/claude/<agentId>`, and sends a `spawned` message to the browser.\n * If `workspaceId` is provided, the tmux session starts in that workspace's cwd.\n */\nfunction spawnClaude(prompt: string, workspaceId?: string | null, model?: string | null): string {\n  const agentId = newAgentId();\n  const sessionName = `${TMUX_SESSION_PREFIX}-${agentId}`;\n  const label = prompt.length > 60 ? prompt.slice(0, 57) + \"...\" : prompt;\n\n  const agent: AgentState = {\n    agentId,\n    claudeSocket: null,\n    tmuxSession: null,\n    pendingPrompt: prompt,\n    status: \"spawning\",\n    label,\n    createdAt: Date.now(),\n    sessionId: null,\n    workspaceId: workspaceId ?? null,\n    model: model ?? null,\n    pinned: false,\n    iceboxed: false,\n    pendingControlRequests: new Map(),\n    messageHistory: [],\n    pendingMessages: [],\n  };\n  agents.set(agentId, agent);\n\n  // Notify browsers\n  sendToBrowser({ type: \"spawned\", agentId });\n  broadcastAgentList();\n  persistAgentSync(agent);\n\n  // Build the claude command with CLAUDECODE unset to bypass nesting protection.\n  // tmux new-session runs detached (-d) so spawn() returns immediately.\n  const modelFlag = model ? ` --model ${model}` : \"\";\n  const claudeCmd = `unset CLAUDECODE; exec claude --dangerously-skip-permissions${modelFlag} --sdk-url ws://localhost:${PORT}/claude/${agentId}`;\n\n  // If the agent belongs to a workspace, start tmux in that workspace's cwd\n  const workspace = workspaceId ? workspaces.get(workspaceId) : null;\n  const tmuxArgs = [\"new-session\", \"-d\", \"-s\", sessionName];\n  if (workspace) {\n    tmuxArgs.push(\"-c\", workspace.cwd);\n  }\n  tmuxArgs.push(\"bash\", \"-c\", claudeCmd);\n\n  const tmux = spawn(\"tmux\", tmuxArgs, {\n    stdio: \"ignore\",\n  });\n\n  tmux.on(\"error\", (err) => {\n    console.error(\"[tmux spawn error]\", err);\n    setAgentStatus(agentId, \"error\");\n    recordAndSend(agentId, { type: \"error\", agentId, error: `tmux error: ${err.message}` });\n  });\n\n  tmux.on(\"exit\", (code) => {\n    if (code !== 0) {\n      console.error(`[tmux] new-session exited with code ${code}`);\n      setAgentStatus(agentId, \"error\");\n      recordAndSend(agentId, { type: \"error\", agentId, error: `tmux exited with code ${code}` });\n      return;\n    }\n    console.log(`[tmux] session ${sessionName} created — attach with: tmux attach -t ${sessionName}`);\n    agent.tmuxSession = sessionName;\n    broadcastAgentList();\n    persistAgentSync(agent);\n  });\n\n  return agentId;\n}\n\n// ── Message handlers ───────────────────────────────────────────────────────\n\n/**\n * Process an incoming NDJSON message from a specific Claude CLI.\n *\n * Status flow matches the Companion protocol:\n * - hook_response → send pending prompt → \"thinking\"\n * - system/init   → \"connected\" + capture session_id\n * - assistant      → \"thinking\"\n * - result         → \"connected\" (CLI stays alive for multi-turn)\n * - CLI disconnect → \"done\" (handled in connection close handler)\n */\nfunction handleClaudeMessage(agentId: string, raw: string) {\n  const agent = agents.get(agentId);\n  if (!agent) return;\n\n  let msg: ClaudeMessage;\n  try {\n    msg = JSON.parse(raw);\n  } catch {\n    console.error(`[claude:${agentId}] invalid JSON:`, raw);\n    return;\n  }\n\n  // Silently ignore keep_alive messages\n  if (msg.type === \"keep_alive\") return;\n\n  console.log(`[claude:${agentId} →]`, msg.type, (msg as { subtype?: string }).subtype ?? \"\");\n\n  // After hook_response, send the pending prompt\n  if (\n    msg.type === \"system\" &&\n    (msg as { subtype?: string }).subtype === \"hook_response\" &&\n    agent.pendingPrompt &&\n    agent.claudeSocket?.readyState === WebSocket.OPEN\n  ) {\n    const promptContent = agent.pendingPrompt;\n    const userMsg = JSON.stringify({\n      type: \"user\",\n      message: { role: \"user\", content: promptContent },\n      parent_tool_use_id: null,\n      session_id: agent.sessionId ?? \"\",\n    });\n    console.log(`[server → claude:${agentId}]`, userMsg);\n    agent.claudeSocket.send(userMsg + \"\\n\");\n    agent.pendingPrompt = null;\n    setAgentStatus(agentId, \"thinking\");\n\n    // Record the initial user message so it appears in chat and persists across reloads\n    recordAndSend(agentId, {\n      type: \"relay\",\n      agentId,\n      message: { type: \"user\", message: { role: \"user\", content: promptContent } } as ClaudeMessage,\n    });\n  }\n\n  // Track status based on message type\n  if (msg.type === \"system\" && (msg as { subtype?: string }).subtype === \"init\") {\n    // Capture session_id and model for subsequent user messages\n    agent.sessionId = (msg as { session_id?: string }).session_id ?? null;\n    agent.model = (msg as { model?: string }).model ?? agent.model;\n    setAgentStatus(agentId, \"connected\");\n  } else if (msg.type === \"assistant\") {\n    setAgentStatus(agentId, \"thinking\");\n  } else if (msg.type === \"result\") {\n    // CLI stays alive after result — ready for the next turn.\n    // Status only goes to \"done\" when the CLI WebSocket actually closes.\n    setAgentStatus(agentId, \"connected\");\n  }\n\n  // Store control_request inputs for building proper responses later\n  if (msg.type === \"control_request\") {\n    const cr = msg as { request_id?: string; request?: { input?: Record<string, unknown> } };\n    if (cr.request_id && cr.request?.input) {\n      agent.pendingControlRequests.set(cr.request_id, cr.request.input);\n    }\n  }\n\n  // Record in history and relay to browsers\n  recordAndSend(agentId, { type: \"relay\", agentId, message: msg });\n}\n\n/**\n * Process an incoming JSON message from the browser.\n * - `spawn`: create a new agent (does NOT kill others).\n * - `send_message`: forward a follow-up user message to the specified agent.\n * - `control_response`: forward a tool allow/deny decision to the specified agent.\n * - `kill_agent`: stop the CLI and tmux session.\n * - `delete_agent`: permanently remove an agent.\n * - `rename_agent`: update an agent's label.\n * - `clear_history`: wipe an agent's message history.\n * - `request_history`: send message history for a single agent (lazy loading).\n * - `create_task` / `update_task` / `delete_task` / `delegate_task`: task CRUD.\n */\nfunction handleBrowserMessage(raw: string, senderWs: WebSocket) {\n  let msg: BrowserMessage;\n  try {\n    msg = JSON.parse(raw);\n  } catch {\n    console.error(\"[browser] invalid JSON:\", raw);\n    return;\n  }\n\n  console.log(\"[browser →]\", msg.type);\n\n  switch (msg.type) {\n    case \"spawn\": {\n      const scope = browserWorkspaceScope.get(senderWs) ?? msg.workspaceId ?? null;\n      spawnClaude(msg.prompt, scope, msg.model);\n      break;\n    }\n\n    case \"send_message\": {\n      const agent = agents.get(msg.agentId);\n      if (!agent) {\n        sendToBrowser({ type: \"error\", agentId: msg.agentId, error: \"Unknown agent\" });\n        break;\n      }\n\n      // Record the user message in history so it persists across reloads.\n      // Do NOT broadcast — the sending browser already has it optimistically,\n      // and other browsers will get it when they request_history.\n      agent.messageHistory.push({\n        type: \"relay\",\n        agentId: msg.agentId,\n        message: { type: \"user\", message: { role: \"user\", content: msg.content } },\n      } as ServerMessage);\n      persistAgent(agent);\n\n      if (agent.claudeSocket?.readyState === WebSocket.OPEN) {\n        const userMsg = JSON.stringify({\n          type: \"user\",\n          message: { role: \"user\", content: msg.content },\n          parent_tool_use_id: null,\n          session_id: agent.sessionId ?? \"\",\n        });\n        agent.claudeSocket.send(userMsg + \"\\n\");\n        setAgentStatus(msg.agentId, \"thinking\");\n      } else {\n        // Queue message for delivery when CLI reconnects\n        const userMsg = JSON.stringify({\n          type: \"user\",\n          message: { role: \"user\", content: msg.content },\n          parent_tool_use_id: null,\n          session_id: agent.sessionId ?? \"\",\n        });\n        agent.pendingMessages.push(userMsg);\n        console.log(`[queue] queued message for agent ${msg.agentId} (${agent.pendingMessages.length} pending)`);\n        persistAgentSync(agent);\n      }\n      break;\n    }\n\n    case \"control_response\": {\n      const agent = agents.get(msg.agentId);\n      if (agent?.claudeSocket?.readyState === WebSocket.OPEN) {\n        // Retrieve the original tool input to include as updatedInput (required by protocol)\n        const originalInput = agent.pendingControlRequests.get(msg.request_id) ?? {};\n        agent.pendingControlRequests.delete(msg.request_id);\n\n        // If the browser sent answers (from AskUserQuestion), merge them into the input\n        const answers = (msg as { answers?: Record<string, string> }).answers;\n        const updatedInput = answers\n          ? { ...originalInput, answers }\n          : originalInput;\n\n        const response = JSON.stringify({\n          type: \"control_response\",\n          response: {\n            subtype: \"success\",\n            request_id: msg.request_id,\n            response: msg.allow\n              ? { behavior: \"allow\", updatedInput }\n              : { behavior: \"deny\", message: \"Denied by user\" },\n          },\n        });\n        agent.claudeSocket.send(response + \"\\n\");\n      }\n      break;\n    }\n\n    case \"kill_agent\":\n      stopAgent(msg.agentId);\n      break;\n\n    case \"delete_agent\":\n      deleteAgent(msg.agentId);\n      break;\n\n    case \"rename_agent\": {\n      const agent = agents.get(msg.agentId);\n      if (!agent) break;\n      agent.label = msg.label;\n      broadcastAgentList();\n      persistAgentSync(agent);\n      break;\n    }\n\n    case \"clear_history\": {\n      const agent = agents.get(msg.agentId);\n      if (!agent) break;\n      agent.messageHistory = [];\n      persistAgentSync(agent);\n      sendToBrowser({ type: \"history_cleared\", agentId: msg.agentId });\n      break;\n    }\n\n    case \"pin_agent\": {\n      const agent = agents.get(msg.agentId);\n      if (!agent) break;\n      agent.pinned = msg.pinned;\n      broadcastAgentList();\n      persistAgentSync(agent);\n      break;\n    }\n\n    case \"icebox_agent\": {\n      const agent = agents.get(msg.agentId);\n      if (!agent) break;\n      agent.iceboxed = msg.iceboxed;\n      broadcastAgentList();\n      persistAgentSync(agent);\n      break;\n    }\n\n    case \"move_agent\": {\n      const agent = agents.get(msg.agentId);\n      if (!agent) break;\n      agent.workspaceId = msg.workspaceId;\n      broadcastAgentList();\n      persistAgentSync(agent);\n      break;\n    }\n\n    case \"request_history\": {\n      console.log(`[browser] request_history for ${msg.agentId}`);\n      sendHistoryToSocket(senderWs, msg.agentId);\n      break;\n    }\n\n    case \"create_task\": {\n      const taskId = randomBytes(4).toString(\"hex\");\n      const task: Task = {\n        id: taskId,\n        title: msg.title,\n        description: msg.description,\n        status: \"todo\",\n        priority: msg.priority,\n        agentId: null,\n        workspaceId: browserWorkspaceScope.get(senderWs) ?? null,\n        createdAt: Date.now(),\n        updatedAt: Date.now(),\n      };\n      tasks.set(taskId, task);\n      persistTasks();\n      broadcastTaskList();\n      break;\n    }\n\n    case \"update_task\": {\n      const task = tasks.get(msg.taskId);\n      if (!task) break;\n      Object.assign(task, msg.updates, { updatedAt: Date.now() });\n      persistTasks();\n      broadcastTaskList();\n\n      // Archive the linked agent when a task is marked as done\n      if (task.status === \"done\" && task.agentId) {\n        const linkedAgent = agents.get(task.agentId);\n        if (linkedAgent && linkedAgent.status !== \"done\") {\n          stopAgent(task.agentId);\n        }\n      }\n      break;\n    }\n\n    case \"delete_task\": {\n      tasks.delete(msg.taskId);\n      persistTasks();\n      broadcastTaskList();\n      break;\n    }\n\n    case \"delegate_task\": {\n      const task = tasks.get(msg.taskId);\n      if (!task) break;\n      const prompt = `Task: ${task.title}\\n\\n${task.description}`;\n      const agentId = spawnClaude(prompt, task.workspaceId);\n      task.agentId = agentId;\n      task.status = \"in-progress\";\n      task.updatedAt = Date.now();\n      persistTasks();\n      broadcastTaskList();\n      break;\n    }\n\n    // ── Workspace messages ──────────────────────────────────────────────\n\n    case \"set_workspace\": {\n      browserWorkspaceScope.set(senderWs, msg.workspaceId);\n      // Re-send scoped agent list and task list to this browser\n      const scope = msg.workspaceId;\n      senderWs.send(JSON.stringify({ type: \"agent_list\", agents: buildAgentList(scope) }));\n      senderWs.send(JSON.stringify({ type: \"task_list\", tasks: buildTaskList(scope) }));\n      break;\n    }\n\n    case \"create_workspace\": {\n      const id = randomBytes(4).toString(\"hex\");\n      const workspace: Workspace = {\n        id,\n        name: msg.name,\n        cwd: msg.cwd,\n        createdAt: Date.now(),\n      };\n      workspaces.set(id, workspace);\n      persistWorkspaces();\n      broadcastWorkspaceList();\n      break;\n    }\n\n    case \"rename_workspace\": {\n      const workspace = workspaces.get(msg.workspaceId);\n      if (!workspace) break;\n      workspace.name = msg.name;\n      persistWorkspaces();\n      broadcastWorkspaceList();\n      break;\n    }\n\n    case \"delete_workspace\": {\n      workspaces.delete(msg.workspaceId);\n      // Unlink agents and tasks from the deleted workspace\n      for (const agent of agents.values()) {\n        if (agent.workspaceId === msg.workspaceId) {\n          agent.workspaceId = null;\n          persistAgentSync(agent);\n        }\n      }\n      for (const task of tasks.values()) {\n        if (task.workspaceId === msg.workspaceId) {\n          task.workspaceId = null;\n        }\n      }\n      persistTasks();\n      persistWorkspaces();\n      broadcastWorkspaceList();\n      broadcastAgentList();\n      broadcastTaskList();\n      break;\n    }\n\n    case \"browse_directory\": {\n      const dirPath = msg.path;\n      try {\n        if (!existsSync(dirPath)) {\n          senderWs.send(JSON.stringify({ type: \"directory_listing\", path: dirPath, entries: [] }));\n          break;\n        }\n        const entries: DirectoryEntry[] = [];\n        // Add parent directory entry\n        const parent = dirname(dirPath);\n        if (parent !== dirPath) {\n          entries.push({ name: \"..\", path: parent });\n        }\n        // List subdirectories only\n        const items = readdirSync(dirPath);\n        for (const item of items) {\n          if (item.startsWith(\".\")) continue; // skip dotfiles\n          const fullPath = join(dirPath, item);\n          try {\n            const stat = statSync(fullPath);\n            if (stat.isDirectory()) {\n              entries.push({ name: item, path: fullPath });\n            }\n          } catch {\n            // skip inaccessible entries\n          }\n        }\n        // Sort: \"..\" first, then alphabetical\n        entries.sort((a, b) => {\n          if (a.name === \"..\") return -1;\n          if (b.name === \"..\") return 1;\n          return a.name.localeCompare(b.name);\n        });\n        senderWs.send(JSON.stringify({ type: \"directory_listing\", path: dirPath, entries }));\n      } catch (err) {\n        console.error(`[browse_directory] error reading ${dirPath}:`, err);\n        senderWs.send(JSON.stringify({ type: \"directory_listing\", path: dirPath, entries: [] }));\n      }\n      break;\n    }\n  }\n}\n\n// ── Send message history to a single browser socket ────────────────────────\n\n/** Send initial state (workspaces, agent list, tasks) to a newly connected browser. */\nfunction sendFullStateToSocket(ws: WebSocket) {\n  if (ws.readyState !== WebSocket.OPEN) return;\n\n  // Workspace list\n  ws.send(JSON.stringify({ type: \"workspace_list\", workspaces: Array.from(workspaces.values()) }));\n\n  // Agent list (sidebar metadata) — scoped if browser has a workspace set\n  const scope = browserWorkspaceScope.get(ws) ?? null;\n  ws.send(JSON.stringify({ type: \"agent_list\", agents: buildAgentList(scope) }));\n\n  // Task list — scoped if browser has a workspace set\n  ws.send(JSON.stringify({ type: \"task_list\", tasks: buildTaskList(scope) }));\n}\n\n/** Send message history for a single agent to a specific browser socket. */\nfunction sendHistoryToSocket(ws: WebSocket, agentId: string) {\n  const agent = agents.get(agentId);\n  if (!agent || ws.readyState !== WebSocket.OPEN) return;\n  ws.send(\n    JSON.stringify({\n      type: \"message_history\",\n      agentId: agent.agentId,\n      messages: agent.messageHistory,\n    })\n  );\n}\n\n// ── Connection handler — route by URL path ────────────────────────────────\nwss.on(\"connection\", (ws: WebSocket, req: IncomingMessage) => {\n  const path = req.url ?? \"/\";\n  console.log(`[ws connected] path=${path}`);\n\n  if (path === \"/browser\") {\n    // Send full state BEFORE adding to browserSockets so that live\n    // relay broadcasts don't interleave with the history replay.\n    sendFullStateToSocket(ws);\n    browserSockets.add(ws);\n\n    ws.on(\"message\", (data) => {\n      handleBrowserMessage(data.toString(), ws);\n    });\n\n    ws.on(\"close\", () => {\n      console.log(\"[browser disconnected]\");\n      browserSockets.delete(ws);\n      browserWorkspaceScope.delete(ws);\n      // Do NOT kill agents — keep them alive for reconnect\n    });\n  } else if (path.startsWith(\"/claude/\")) {\n    // Parse agentId from /claude/<agentId>\n    const agentId = path.slice(\"/claude/\".length);\n    const agent = agents.get(agentId);\n\n    if (!agent) {\n      console.log(`[ws] unknown agentId: ${agentId}, closing`);\n      ws.close();\n      return;\n    }\n\n    agent.claudeSocket = ws;\n    console.log(`[claude:${agentId} CLI connected via WebSocket]`);\n\n    // Notify browsers that CLI is connected\n    sendToBrowser({ type: \"cli_connected\", agentId });\n\n    // Flush any pending messages queued while CLI was disconnected\n    if (agent.pendingMessages.length > 0) {\n      console.log(`[flush] sending ${agent.pendingMessages.length} queued messages to agent ${agentId}`);\n      for (const queued of agent.pendingMessages) {\n        ws.send(queued + \"\\n\");\n      }\n      agent.pendingMessages = [];\n      persistAgentSync(agent);\n    }\n\n    // Send the pending prompt immediately — CLI 2.1.42+ waits for the\n    // server to send the first user message rather than emitting\n    // hook_started/hook_response on connect.\n    if (agent.pendingPrompt && ws.readyState === WebSocket.OPEN) {\n      const promptContent = agent.pendingPrompt;\n      const userMsg = JSON.stringify({\n        type: \"user\",\n        message: { role: \"user\", content: promptContent },\n        parent_tool_use_id: null,\n        session_id: agent.sessionId ?? \"\",\n      });\n      console.log(`[server → claude:${agentId}] sending pending prompt`);\n      ws.send(userMsg + \"\\n\");\n      agent.pendingPrompt = null;\n      setAgentStatus(agentId, \"thinking\");\n\n      // Record the initial user message so it appears in chat and persists across reloads\n      recordAndSend(agentId, {\n        type: \"relay\",\n        agentId,\n        message: { type: \"user\", message: { role: \"user\", content: promptContent } } as ClaudeMessage,\n      });\n    }\n\n    ws.on(\"message\", (data) => {\n      handleClaudeMessage(agentId, data.toString());\n    });\n\n    ws.on(\"close\", () => {\n      console.log(`[claude:${agentId} CLI disconnected]`);\n      if (agent.claudeSocket === ws) {\n        agent.claudeSocket = null;\n        if (agent.status !== \"error\") {\n          setAgentStatus(agentId, \"done\");\n          sendToBrowser({ type: \"cli_disconnected\", agentId });\n\n          // Auto-complete any task linked to this agent\n          for (const task of tasks.values()) {\n            if (task.agentId === agentId && task.status !== \"done\") {\n              task.status = \"done\";\n              task.updatedAt = Date.now();\n              persistTasks();\n              broadcastTaskList();\n              break;\n            }\n          }\n        }\n      }\n    });\n  } else {\n    console.log(`[ws] unknown path: ${path}, closing`);\n    ws.close();\n  }\n});\n\n// ── Graceful shutdown ─────────────────────────────────────────────────────\n\nfunction shutdown() {\n  console.log(\"[ws server] shutting down...\");\n\n  // Persist all agents synchronously before exit — do NOT kill tmux sessions\n  // so CLI processes can reconnect if the server restarts.\n  const allPersisted = Array.from(agents.values()).map(toPersistedAgent);\n  store.flushAll(allPersisted);\n  console.log(`[ws server] saved ${allPersisted.length} agents to disk (tmux sessions preserved)`);\n\n  taskStore.flush(Array.from(tasks.values()));\n  console.log(`[ws server] saved ${tasks.size} tasks to disk`);\n\n  persistWorkspaces();\n  console.log(`[ws server] saved ${workspaces.size} workspaces to disk`);\n\n  wss.close();\n  process.exit(0);\n}\n\nprocess.on(\"SIGTERM\", shutdown);\nprocess.on(\"SIGINT\", shutdown);\n\nconsole.log(`[ws server] listening on port ${PORT}`);\n",
+            "numLines": 1122,
+            "startLine": 1,
+            "totalLines": 1122
+          }
+        }
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01PvpNDMgNdSJWPg9fTc5hGD",
+              "type": "tool_result",
+              "content": "     1→import { NextRequest, NextResponse } from \"next/server\";\n     2→\n     3→/** Check if an IP is localhost or in the Tailscale CGNAT range (100.64.0.0/10). */\n     4→function isAllowedIP(ip: string): boolean {\n     5→  const addr = ip.startsWith(\"::ffff:\") ? ip.slice(7) : ip;\n     6→  if (addr === \"127.0.0.1\" || addr === \"::1\" || addr === \"localhost\") return true;\n     7→  const parts = addr.split(\".\");\n     8→  if (parts.length !== 4) return false;\n     9→  const first = parseInt(parts[0], 10);\n    10→  const second = parseInt(parts[1], 10);\n    11→  return first === 100 && second >= 64 && second <= 127;\n    12→}\n    13→\n    14→export function middleware(req: NextRequest) {\n    15→  const ip = (req as NextRequest & { ip?: string }).ip ?? req.headers.get(\"x-forwarded-for\")?.split(\",\")[0]?.trim() ?? \"\";\n    16→  if (!ip || isAllowedIP(ip)) return NextResponse.next();\n    17→  return new NextResponse(\"Forbidden\", { status: 403 });\n    18→}\n    19→"
+            }
+          ]
+        },
+        "parent_tool_use_id": null,
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb",
+        "uuid": "f7d0fe22-7d49-4f08-975f-b1da982e91a6",
+        "tool_use_result": {
+          "type": "text",
+          "file": {
+            "filePath": "/Users/chiu.fyi/thos/middleware.ts",
+            "content": "import { NextRequest, NextResponse } from \"next/server\";\n\n/** Check if an IP is localhost or in the Tailscale CGNAT range (100.64.0.0/10). */\nfunction isAllowedIP(ip: string): boolean {\n  const addr = ip.startsWith(\"::ffff:\") ? ip.slice(7) : ip;\n  if (addr === \"127.0.0.1\" || addr === \"::1\" || addr === \"localhost\") return true;\n  const parts = addr.split(\".\");\n  if (parts.length !== 4) return false;\n  const first = parseInt(parts[0], 10);\n  const second = parseInt(parts[1], 10);\n  return first === 100 && second >= 64 && second <= 127;\n}\n\nexport function middleware(req: NextRequest) {\n  const ip = (req as NextRequest & { ip?: string }).ip ?? req.headers.get(\"x-forwarded-for\")?.split(\",\")[0]?.trim() ?? \"\";\n  if (!ip || isAllowedIP(ip)) return NextResponse.next();\n  return new NextResponse(\"Forbidden\", { status: 403 });\n}\n",
+            "numLines": 19,
+            "startLine": 1,
+            "totalLines": 19
+          }
+        }
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_012v1j2Vq7xstp2FPA8uKJhh",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": "Yes, you're right — a local helper is unavoidable. The core of thos is spawning and orchestrating Claude Code CLI processes that read/write the user's filesystem. That can't move to the cloud.\n\nHere's how I'd think about the distribution options, from simplest to most ambitious:\n\n## Option 1: npm package (easiest, probably what you want first)\n\n```\nnpx thos\n# or\nnpm install -g thos\n```\n\nShip the Next.js app + WS server as a single installable package. User runs one command, opens `localhost:3000`. This is the Storybook / Prisma Studio model.\n\nWhat you'd need to change:\n- Bundle the WS server into the Next.js production build (or ship both as a single `bin` entry)\n- Replace `tsx watch server/ws.ts` with a compiled entrypoint\n- Add a `bin` field to `package.json` pointing to a CLI launcher\n- Prerequisites check on startup (Claude Code CLI installed, tmux available)\n- Remove the Tailscale IP allowlist stuff (or make it configurable)\n\n**Prereqs for users**: Node.js, Claude Code CLI, tmux (macOS/Linux only — tmux doesn't exist on Windows)\n\n## Option 2: Hosted dashboard + local agent (the \"web app\" model)\n\nThis is the model if you want `thos.app` in a browser with no local dev server. Two pieces:\n\n1. **Hosted dashboard** (Vercel/Cloudflare) — the React UI only, no server-side spawning\n2. **Local agent** (`npx thos-agent`) — a lightweight process on the user's machine that:\n   - Connects **outbound** to `wss://thos.app/agent` (punches through NATs, no port forwarding)\n   - Spawns/manages Claude Code CLI processes locally\n   - Relays messages between the CLI and the hosted dashboard\n\nThe architecture flips: instead of `browser → WS server → CLI` all on localhost, it becomes `browser → hosted server ← local agent → CLI`. The hosted server is just a relay.\n\nYou'd need:\n- Auth (accounts, API keys)\n- The relay server (relatively thin — your `server/ws.ts` logic split between hosted relay and local agent)\n- Extract `spawnClaude()`, `handleClaudeMessage()`, file persistence into the local agent\n- End-to-end encryption (users' code flows through your server otherwise)\n\n## Option 3: Desktop app (Electron/Tauri)\n\nPackage everything as a native `.app`/`.dmg`. No terminal needed. Could even bundle the Claude Code CLI.\n\nHeaviest lift, but best UX for non-technical users. Tauri would be lighter than Electron.\n\n---\n\n## My recommendation\n\n**Start with Option 1** (npm package). It's 90% of the value with 10% of the work. The main changes are:\n\n1. Add a `bin` CLI entrypoint that starts both servers\n2. Compile the WS server with `tsc` or `esbuild` (drop `tsx watch`)\n3. Preflight check for `claude` and `tmux` on `PATH`\n4. Make port numbers configurable via env vars\n5. `next build` + `next start` for the dashboard in production mode\n\nThen if there's demand, Option 2 gives you the \"log in from any browser\" story, but it's a much bigger undertaking (auth, relay infra, E2E encryption, billing).\n\nThe tmux dependency is the biggest friction point for adoption — you might want to eventually abstract that behind Node's `child_process` directly (with a pty library like `node-pty`) so it works on Windows too."
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 1,
+            "cache_creation_input_tokens": 16975,
+            "cache_read_input_tokens": 22737,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 16975
+            },
+            "output_tokens": 8,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb",
+        "uuid": "9efc385a-f2f0-479c-a91d-d6eda00f3cf2"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "result",
+        "subtype": "success",
+        "is_error": false,
+        "duration_ms": 51262,
+        "duration_api_ms": 116324,
+        "num_turns": 1,
+        "result": "Yeah, this is a solid product model. Here's how I'd think about it:\n\n## The product\n\n**Hosted app** (`thos.app`) — the dashboard you already have, plus auth, billing, account management. This is the product people pay for.\n\n**Local agent** (`npx thos-agent`) — lightweight daemon users install. Connects outbound to your hosted relay. Spawns Claude Code CLI on their machine.\n\n## The linking flow\n\nThe critical UX moment. Device code flow is the standard pattern (same as `gh auth login`, `tailscale up`, `vercel login`):\n\n```\n$ npx thos-agent\n  To link this device, visit: https://thos.app/link?code=ABCD-1234\n  Waiting for authorization...\n  ✓ Linked to account chiu@example.com\n  Agent connected. Ready.\n```\n\nUser visits that URL in their browser, they're already logged in, they click \"Authorize\", the agent gets a long-lived device token stored in `~/.thos/credentials.json`. From then on, `npx thos-agent` just connects automatically.\n\n## Architecture\n\n```\n┌─────────────────────────────────────┐\n│  thos.app (hosted)                  │\n│                                     │\n│  Next.js app                        │\n│  ├── Auth (Clerk/NextAuth)          │\n│  ├── Billing (Stripe)              │\n│  ├── Dashboard UI (your React app)  │\n│  └── Relay server (WebSocket)       │\n│       ├── /browser  ← dashboard     │\n│       └── /agent    ← local agents  │\n└──────────┬──────────────┬───────────┘\n           │ wss://       │ wss://\n      ┌────┘              └────┐\n      ▼                        ▼\n  Browser                  User's machine\n  (dashboard)              (thos-agent)\n                            ├── spawns claude CLI\n                            ├── manages tmux/pty\n                            └── file system access\n```\n\nThe relay is basically your current `server/ws.ts` but stripped to just message routing — no `spawn()`, no `execSync`, no `fs` access. All of that moves into the local agent.\n\n## Billing model\n\nThe question is what you're actually charging for. Two options:\n\n**A. SaaS fee for thos itself** — user brings their own Claude Code subscription. You charge $X/month for the orchestration UI. Simpler to build, but your value prop needs to be strong enough independent of the AI.\n\n**B. Proxy the API and meter usage** — the local agent routes Claude API calls through your relay, you add your own API key, meter tokens, bill accordingly. More revenue potential but way more infrastructure (you're now a usage-based billing platform handling API keys, rate limits, cost tracking). Also requires users to trust you with their prompts flowing through your server.\n\n**A is where I'd start.** It's dramatically simpler and you avoid the trust/security burden of proxying code through your servers. Users already have Claude Code subscriptions — you're selling the multi-agent dashboard, task orchestration, and persistent visibility layer on top.\n\n## What you'd split from the current codebase\n\n| Current `server/ws.ts` | → Hosted relay | → Local agent |\n|---|---|---|\n| `handleBrowserMessage()` | Stays (routes to agent) | — |\n| `handleClaudeMessage()` | — | Moves here |\n| `spawnClaude()` | — | Moves here |\n| `recordAndSend()` | Relay + persist to DB | — |\n| `SessionStore` (file JSON) | Replace with Postgres/SQLite | Local cache only |\n| `broadcastAgentList()` | Stays | — |\n| tmux/pty management | — | Moves here |\n\n## The hard parts\n\n1. **The relay server needs persistent WebSockets** — you can't use Vercel serverless for this. You'd need a separate process (Fly.io, Railway, a VPS with something like `ws` or Socket.io).\n\n2. **Reconnection/reliability** — the local agent will lose connection sometimes. Need a clean reconnect flow with message buffering (you already have `pendingMessages`, so the pattern exists).\n\n3. **Multi-device** — one account, multiple machines each running `thos-agent`. The relay needs to track which agent is on which device.\n\n4. **Security** — even with SaaS billing (not proxying API), prompts and code snippets flow through your relay in the `relay` messages. You'd want E2E encryption between the browser and the local agent, with the relay being unable to read message contents. Or at minimum, TLS + clear privacy policy.\n\nThe good news is your existing architecture maps cleanly onto this split. The two-connection-family design (`/browser` + `/claude`) is already the right shape — you're just stretching the wire between them across the internet instead of localhost.",
+        "stop_reason": null,
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb",
+        "total_cost_usd": 0.558317,
+        "usage": {
+          "input_tokens": 3,
+          "cache_creation_input_tokens": 23051,
+          "cache_read_input_tokens": 18624,
+          "output_tokens": 1942,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 23051,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "",
+          "iterations": [],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-opus-4-6": {
+            "inputTokens": 10,
+            "outputTokens": 4067,
+            "cacheReadInputTokens": 78609,
+            "cacheCreationInputTokens": 66766,
+            "webSearchRequests": 0,
+            "costUSD": 0.558317,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000
+          }
+        },
+        "permission_denials": [],
+        "uuid": "d0846eb5-ed49-4ae5-be4b-48ec7ed4af1f"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "i’m interested in option 2 but i’m just imagining that those agent just produces a code i can put into the frontend right"
+        }
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_014RUp4Xw3yBVujhgNYfRACc",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": "\n\nRight, so you're thinking of it more like an embeddable widget / SDK — someone drops a script tag or React component into their own app and gets a thos-like agent chat interface, with the local agent bridging to their machine.\n\nThat's a cleaner model than hosting a full dashboard. The pieces would be:\n\n1. **Local agent** (`npx thos-agent`) — runs on the user's machine, connects outbound to your relay server, spawns Claude Code CLI processes\n2. **Relay server** — hosted, stateless-ish WebSocket broker that pairs browser sessions with local agents\n3. **Embeddable frontend** — a JS SDK / React component that anyone drops into their site\n\n```tsx\n// What the developer integration looks like\nimport { ThosChat } from \"@thos/embed\";\n\n<ThosChat agentToken=\"tok_xxx\" />\n```\n\nThe local agent authenticates with a token, the embed authenticates with the same token, the relay pairs them. The hosted relay never sees code — it just forwards encrypted messages between the two WebSocket connections.\n\nThe key insight is that your current `server/ws.ts` already has the two connection families (`/browser` and `/claude/:agentId`). In this model, `/browser` becomes the embed SDK connecting from some website, and `/claude/:agentId` becomes the local agent connecting outbound. The relay is essentially the same message routing logic you already have, minus `spawnClaude()` and file persistence (those move into the local agent).\n\nIs this what you're picturing? Or are you thinking even simpler — literally just the frontend components as a library, and people run their own relay + agent locally?"
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 3,
+            "cache_creation_input_tokens": 22627,
+            "cache_read_input_tokens": 18624,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 22627
+            },
+            "output_tokens": 2,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb",
+        "uuid": "67280cc8-3142-4632-addb-fa008b4b5a5b"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "i was thinking about deploying the chat as a frontend that manages potential billing / access for users and then the helper agent that people install on their computer that they somehow link to the product. open to thoughts here"
+        }
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_01Q5ZBrHa1m7DUAgxRAtRaUA",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": "Yeah, this is a solid product model. Here's how I'd think about it:\n\n## The product\n\n**Hosted app** (`thos.app`) — the dashboard you already have, plus auth, billing, account management. This is the product people pay for.\n\n**Local agent** (`npx thos-agent`) — lightweight daemon users install. Connects outbound to your hosted relay. Spawns Claude Code CLI on their machine.\n\n## The linking flow\n\nThe critical UX moment. Device code flow is the standard pattern (same as `gh auth login`, `tailscale up`, `vercel login`):\n\n```\n$ npx thos-agent\n  To link this device, visit: https://thos.app/link?code=ABCD-1234\n  Waiting for authorization...\n  ✓ Linked to account chiu@example.com\n  Agent connected. Ready.\n```\n\nUser visits that URL in their browser, they're already logged in, they click \"Authorize\", the agent gets a long-lived device token stored in `~/.thos/credentials.json`. From then on, `npx thos-agent` just connects automatically.\n\n## Architecture\n\n```\n┌─────────────────────────────────────┐\n│  thos.app (hosted)                  │\n│                                     │\n│  Next.js app                        │\n│  ├── Auth (Clerk/NextAuth)          │\n│  ├── Billing (Stripe)              │\n│  ├── Dashboard UI (your React app)  │\n│  └── Relay server (WebSocket)       │\n│       ├── /browser  ← dashboard     │\n│       └── /agent    ← local agents  │\n└──────────┬──────────────┬───────────┘\n           │ wss://       │ wss://\n      ┌────┘              └────┐\n      ▼                        ▼\n  Browser                  User's machine\n  (dashboard)              (thos-agent)\n                            ├── spawns claude CLI\n                            ├── manages tmux/pty\n                            └── file system access\n```\n\nThe relay is basically your current `server/ws.ts` but stripped to just message routing — no `spawn()`, no `execSync`, no `fs` access. All of that moves into the local agent.\n\n## Billing model\n\nThe question is what you're actually charging for. Two options:\n\n**A. SaaS fee for thos itself** — user brings their own Claude Code subscription. You charge $X/month for the orchestration UI. Simpler to build, but your value prop needs to be strong enough independent of the AI.\n\n**B. Proxy the API and meter usage** — the local agent routes Claude API calls through your relay, you add your own API key, meter tokens, bill accordingly. More revenue potential but way more infrastructure (you're now a usage-based billing platform handling API keys, rate limits, cost tracking). Also requires users to trust you with their prompts flowing through your server.\n\n**A is where I'd start.** It's dramatically simpler and you avoid the trust/security burden of proxying code through your servers. Users already have Claude Code subscriptions — you're selling the multi-agent dashboard, task orchestration, and persistent visibility layer on top.\n\n## What you'd split from the current codebase\n\n| Current `server/ws.ts` | → Hosted relay | → Local agent |\n|---|---|---|\n| `handleBrowserMessage()` | Stays (routes to agent) | — |\n| `handleClaudeMessage()` | — | Moves here |\n| `spawnClaude()` | — | Moves here |\n| `recordAndSend()` | Relay + persist to DB | — |\n| `SessionStore` (file JSON) | Replace with Postgres/SQLite | Local cache only |\n| `broadcastAgentList()` | Stays | — |\n| tmux/pty management | — | Moves here |\n\n## The hard parts\n\n1. **The relay server needs persistent WebSockets** — you can't use Vercel serverless for this. You'd need a separate process (Fly.io, Railway, a VPS with something like `ws` or Socket.io).\n\n2. **Reconnection/reliability** — the local agent will lose connection sometimes. Need a clean reconnect flow with message buffering (you already have `pendingMessages`, so the pattern exists).\n\n3. **Multi-device** — one account, multiple machines each running `thos-agent`. The relay needs to track which agent is on which device.\n\n4. **Security** — even with SaaS billing (not proxying API), prompts and code snippets flow through your relay in the `relay` messages. You'd want E2E encryption between the browser and the local agent, with the relay being unable to read message contents. Or at minimum, TLS + clear privacy policy.\n\nThe good news is your existing architecture maps cleanly onto this split. The two-connection-family design (`/browser` + `/claude`) is already the right shape — you're just stretching the wire between them across the internet instead of localhost."
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "usage": {
+            "input_tokens": 3,
+            "cache_creation_input_tokens": 23051,
+            "cache_read_input_tokens": 18624,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 23051
+            },
+            "output_tokens": 10,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb",
+        "uuid": "5a1e1c56-3853-45f9-b18d-1cfe22041a15"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    }
+  ]
+}

@@ -7,7 +7,8 @@
     "label": "can you make it so all new agents spawned have the  --dan...",
     "createdAt": 1771016549195,
     "sessionId": "53c5e87d-50f8-4a6e-9afc-b22e23ea3c63",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

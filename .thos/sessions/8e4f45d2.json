@@ -7,7 +7,8 @@
     "label": "Task: archive agent when task marked ast complete\n\n",
     "createdAt": 1771277188757,
     "sessionId": "5f9dbba3-0e84-4fba-9a39-064339c531a5",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

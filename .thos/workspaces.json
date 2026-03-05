@@ -10,5 +10,29 @@
     "name": "thos",
     "cwd": "/Users/chiu.fyi/thos",
     "createdAt": 1771361655132
+  },
+  {
+    "id": "703047ec",
+    "name": "blog",
+    "cwd": "/Users/chiu.fyi/work/blog",
+    "createdAt": 1771379418489
+  },
+  {
+    "id": "02cf5992",
+    "name": "drum-practice",
+    "cwd": "/Users/chiu.fyi/work/drum-practice",
+    "createdAt": 1771505206725
+  },
+  {
+    "id": "cc47bc64",
+    "name": "find-nepal-trek-website",
+    "cwd": "/Users/chiu.fyi/work/find-nepal-trek-website",
+    "createdAt": 1771680976047
+  },
+  {
+    "id": "806d2340",
+    "name": "polyglot",
+    "cwd": "/Users/chiu.fyi/work/polyglot",
+    "createdAt": 1772555012270
   }
 ]

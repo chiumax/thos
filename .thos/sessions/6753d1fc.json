@@ -7,7 +7,8 @@
     "label": "i want you to build a chat condenser util for claude. som...",
     "createdAt": 1770991817307,
     "sessionId": "39e8edd8-f4f0-4d25-8349-d73cc777ed7a",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

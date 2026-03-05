@@ -7,7 +7,8 @@
     "label": "Task: when agent not selected, instead of opening the fir...",
     "createdAt": 1771277583157,
     "sessionId": "a76b655f-95db-4128-afc5-e62f2fed0d2a",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

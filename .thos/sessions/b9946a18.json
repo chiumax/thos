@@ -7,7 +7,8 @@
     "label": "say hello in one sentence",
     "createdAt": 1771207067660,
     "sessionId": "4609e75b-04a7-4818-88e0-3ea7592dd1df",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {

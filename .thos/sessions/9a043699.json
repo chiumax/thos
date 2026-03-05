@@ -7,7 +7,8 @@
     "label": "tell me about what information the app stores either in l...",
     "createdAt": 1770991706409,
     "sessionId": "570917b7-188e-43cb-a65c-ca69befc309d",
-    "workspaceId": null
+    "workspaceId": null,
+    "model": null
   },
   "messageHistory": [
     {
