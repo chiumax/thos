@@ -10,14 +10,20 @@
  * - Relative timestamps ("just now", "2m ago") with absolute time on hover.
  * - Copy button on hover for user/assistant messages.
  * - Markdown rendering for assistant messages via react-markdown + remark-gfm.
+ * - Inline diffs for assistant messages that contain file-modifying tool calls
+ *   (Edit, Write, MultiEdit). These are rendered automatically below the
+ *   message text via {@link DiffViewer}. This covers standalone messages
+ *   that aren't part of a condensed group — condensed groups handle diffs
+ *   separately in {@link CondensedToolGroup}.
  */
 
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Check, Copy } from "lucide-react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { ChatMessage } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { DiffViewer } from "./diff-viewer";
 
 // ── Relative time formatting ────────────────────────────────────────────
 
@@ -82,7 +88,7 @@ function CopyButton({ text }: { text: string }) {
 
 // ── Message component ───────────────────────────────────────────────────
 
-export function Message({ message }: { message: ChatMessage }) {
+export const Message = memo(function Message({ message, onSendMessage }: { message: ChatMessage; onSendMessage?: (content: string) => void }) {
   if (message.role === "system") {
     return (
       <div className="py-1 text-center text-xs italic text-muted-foreground">
@@ -108,9 +114,18 @@ export function Message({ message }: { message: ChatMessage }) {
         ) : (
           <Markdown remarkPlugins={[remarkGfm]}>{message.content}</Markdown>
         )}
+        {!isUser && message.toolCalls && (
+          <div className="mt-2 space-y-2">
+            {message.toolCalls
+              .filter((tc) => tc.input && (tc.name === "Edit" || tc.name === "Write" || tc.name === "MultiEdit"))
+              .map((tc, i) => (
+                <DiffViewer key={tc.toolUseId ?? i} toolCall={tc} onComment={onSendMessage} />
+              ))}
+          </div>
+        )}
         <CopyButton text={message.content} />
       </div>
       <RelativeTime timestamp={message.timestamp} />
     </div>
   );
-}
+});

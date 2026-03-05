@@ -11,6 +11,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Folder, FolderUp, X } from "lucide-react";
 import type { DirectoryEntry } from "@/lib/types";
+import { Tip } from "@/components/ui/tip";
 import { cn } from "@/lib/utils";
 
 export function FolderBrowser({
@@ -147,7 +148,7 @@ export function FolderBrowser({
                     ) : (
                       <Folder className="size-4 shrink-0 text-muted-foreground" />
                     )}
-                    <span className="truncate">{entry.name}</span>
+                    <Tip text={entry.name} side="right"><span className="truncate">{entry.name}</span></Tip>
                   </button>
                 ))}
               </div>

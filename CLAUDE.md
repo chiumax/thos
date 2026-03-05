@@ -14,7 +14,7 @@ thos is a visual orchestration layer for Claude Code — a web UI that runs alon
 
 ## Commands
 
-- `pnpm dev` — Start Next.js (port 3000, Turbopack) + WebSocket server (port 9900) concurrently
+- `pnpm dev` — Start Next.js (port 31337, Turbopack) + WebSocket server (port 9900) concurrently
 - `pnpm dev:next` — Next.js only
 - `pnpm dev:ws` — WebSocket server only
 - `pnpm build` — Production build

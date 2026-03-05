@@ -25,6 +25,9 @@ export interface PersistedAgent {
     createdAt: number;
     sessionId: string | null;
     workspaceId: string | null;
+    model?: string | null;
+    pinned?: boolean;
+    iceboxed?: boolean;
   };
   messageHistory: ServerMessage[];
 }

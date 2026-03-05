@@ -14,6 +14,7 @@ import {
   Activity,
   Cpu,
   HelpCircle,
+  FolderOpen,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -35,6 +36,7 @@ export const COMMANDS: SlashCommand[] = [
   { name: "config", description: "Open configuration", icon: Settings },
   { name: "memory", description: "Edit memory files", icon: Brain },
   { name: "status", description: "Show agent status", icon: Activity },
+  { name: "context", description: "Show session context usage", icon: FolderOpen, clientSide: true },
   { name: "model", description: "Change model", icon: Cpu },
   { name: "help", description: "Show available commands", icon: HelpCircle },
 ];

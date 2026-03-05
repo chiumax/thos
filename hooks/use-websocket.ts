@@ -52,6 +52,8 @@ import type {
   ClaudeResult,
   ClaudeSystemInit,
   DirectoryEntry,
+  NotificationItem,
+  NotificationType,
   ServerMessage,
   ServerMessageHistory,
   ServerTaskList,
@@ -63,6 +65,13 @@ import type {
   UserQuestion,
   Workspace,
 } from "@/lib/types";
+import { sfxTool, sfxDone, sfxError, sfxQuestion, sfxBegin, sfxSend } from "@/lib/sfx";
+import {
+  notifyDone,
+  notifyError,
+  notifyControlRequest,
+  notifyQuestion,
+} from "@/lib/notifications";
 
 /** Connect to the WS server on the same host the page was loaded from. */
 const WS_URL =
@@ -79,6 +88,14 @@ export interface AgentClientState {
   label: string;
   tmuxSession: string | null;
   createdAt: number;
+  /** Model name from system/init or agent_list. */
+  model?: string;
+  /** Whether this agent is pinned to the top of the sidebar. */
+  pinned?: boolean;
+  /** Whether this agent is in the icebox. */
+  iceboxed?: boolean;
+  /** Workspace this agent belongs to. */
+  workspaceId?: string | null;
 }
 
 /**
@@ -163,13 +180,26 @@ function relayChatMessage(agentId: string, relayMsg: ServerMessage): ChatMessage
         }
       }
 
+      // Build ToolCallInfo for each tool_use block. For file-modifying tools
+      // (Edit, Write, MultiEdit), the raw `input` object is preserved so that
+      // DiffViewer can render syntax-highlighted before/after diffs. Other
+      // tools only keep the name and result preview to avoid carrying
+      // unnecessary data (e.g. Read file contents, Bash output).
+      const DIFF_TOOLS = new Set(["Edit", "Write", "MultiEdit"]);
       const toolCalls: ToolCallInfo[] = blocks
         .filter((b) => b.type === "tool_use")
-        .map((b) => ({
-          name: (b as { name: string }).name,
-          toolUseId: (b as { id: string }).id,
-          resultPreview: resultMap.get((b as { id: string }).id),
-        }));
+        .map((b) => {
+          const tu = b as { name: string; id: string; input: Record<string, unknown> };
+          const info: ToolCallInfo = {
+            name: tu.name,
+            toolUseId: tu.id,
+            resultPreview: resultMap.get(tu.id),
+          };
+          if (DIFF_TOOLS.has(tu.name)) {
+            info.input = tu.input;
+          }
+          return info;
+        });
       const isToolOnly = !hasText && toolCalls.length > 0;
 
       return {
@@ -246,7 +276,16 @@ function log(...args: unknown[]) {
   console.log("[thos-ws]", ...args);
 }
 
-export function useWebSocket() {
+interface UseWebSocketOptions {
+  /** Agent ID from URL. Controls which agent is active. */
+  activeAgentId: string | null;
+  /** Called when the hook wants to change the active agent (spawn, delete, auto-select). */
+  onNavigateToAgent: (agentId: string | null) => void;
+}
+
+export function useWebSocket(options: UseWebSocketOptions) {
+  const { activeAgentId, onNavigateToAgent } = options;
+
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   /** Set to true during cleanup to prevent onclose from scheduling reconnects. */
@@ -258,7 +297,6 @@ export function useWebSocket() {
   // Multi-agent state
   const [agents, setAgents] = useState<Map<string, AgentClientState>>(new Map());
   const [agentOrder, setAgentOrder] = useState<string[]>([]);
-  const [activeAgentId, setActiveAgentId] = useState<string | null>(null);
 
   // Task state
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -267,6 +305,18 @@ export function useWebSocket() {
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
   const [activeWorkspaceId, setActiveWorkspaceIdState] = useState<string | null>(null);
   const [directoryListing, setDirectoryListing] = useState<{ path: string; entries: DirectoryEntry[] } | null>(null);
+
+  // Notification inbox state
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  let notifCounter = useRef(0);
+
+  // Refs for accessing current state inside the onmessage closure.
+  const activeAgentIdRef = useRef(activeAgentId);
+  activeAgentIdRef.current = activeAgentId;
+  const onNavigateRef = useRef(onNavigateToAgent);
+  onNavigateRef.current = onNavigateToAgent;
+  const agentsRef = useRef(agents);
+  agentsRef.current = agents;
 
   // Per-agent deduplication: track count of processed messages per agent
   // to avoid duplicating messages already in local state during history replay.
@@ -288,6 +338,31 @@ export function useWebSocket() {
     },
     []
   );
+
+  /** Build notification options for an agent event. */
+  const notifyOpts = (agentId: string) => {
+    const agent = agentsRef.current.get(agentId);
+    return {
+      agentId,
+      agentLabel: agent?.label || agentId.slice(0, 8),
+      isActiveAgent: agentId === activeAgentIdRef.current,
+    };
+  };
+
+  /** Push a notification item to the inbox. */
+  const pushNotification = (type: NotificationType, agentId: string, message: string) => {
+    const agent = agentsRef.current.get(agentId);
+    const item: NotificationItem = {
+      id: `notif-${Date.now()}-${++notifCounter.current}`,
+      type,
+      agentId,
+      agentLabel: agent?.label || agentId.slice(0, 8),
+      message,
+      timestamp: Date.now(),
+      read: false,
+    };
+    setNotifications((prev) => [item, ...prev]);
+  };
 
   const connect = useCallback(() => {
     if (wsRef.current?.readyState === WebSocket.OPEN) return;
@@ -486,6 +561,10 @@ export function useWebSocket() {
                 status: info.status,
                 tmuxSession: info.tmuxSession,
                 label: info.label,
+                model: info.model ?? existing.model,
+                pinned: info.pinned ?? false,
+                iceboxed: info.iceboxed ?? false,
+                workspaceId: info.workspaceId,
               });
             } else {
               next.set(info.agentId, {
@@ -495,6 +574,10 @@ export function useWebSocket() {
                 label: info.label,
                 tmuxSession: info.tmuxSession,
                 createdAt: info.createdAt,
+                model: info.model ?? undefined,
+                pinned: info.pinned ?? false,
+                iceboxed: info.iceboxed ?? false,
+                workspaceId: info.workspaceId,
               });
             }
           }
@@ -511,18 +594,20 @@ export function useWebSocket() {
         setAgentOrder(serverAgents.map((a) => a.agentId));
         setInitialLoadDone(true);
 
-        // Auto-select the first agent on initial load when nothing is selected
-        setActiveAgentId((prev) => {
-          if (prev !== null) return prev;
-          if (serverAgents.length === 0) return null;
-          return serverAgents[0].agentId;
-        });
+        // Auto-select first agent when none selected, or redirect stale IDs
+        const currentId = activeAgentIdRef.current;
+        const serverIds = new Set(serverAgents.map((a) => a.agentId));
+        if (currentId === null && serverAgents.length > 0) {
+          onNavigateRef.current(serverAgents[0].agentId);
+        } else if (currentId !== null && !serverIds.has(currentId) && serverAgents.length > 0) {
+          onNavigateRef.current(serverAgents[0].agentId);
+        }
         return;
       }
 
       // ── spawned: auto-select the newly created agent ──
       if (data.type === "spawned") {
-        setActiveAgentId(data.agentId);
+        onNavigateRef.current(data.agentId);
         return;
       }
 
@@ -534,6 +619,7 @@ export function useWebSocket() {
 
       // ── error: append to agent's message list ──
       if (data.type === "error") {
+        sfxError();
         updateAgent(data.agentId, (prev) => ({
           ...prev,
           messages: [
@@ -560,10 +646,59 @@ export function useWebSocket() {
         const rawMsg = data.message;
         const chatMsg = relayChatMessage(agentId, data);
 
+        // SFX: play a sound for each tool call in the message
+        if (chatMsg?.toolCalls?.length) {
+          // Play SFX for the first mapped tool (avoids overlapping sounds in multi-tool messages)
+          const first = chatMsg.toolCalls.find((tc) => tc.name);
+          if (first) sfxTool(first.name);
+        }
+
+        // SFX + notifications: result done / error
+        if (rawMsg.type === "result") {
+          const result = rawMsg as ClaudeResult;
+          if (result.is_error) {
+            sfxError();
+            notifyError(notifyOpts(agentId));
+            pushNotification("error", agentId, "Agent error");
+          } else {
+            sfxDone();
+            notifyDone(notifyOpts(agentId));
+            pushNotification("done", agentId, "Agent finished");
+          }
+        }
+
+        // SFX + notifications: control request (tool approval / question)
+        if (rawMsg.type === "control_request") {
+          sfxQuestion();
+          const cr = rawMsg as ClaudeControlRequest;
+          if (cr.request.tool_name === "AskUserQuestion") {
+            notifyQuestion(notifyOpts(agentId));
+            pushNotification("question", agentId, "Question from agent");
+          } else {
+            notifyControlRequest({
+              ...notifyOpts(agentId),
+              toolName: cr.request.tool_name,
+            });
+            pushNotification("control_request", agentId, `Approval needed: ${cr.request.tool_name}`);
+          }
+        }
+
+        // SFX: session start
+        if (rawMsg.type === "system" && (rawMsg as { subtype?: string }).subtype === "init") {
+          sfxBegin();
+        }
+
+        // Capture model from system/init
+        const initModel =
+          rawMsg.type === "system" && (rawMsg as { subtype?: string }).subtype === "init"
+            ? (rawMsg as ClaudeSystemInit).model
+            : undefined;
+
         updateAgent(agentId, (prev) => ({
           ...prev,
           rawMessages: [...prev.rawMessages, rawMsg],
           messages: chatMsg ? [...prev.messages, chatMsg] : prev.messages,
+          ...(initModel ? { model: initModel } : {}),
         }));
         if (chatMsg) {
           // Track processed count for dedup
@@ -601,8 +736,13 @@ export function useWebSocket() {
   }, [activeAgentId, loadedAgents, send]);
 
   const spawnAgent = useCallback(
-    (prompt: string) => {
-      send({ type: "spawn", prompt });
+    (prompt: string, model?: string, systemPrompt?: string) => {
+      send({
+        type: "spawn",
+        prompt,
+        ...(model ? { model } : {}),
+        ...(systemPrompt ? { systemPrompt } : {}),
+      });
     },
     [send]
   );
@@ -624,6 +764,7 @@ export function useWebSocket() {
         ],
       }));
       send({ type: "send_message", agentId: activeAgentId, content });
+      sfxSend();
     },
     [send, activeAgentId, updateAgent]
   );
@@ -680,7 +821,9 @@ export function useWebSocket() {
     (agentId: string) => {
       send({ type: "delete_agent", agentId });
       // Deselect if we just deleted the active agent
-      setActiveAgentId((prev) => (prev === agentId ? null : prev));
+      if (activeAgentIdRef.current === agentId) {
+        onNavigateRef.current(null);
+      }
     },
     [send]
   );
@@ -695,6 +838,27 @@ export function useWebSocket() {
   const clearHistory = useCallback(
     (agentId: string) => {
       send({ type: "clear_history", agentId });
+    },
+    [send]
+  );
+
+  const pinAgent = useCallback(
+    (agentId: string, pinned: boolean) => {
+      send({ type: "pin_agent", agentId, pinned });
+    },
+    [send]
+  );
+
+  const iceboxAgent = useCallback(
+    (agentId: string, iceboxed: boolean) => {
+      send({ type: "icebox_agent", agentId, iceboxed });
+    },
+    [send]
+  );
+
+  const moveAgent = useCallback(
+    (agentId: string, workspaceId: string | null) => {
+      send({ type: "move_agent", agentId, workspaceId });
     },
     [send]
   );
@@ -782,7 +946,28 @@ export function useWebSocket() {
     () => activeAgent?.rawMessages ?? [],
     [activeAgent?.rawMessages]
   );
+  const activeModel = activeAgent?.model ?? null;
   const historyLoading = activeAgentId !== null && !loadedAgents.has(activeAgentId);
+
+  // ── Notification inbox actions ──────────────────────────────────────────
+
+  const clearNotifications = useCallback(() => {
+    setNotifications([]);
+  }, []);
+
+  const dismissNotification = useCallback((id: string) => {
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
+  }, []);
+
+  const markNotificationRead = useCallback((id: string) => {
+    setNotifications((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+    );
+  }, []);
+
+  const testNotification = useCallback(() => {
+    pushNotification("done", "test", "Test notification");
+  }, []);
 
   return {
     connected,
@@ -791,10 +976,10 @@ export function useWebSocket() {
     agents,
     agentOrder,
     activeAgentId,
-    setActiveAgentId,
     activeStatus,
     activeMessages,
     activeRawMessages,
+    activeModel,
     spawnAgent,
     sendMessage,
     respondToControl,
@@ -803,6 +988,9 @@ export function useWebSocket() {
     deleteAgent,
     renameAgent,
     clearHistory,
+    pinAgent,
+    iceboxAgent,
+    moveAgent,
     tasks,
     createTask,
     updateTask,
@@ -816,5 +1004,10 @@ export function useWebSocket() {
     deleteWorkspace,
     browseDirectory,
     directoryListing,
+    notifications,
+    clearNotifications,
+    dismissNotification,
+    markNotificationRead,
+    testNotification,
   };
 }

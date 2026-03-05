@@ -1,5 +1,34 @@
 # Changelog
 
+## 2026-03-03 — Expandable plan mode UI
+
+The approve/deny card for `ExitPlanMode` now renders the `input.plan` markdown as a full rendered document (up to 70vh, scrollable) with expand/collapse toggle, instead of a cramped `max-h-48` raw code block. Defaults to expanded. `allowedPrompts` are shown compactly as permission badges. Buttons say "Approve Plan" / "Reject" instead of generic "Allow" / "Deny".
+
+### Changes
+
+- **`components/dashboard/control-request.tsx`** — Added `PlanApproval` component for `ExitPlanMode` control requests. Renders plan markdown via react-markdown with expand/collapse, compact permission list, and plan-specific button labels.
+
+## 2026-03-03 — Initial prompt options when spawning agents
+
+Added prompt templates and an optional system prompt field to the agent spawn UI. Template chips (Review code, Write tests, Fix bug, Refactor, Explain) populate the input field for quick starts. A collapsible "System prompt" textarea lets users provide custom instructions that are passed to the CLI via `--append-system-prompt`.
+
+### Changes
+
+- **`lib/types.ts`** — Added optional `systemPrompt` field to `BrowserSpawn`.
+- **`hooks/use-websocket.ts`** — `spawnAgent` callback now accepts optional `systemPrompt` parameter.
+- **`server/ws.ts`** — `spawnClaude()` writes system prompt to a temp file and passes `--append-system-prompt` flag to the CLI command. Added `writeFileSync` and `tmpdir` imports.
+- **`components/dashboard/chat.tsx`** — Added `PROMPT_TEMPLATES` constant, template chip buttons, collapsible system prompt textarea, and wired both through the spawn flow.
+- **`app/dashboard/page.tsx`** — Passes `systemPrompt` from Chat through to `spawnAgent`.
+
+## 2026-03-03 — URL-based agent routing
+
+Each agent now has an explicit URL via search params (`/dashboard?agent=<id>`). Selecting an agent updates the URL; refreshing the page preserves the selection. Navigating to `/dashboard` auto-redirects to the first agent. Stale agent IDs in the URL redirect to the first available agent. Document title shows the active agent label.
+
+### Changes
+
+- **`hooks/use-websocket.ts`** — `useWebSocket()` now accepts `{ activeAgentId, onNavigateToAgent }` options instead of managing `activeAgentId` as internal state. All internal `setActiveAgentId` calls replaced with the navigation callback via ref.
+- **`app/dashboard/page.tsx`** — Reads agent ID from `useSearchParams`, creates `navigateToAgent` callback using `router.replace`, passes both into the hook. Wrapped in `<Suspense>` for App Router compatibility. Document title now reflects active agent label.
+
 ## 2026-03-03 — Custom scrollbar styling
 
 Styled all scrollbars to be thin (6px) with subtle translucent thumbs and transparent tracks. Thumbs brighten on hover. Uses both `scrollbar-width`/`scrollbar-color` (Firefox) and `::-webkit-scrollbar` pseudo-elements (Chrome/Safari/Edge). Light theme overrides included.

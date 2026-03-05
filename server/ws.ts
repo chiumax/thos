@@ -55,8 +55,9 @@ import { WebSocketServer, WebSocket } from "ws";
 import { execSync, spawn } from "child_process";
 import { randomBytes } from "crypto";
 import type { IncomingMessage } from "http";
-import { readdirSync, statSync, existsSync } from "fs";
+import { readdirSync, statSync, existsSync, writeFileSync } from "fs";
 import { join, dirname, basename } from "path";
+import { tmpdir } from "os";
 import type {
   BrowserMessage,
   ClaudeMessage,
@@ -113,6 +114,12 @@ interface AgentState {
   sessionId: string | null;
   /** Workspace this agent belongs to. */
   workspaceId: string | null;
+  /** Model name from system/init or requested at spawn time. */
+  model: string | null;
+  /** Whether this agent is pinned to the top of the sidebar. */
+  pinned: boolean;
+  /** Whether this agent is in the icebox (parked for later). */
+  iceboxed: boolean;
   /** Stores control_request inputs keyed by request_id, for building control_responses. */
   pendingControlRequests: Map<string, Record<string, unknown>>;
   /** All messages sent to the browser for this agent (source of truth). */
@@ -167,6 +174,9 @@ function toPersistedAgent(agent: AgentState): PersistedAgent {
       createdAt: agent.createdAt,
       sessionId: agent.sessionId,
       workspaceId: agent.workspaceId,
+      model: agent.model,
+      pinned: agent.pinned || undefined,
+      iceboxed: agent.iceboxed || undefined,
     },
     messageHistory: agent.messageHistory,
   };
@@ -219,6 +229,9 @@ function restoreAgents() {
       createdAt: p.state.createdAt,
       sessionId: p.state.sessionId,
       workspaceId: p.state.workspaceId ?? null,
+      model: p.state.model ?? null,
+      pinned: p.state.pinned ?? false,
+      iceboxed: p.state.iceboxed ?? false,
       pendingControlRequests: new Map(),
       messageHistory: compactHistory(p.messageHistory),
       pendingMessages: [],
@@ -341,6 +354,9 @@ function buildAgentList(workspaceId?: string | null): AgentInfo[] {
     label: a.label,
     createdAt: a.createdAt,
     workspaceId: a.workspaceId,
+    model: a.model,
+    pinned: a.pinned || undefined,
+    iceboxed: a.iceboxed || undefined,
   }));
 }
 
@@ -483,7 +499,7 @@ function deleteAgent(agentId: string) {
  * `/claude/<agentId>`, and sends a `spawned` message to the browser.
  * If `workspaceId` is provided, the tmux session starts in that workspace's cwd.
  */
-function spawnClaude(prompt: string, workspaceId?: string | null): string {
+function spawnClaude(prompt: string, workspaceId?: string | null, model?: string | null, systemPrompt?: string | null): string {
   const agentId = newAgentId();
   const sessionName = `${TMUX_SESSION_PREFIX}-${agentId}`;
   const label = prompt.length > 60 ? prompt.slice(0, 57) + "..." : prompt;
@@ -498,6 +514,9 @@ function spawnClaude(prompt: string, workspaceId?: string | null): string {
     createdAt: Date.now(),
     sessionId: null,
     workspaceId: workspaceId ?? null,
+    model: model ?? null,
+    pinned: false,
+    iceboxed: false,
     pendingControlRequests: new Map(),
     messageHistory: [],
     pendingMessages: [],
@@ -511,7 +530,15 @@ function spawnClaude(prompt: string, workspaceId?: string | null): string {
 
   // Build the claude command with CLAUDECODE unset to bypass nesting protection.
   // tmux new-session runs detached (-d) so spawn() returns immediately.
-  const claudeCmd = `unset CLAUDECODE; exec claude --dangerously-skip-permissions --sdk-url ws://localhost:${PORT}/claude/${agentId}`;
+  const modelFlag = model ? ` --model ${model}` : "";
+  let systemPromptFlag = "";
+  if (systemPrompt) {
+    // Write system prompt to a temp file to avoid shell escaping issues
+    const spFile = join(tmpdir(), `thos-sp-${agentId}`);
+    writeFileSync(spFile, systemPrompt, "utf-8");
+    systemPromptFlag = ` --append-system-prompt "$(cat ${spFile})"`;
+  }
+  const claudeCmd = `unset CLAUDECODE; exec claude --dangerously-skip-permissions${modelFlag}${systemPromptFlag} --sdk-url ws://localhost:${PORT}/claude/${agentId}`;
 
   // If the agent belongs to a workspace, start tmux in that workspace's cwd
   const workspace = workspaceId ? workspaces.get(workspaceId) : null;
@@ -605,8 +632,9 @@ function handleClaudeMessage(agentId: string, raw: string) {
 
   // Track status based on message type
   if (msg.type === "system" && (msg as { subtype?: string }).subtype === "init") {
-    // Capture session_id for subsequent user messages
+    // Capture session_id and model for subsequent user messages
     agent.sessionId = (msg as { session_id?: string }).session_id ?? null;
+    agent.model = (msg as { model?: string }).model ?? agent.model;
     setAgentStatus(agentId, "connected");
   } else if (msg.type === "assistant") {
     setAgentStatus(agentId, "thinking");
@@ -654,7 +682,7 @@ function handleBrowserMessage(raw: string, senderWs: WebSocket) {
   switch (msg.type) {
     case "spawn": {
       const scope = browserWorkspaceScope.get(senderWs) ?? msg.workspaceId ?? null;
-      spawnClaude(msg.prompt, scope);
+      spawnClaude(msg.prompt, scope, msg.model, msg.systemPrompt);
       break;
     }
 
@@ -750,6 +778,33 @@ function handleBrowserMessage(raw: string, senderWs: WebSocket) {
       agent.messageHistory = [];
       persistAgentSync(agent);
       sendToBrowser({ type: "history_cleared", agentId: msg.agentId });
+      break;
+    }
+
+    case "pin_agent": {
+      const agent = agents.get(msg.agentId);
+      if (!agent) break;
+      agent.pinned = msg.pinned;
+      broadcastAgentList();
+      persistAgentSync(agent);
+      break;
+    }
+
+    case "icebox_agent": {
+      const agent = agents.get(msg.agentId);
+      if (!agent) break;
+      agent.iceboxed = msg.iceboxed;
+      broadcastAgentList();
+      persistAgentSync(agent);
+      break;
+    }
+
+    case "move_agent": {
+      const agent = agents.get(msg.agentId);
+      if (!agent) break;
+      agent.workspaceId = msg.workspaceId;
+      broadcastAgentList();
+      persistAgentSync(agent);
       break;
     }
 
