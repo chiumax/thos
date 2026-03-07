@@ -7,38 +7,13 @@
  * message history, label, and tmux session name tracked in a Map keyed
  * by agent ID. The `activeAgentId` determines which agent's chat is shown.
  *
- * ## Connection lifecycle
- *
- * 1. Connect to `ws://<host>:9900/browser`.
- * 2. Server sends `agent_list` (sidebar metadata) + `task_list`. No
- *    message histories are sent eagerly — this keeps the initial
- *    payload small for fast loading on mobile networks.
- * 3. `initialLoadDone` becomes true after `agent_list` arrives.
- * 4. The first agent is auto-selected if nothing was selected.
- *
- * ## Lazy history loading
- *
- * Message histories are loaded on demand. When `activeAgentId` changes
- * and the agent hasn't been loaded yet, the hook sends
- * `{ type: "request_history", agentId }` and sets `historyLoading = true`.
- * When the server responds with `message_history`, the agent's messages
- * are populated and `historyLoading` becomes false.
- *
- * The `loadedAgents` Set tracks which agents have been fetched so that
- * switching back to a previously viewed agent is instant.
- *
- * ## Resilience features
- *
- * - Handles `message_history` replay from server on demand.
- * - Handles `cli_disconnected` / `cli_connected` events.
- * - Deduplicates messages using a per-agent processed count.
- * - Robust reconnection guard (clears previous timer before scheduling).
- * - Strict mode safe (closingRef prevents spurious reconnects on unmount).
- *
- * ## Logging
- *
- * All WS events are logged with the `[thos-ws]` prefix. Filter by this
- * in the browser console to debug connection and message delivery issues.
+ * Connection management, message parsing, and domain actions are split
+ * into focused modules:
+ * - `message-parser.ts` — pure functions for converting relay messages
+ * - `use-agent-actions.ts` — agent lifecycle callbacks
+ * - `use-task-actions.ts` — task CRUD callbacks
+ * - `use-workspace-actions.ts` — workspace CRUD callbacks
+ * - `use-notifications.ts` — notification inbox state
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -46,32 +21,31 @@ import type {
   AgentInfo,
   AgentStatus,
   ChatMessage,
-  ClaudeAssistant,
   ClaudeControlRequest,
   ClaudeMessage,
   ClaudeResult,
   ClaudeSystemInit,
   DirectoryEntry,
-  NotificationItem,
-  NotificationType,
   ServerMessage,
   ServerMessageHistory,
   ServerTaskList,
   ServerTaskUpdated,
   ServerTaskDeleted,
   Task,
-  TaskPriority,
-  ToolCallInfo,
-  UserQuestion,
   Workspace,
 } from "@/lib/types";
-import { sfxTool, sfxDone, sfxError, sfxQuestion, sfxBegin, sfxSend } from "@/lib/sfx";
+import { sfxTool, sfxDone, sfxError, sfxQuestion, sfxBegin } from "@/lib/sfx";
 import {
   notifyDone,
   notifyError,
   notifyControlRequest,
   notifyQuestion,
 } from "@/lib/notifications";
+import { relayChatMessage, nextId } from "./message-parser";
+import { useAgentActions } from "./use-agent-actions";
+import { useTaskActions } from "./use-task-actions";
+import { useWorkspaceActions } from "./use-workspace-actions";
+import { useNotifications } from "./use-notifications";
 
 /** Connect to the WS server on the same host the page was loaded from. */
 const WS_URL =
@@ -98,179 +72,6 @@ export interface AgentClientState {
   workspaceId?: string | null;
 }
 
-/**
- * Extract displayable text from a Claude assistant message.
- * Content blocks may be text, tool_use, or tool_result — each is
- * handled defensively since the array structure can vary.
- */
-function extractText(msg: ClaudeAssistant): string {
-  const blocks = msg.message?.content;
-  if (!blocks || !Array.isArray(blocks)) return "";
-  return blocks
-    .map((b) => {
-      if (b.type === "text") return b.text;
-      if (b.type === "tool_use") return `[tool_use: ${b.name}]`;
-      if (b.type === "tool_result") {
-        const c = (b as { content?: unknown }).content;
-        return `[tool_result: ${typeof c === "string" ? c : JSON.stringify(c)}]`;
-      }
-      return "";
-    })
-    .filter(Boolean)
-    .join("\n");
-}
-
-/** Module-level counter for generating unique message IDs. */
-let msgCounter = 0;
-function nextId() {
-  return `msg-${Date.now()}-${++msgCounter}`;
-}
-
-/**
- * Convert a server relay message into a ChatMessage, or null if it shouldn't be displayed.
- * Used both for live messages and for replaying message_history.
- */
-function relayChatMessage(agentId: string, relayMsg: ServerMessage): ChatMessage | null {
-  if (relayMsg.type === "relay") {
-    const msg = relayMsg.message;
-
-    if (msg.type === "system" && (msg as { subtype?: string }).subtype === "init") {
-      const init = msg as ClaudeSystemInit;
-      return {
-        id: nextId(),
-        role: "system",
-        content: `Session started — model: ${init.model}, cwd: ${init.cwd}`,
-        timestamp: Date.now(),
-      };
-    }
-
-    if (msg.type === "user") {
-      const rawContent = (msg as { message?: { content?: unknown } }).message?.content ?? "";
-      // Only render human-typed user messages (string content).
-      // CLI tool_result messages have array content — these are internal
-      // protocol messages and are only visible in the raw message viewer.
-      if (typeof rawContent !== "string") return null;
-      if (!rawContent.trim()) return null;
-      return {
-        id: nextId(),
-        role: "user",
-        content: rawContent,
-        timestamp: Date.now(),
-      };
-    }
-
-    if (msg.type === "assistant") {
-      const assistant = msg as ClaudeAssistant;
-      const text = extractText(assistant);
-      if (!text) return null;
-
-      const blocks = assistant.message?.content ?? [];
-      const hasText = blocks.some((b) => b.type === "text" && b.text.trim());
-
-      // Build a map of tool_result blocks keyed by tool_use_id for preview extraction
-      const resultMap = new Map<string, string>();
-      for (const b of blocks) {
-        if (b.type === "tool_result") {
-          const tr = b as { tool_use_id?: string; content?: unknown };
-          if (tr.tool_use_id) {
-            const raw = typeof tr.content === "string" ? tr.content : JSON.stringify(tr.content ?? "");
-            const firstLine = raw.split("\n")[0];
-            resultMap.set(tr.tool_use_id, firstLine.length > 120 ? firstLine.slice(0, 117) + "..." : firstLine);
-          }
-        }
-      }
-
-      // Build ToolCallInfo for each tool_use block. For file-modifying tools
-      // (Edit, Write, MultiEdit), the raw `input` object is preserved so that
-      // DiffViewer can render syntax-highlighted before/after diffs. Other
-      // tools only keep the name and result preview to avoid carrying
-      // unnecessary data (e.g. Read file contents, Bash output).
-      const DIFF_TOOLS = new Set(["Edit", "Write", "MultiEdit"]);
-      const toolCalls: ToolCallInfo[] = blocks
-        .filter((b) => b.type === "tool_use")
-        .map((b) => {
-          const tu = b as { name: string; id: string; input: Record<string, unknown> };
-          const info: ToolCallInfo = {
-            name: tu.name,
-            toolUseId: tu.id,
-            resultPreview: resultMap.get(tu.id),
-          };
-          if (DIFF_TOOLS.has(tu.name)) {
-            info.input = tu.input;
-          }
-          return info;
-        });
-      const isToolOnly = !hasText && toolCalls.length > 0;
-
-      return {
-        id: nextId(),
-        role: "assistant",
-        content: text,
-        timestamp: Date.now(),
-        toolCalls,
-        isToolOnly,
-      };
-    }
-
-    if (msg.type === "result") {
-      const result = msg as ClaudeResult;
-      const summary = result.is_error
-        ? `Error: ${result.error}`
-        : `Done — ${result.num_turns ?? "?"} turns, $${(result.cost_usd ?? 0).toFixed(4)}, ${((result.duration_ms ?? 0) / 1000).toFixed(1)}s`;
-      return {
-        id: nextId(),
-        role: "system",
-        content: summary,
-        timestamp: Date.now(),
-      };
-    }
-
-    if (msg.type === "control_request") {
-      const cr = msg as ClaudeControlRequest;
-
-      // AskUserQuestion gets its own UI instead of generic Allow/Deny
-      if (cr.request.tool_name === "AskUserQuestion") {
-        const input = cr.request.input as { questions?: UserQuestion[] };
-        const questions = Array.isArray(input.questions) ? input.questions : [];
-        return {
-          id: nextId(),
-          role: "system",
-          content: "Question from Claude",
-          timestamp: Date.now(),
-          userQuestion: {
-            requestId: cr.request_id,
-            questions,
-          },
-        };
-      }
-
-      return {
-        id: nextId(),
-        role: "system",
-        content: `Tool approval requested: ${cr.request.tool_name}`,
-        timestamp: Date.now(),
-        controlRequest: {
-          id: cr.request_id,
-          tool_name: cr.request.tool_name,
-          input: cr.request.input,
-          description: cr.request.description,
-        },
-      };
-    }
-  }
-
-  if (relayMsg.type === "error" && relayMsg.agentId === agentId) {
-    return {
-      id: nextId(),
-      role: "system",
-      content: `Error: ${relayMsg.error}`,
-      timestamp: Date.now(),
-    };
-  }
-
-  return null;
-}
-
 /** Console logger with [thos] prefix for easy filtering. */
 function log(...args: unknown[]) {
   console.log("[thos-ws]", ...args);
@@ -288,10 +89,8 @@ export function useWebSocket(options: UseWebSocketOptions) {
 
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  /** Set to true during cleanup to prevent onclose from scheduling reconnects. */
   const closingRef = useRef(false);
   const [connected, setConnected] = useState(false);
-  /** True once we've received the initial agent_list from the server. */
   const [initialLoadDone, setInitialLoadDone] = useState(false);
 
   // Multi-agent state
@@ -303,12 +102,6 @@ export function useWebSocket(options: UseWebSocketOptions) {
 
   // Workspace state
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
-  const [activeWorkspaceId, setActiveWorkspaceIdState] = useState<string | null>(null);
-  const [directoryListing, setDirectoryListing] = useState<{ path: string; entries: DirectoryEntry[] } | null>(null);
-
-  // Notification inbox state
-  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
-  let notifCounter = useRef(0);
 
   // Refs for accessing current state inside the onmessage closure.
   const activeAgentIdRef = useRef(activeAgentId);
@@ -318,8 +111,7 @@ export function useWebSocket(options: UseWebSocketOptions) {
   const agentsRef = useRef(agents);
   agentsRef.current = agents;
 
-  // Per-agent deduplication: track count of processed messages per agent
-  // to avoid duplicating messages already in local state during history replay.
+  // Per-agent deduplication
   const processedCountRef = useRef<Map<string, number>>(new Map());
 
   // Track which agents have had their history loaded (lazy loading).
@@ -339,6 +131,19 @@ export function useWebSocket(options: UseWebSocketOptions) {
     []
   );
 
+  // ── Compose action hooks ──────────────────────────────────────────────
+
+  const send = useCallback((data: object) => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      wsRef.current.send(JSON.stringify(data));
+    }
+  }, []);
+
+  const agentActions = useAgentActions(send, activeAgentIdRef, onNavigateRef, updateAgent);
+  const taskActions = useTaskActions(send);
+  const workspaceActions = useWorkspaceActions(send);
+  const notifActions = useNotifications(agentsRef);
+
   /** Build notification options for an agent event. */
   const notifyOpts = (agentId: string) => {
     const agent = agentsRef.current.get(agentId);
@@ -349,20 +154,7 @@ export function useWebSocket(options: UseWebSocketOptions) {
     };
   };
 
-  /** Push a notification item to the inbox. */
-  const pushNotification = (type: NotificationType, agentId: string, message: string) => {
-    const agent = agentsRef.current.get(agentId);
-    const item: NotificationItem = {
-      id: `notif-${Date.now()}-${++notifCounter.current}`,
-      type,
-      agentId,
-      agentLabel: agent?.label || agentId.slice(0, 8),
-      message,
-      timestamp: Date.now(),
-      read: false,
-    };
-    setNotifications((prev) => [item, ...prev]);
-  };
+  // ── WebSocket connection ──────────────────────────────────────────────
 
   const connect = useCallback(() => {
     if (wsRef.current?.readyState === WebSocket.OPEN) return;
@@ -371,7 +163,6 @@ export function useWebSocket(options: UseWebSocketOptions) {
       wsRef.current = null;
     }
 
-    // Reset dedup counts on new connection — server will send fresh history
     processedCountRef.current.clear();
     setInitialLoadDone(false);
     setLoadedAgents(new Set());
@@ -389,9 +180,7 @@ export function useWebSocket(options: UseWebSocketOptions) {
       log("disconnected, closingRef =", closingRef.current);
       setConnected(false);
       wsRef.current = null;
-      // Don't reconnect if the close was triggered by cleanup (e.g. strict mode unmount)
       if (closingRef.current) return;
-      // Reconnection guard: clear any existing timer before scheduling
       if (reconnectTimer.current) clearTimeout(reconnectTimer.current);
       log("scheduling reconnect in 2s");
       reconnectTimer.current = setTimeout(() => connect(), 2000);
@@ -399,7 +188,6 @@ export function useWebSocket(options: UseWebSocketOptions) {
 
     ws.onerror = (e) => {
       log("error", e);
-      // onclose will fire after onerror, which triggers reconnect
     };
 
     ws.onmessage = (event) => {
@@ -412,7 +200,7 @@ export function useWebSocket(options: UseWebSocketOptions) {
 
       log("←", data.type, "agentId" in data ? (data as { agentId: string }).agentId : "");
 
-      // ── workspace_list: full workspace list from server ──
+      // ── workspace_list ──
       if (data.type === "workspace_list") {
         const wsList = (data as { workspaces: Workspace[] }).workspaces;
         log("workspace_list:", wsList.length, "workspaces");
@@ -420,43 +208,42 @@ export function useWebSocket(options: UseWebSocketOptions) {
         return;
       }
 
-      // ── directory_listing: response to browse_directory ──
+      // ── directory_listing ──
       if (data.type === "directory_listing") {
         const listing = data as { path: string; entries: DirectoryEntry[] };
         log("directory_listing:", listing.path, listing.entries.length, "entries");
-        setDirectoryListing({ path: listing.path, entries: listing.entries });
+        workspaceActions.setDirectoryListing({ path: listing.path, entries: listing.entries });
         return;
       }
 
-      // ── task_list: full task list from server ──
+      // ── task_list ──
       if (data.type === "task_list") {
         log("task_list:", (data as ServerTaskList).tasks.length, "tasks");
         setTasks((data as ServerTaskList).tasks);
         return;
       }
 
-      // ── task_updated: single task changed ──
+      // ── task_updated ──
       if (data.type === "task_updated") {
         const updated = (data as ServerTaskUpdated).task;
         setTasks((prev) => prev.map((t) => (t.id === updated.id ? updated : t)));
         return;
       }
 
-      // ── task_deleted: remove task ──
+      // ── task_deleted ──
       if (data.type === "task_deleted") {
         const deletedId = (data as ServerTaskDeleted).taskId;
         setTasks((prev) => prev.filter((t) => t.id !== deletedId));
         return;
       }
 
-      // ── message_history: replay full history from server ──
+      // ── message_history ──
       if (data.type === "message_history") {
         const historyMsg = data as ServerMessageHistory;
         const agentId = historyMsg.agentId;
         const serverMessages = historyMsg.messages;
         log("message_history:", agentId, serverMessages.length, "raw msgs");
 
-        // Convert all server messages to ChatMessages + extract raw Claude messages
         const chatMessages: ChatMessage[] = [];
         const rawMessages: ClaudeMessage[] = [];
         for (const sm of serverMessages) {
@@ -468,7 +255,6 @@ export function useWebSocket(options: UseWebSocketOptions) {
         }
         log("message_history:", agentId, "→", chatMessages.length, "chat msgs,", rawMessages.length, "raw");
 
-        // Always replace local messages with server history (source of truth).
         setAgents((prev) => {
           const existing = prev.get(agentId);
           if (!existing) {
@@ -499,7 +285,7 @@ export function useWebSocket(options: UseWebSocketOptions) {
         return;
       }
 
-      // ── history_cleared: wipe local messages for this agent ──
+      // ── history_cleared ──
       if (data.type === "history_cleared") {
         updateAgent(data.agentId, (prev) => ({
           ...prev,
@@ -510,41 +296,31 @@ export function useWebSocket(options: UseWebSocketOptions) {
         return;
       }
 
-      // ── cli_disconnected: show system message ──
+      // ── cli_disconnected ──
       if (data.type === "cli_disconnected") {
         updateAgent(data.agentId, (prev) => ({
           ...prev,
           messages: [
             ...prev.messages,
-            {
-              id: nextId(),
-              role: "system",
-              content: "CLI session ended",
-              timestamp: Date.now(),
-            },
+            { id: nextId(), role: "system", content: "CLI session ended", timestamp: Date.now() },
           ],
         }));
         return;
       }
 
-      // ── cli_connected: show system message ──
+      // ── cli_connected ──
       if (data.type === "cli_connected") {
         updateAgent(data.agentId, (prev) => ({
           ...prev,
           messages: [
             ...prev.messages,
-            {
-              id: nextId(),
-              role: "system",
-              content: "CLI reconnected",
-              timestamp: Date.now(),
-            },
+            { id: nextId(), role: "system", content: "CLI reconnected", timestamp: Date.now() },
           ],
         }));
         return;
       }
 
-      // ── agent_list: reconcile sidebar state from server ──
+      // ── agent_list ──
       if (data.type === "agent_list") {
         const serverAgents = data.agents as AgentInfo[];
         log("agent_list:", serverAgents.length, "agents:", serverAgents.map((a) => `${a.agentId}(${a.status})`).join(", "));
@@ -552,7 +328,6 @@ export function useWebSocket(options: UseWebSocketOptions) {
           const next = new Map(prev);
           const serverIds = new Set(serverAgents.map((a) => a.agentId));
 
-          // Update or add agents from server
           for (const info of serverAgents) {
             const existing = next.get(info.agentId);
             if (existing) {
@@ -582,7 +357,6 @@ export function useWebSocket(options: UseWebSocketOptions) {
             }
           }
 
-          // Remove agents no longer on the server
           for (const id of next.keys()) {
             if (!serverIds.has(id)) {
               next.delete(id);
@@ -594,7 +368,6 @@ export function useWebSocket(options: UseWebSocketOptions) {
         setAgentOrder(serverAgents.map((a) => a.agentId));
         setInitialLoadDone(true);
 
-        // Auto-select first agent when none selected, or redirect stale IDs
         const currentId = activeAgentIdRef.current;
         const serverIds = new Set(serverAgents.map((a) => a.agentId));
         if (currentId === null && serverAgents.length > 0) {
@@ -605,34 +378,28 @@ export function useWebSocket(options: UseWebSocketOptions) {
         return;
       }
 
-      // ── spawned: auto-select the newly created agent ──
+      // ── spawned ──
       if (data.type === "spawned") {
         onNavigateRef.current(data.agentId);
         return;
       }
 
-      // ── status: update a specific agent's status ──
+      // ── status ──
       if (data.type === "status") {
         updateAgent(data.agentId, (prev) => ({ ...prev, status: data.status }));
         return;
       }
 
-      // ── error: append to agent's message list ──
+      // ── error ──
       if (data.type === "error") {
         sfxError();
         updateAgent(data.agentId, (prev) => ({
           ...prev,
           messages: [
             ...prev.messages,
-            {
-              id: nextId(),
-              role: "system",
-              content: `Error: ${data.error}`,
-              timestamp: Date.now(),
-            },
+            { id: nextId(), role: "system", content: `Error: ${data.error}`, timestamp: Date.now() },
           ],
         }));
-        // Track processed count for dedup
         processedCountRef.current.set(
           data.agentId,
           (processedCountRef.current.get(data.agentId) ?? 0) + 1
@@ -640,46 +407,45 @@ export function useWebSocket(options: UseWebSocketOptions) {
         return;
       }
 
-      // ── relay: append claude message to agent's history ──
+      // ── relay ──
       if (data.type === "relay") {
         const agentId = data.agentId;
         const rawMsg = data.message;
         const chatMsg = relayChatMessage(agentId, data);
 
-        // SFX: play a sound for each tool call in the message
+        // SFX: tool calls
         if (chatMsg?.toolCalls?.length) {
-          // Play SFX for the first mapped tool (avoids overlapping sounds in multi-tool messages)
           const first = chatMsg.toolCalls.find((tc) => tc.name);
           if (first) sfxTool(first.name);
         }
 
-        // SFX + notifications: result done / error
+        // SFX + notifications: result
         if (rawMsg.type === "result") {
           const result = rawMsg as ClaudeResult;
           if (result.is_error) {
             sfxError();
             notifyError(notifyOpts(agentId));
-            pushNotification("error", agentId, "Agent error");
+            notifActions.pushNotification("error", agentId, "Agent error");
           } else {
             sfxDone();
             notifyDone(notifyOpts(agentId));
-            pushNotification("done", agentId, "Agent finished");
+            notifActions.pushNotification("done", agentId, "Agent finished");
           }
         }
 
-        // SFX + notifications: control request (tool approval / question)
+        // SFX + notifications: control request
         if (rawMsg.type === "control_request") {
           sfxQuestion();
           const cr = rawMsg as ClaudeControlRequest;
           if (cr.request.tool_name === "AskUserQuestion") {
             notifyQuestion(notifyOpts(agentId));
-            pushNotification("question", agentId, "Question from agent");
+            notifActions.pushNotification("question", agentId, "Question from agent");
           } else {
             notifyControlRequest({
               ...notifyOpts(agentId),
               toolName: cr.request.tool_name,
             });
-            pushNotification("control_request", agentId, `Approval needed: ${cr.request.tool_name}`);
+            notifActions.pushNotification("control_request", agentId, `Approval needed: ${cr.request.tool_name}`);
           }
         }
 
@@ -701,7 +467,6 @@ export function useWebSocket(options: UseWebSocketOptions) {
           ...(initModel ? { model: initModel } : {}),
         }));
         if (chatMsg) {
-          // Track processed count for dedup
           processedCountRef.current.set(
             agentId,
             (processedCountRef.current.get(agentId) ?? 0) + 1
@@ -710,7 +475,7 @@ export function useWebSocket(options: UseWebSocketOptions) {
         return;
       }
     };
-  }, [updateAgent]);
+  }, [updateAgent, workspaceActions, notifActions]);
 
   useEffect(() => {
     closingRef.current = false;
@@ -722,12 +487,6 @@ export function useWebSocket(options: UseWebSocketOptions) {
     };
   }, [connect]);
 
-  const send = useCallback((data: object) => {
-    if (wsRef.current?.readyState === WebSocket.OPEN) {
-      wsRef.current.send(JSON.stringify(data));
-    }
-  }, []);
-
   // Request history for the active agent if not already loaded.
   useEffect(() => {
     if (!activeAgentId || loadedAgents.has(activeAgentId)) return;
@@ -735,204 +494,8 @@ export function useWebSocket(options: UseWebSocketOptions) {
     send({ type: "request_history", agentId: activeAgentId });
   }, [activeAgentId, loadedAgents, send]);
 
-  const spawnAgent = useCallback(
-    (prompt: string, model?: string, systemPrompt?: string) => {
-      send({
-        type: "spawn",
-        prompt,
-        ...(model ? { model } : {}),
-        ...(systemPrompt ? { systemPrompt } : {}),
-      });
-    },
-    [send]
-  );
+  // ── Derived values ──────────────────────────────────────────────────
 
-  const sendMessage = useCallback(
-    (content: string) => {
-      if (!activeAgentId) return;
-      // Optimistically add user message to local state
-      updateAgent(activeAgentId, (prev) => ({
-        ...prev,
-        messages: [
-          ...prev.messages,
-          {
-            id: nextId(),
-            role: "user",
-            content,
-            timestamp: Date.now(),
-          },
-        ],
-      }));
-      send({ type: "send_message", agentId: activeAgentId, content });
-      sfxSend();
-    },
-    [send, activeAgentId, updateAgent]
-  );
-
-  const respondToControl = useCallback(
-    (requestId: string, allow: boolean) => {
-      if (!activeAgentId) return;
-      send({ type: "control_response", agentId: activeAgentId, request_id: requestId, allow });
-      updateAgent(activeAgentId, (prev) => ({
-        ...prev,
-        messages: prev.messages.map((m) =>
-          m.controlRequest?.id === requestId
-            ? { ...m, controlRequest: { ...m.controlRequest, resolved: true, allowed: allow } }
-            : m
-        ),
-      }));
-    },
-    [send, activeAgentId, updateAgent]
-  );
-
-  /** Respond to an AskUserQuestion control request with the user's selections. */
-  const respondToUserQuestion = useCallback(
-    (requestId: string, answers: Record<string, string>) => {
-      if (!activeAgentId) return;
-      send({
-        type: "control_response",
-        agentId: activeAgentId,
-        request_id: requestId,
-        allow: true,
-        answers,
-      });
-      updateAgent(activeAgentId, (prev) => ({
-        ...prev,
-        messages: prev.messages.map((m) =>
-          m.userQuestion?.requestId === requestId
-            ? { ...m, userQuestion: { ...m.userQuestion, resolved: true } }
-            : m
-        ),
-      }));
-    },
-    [send, activeAgentId, updateAgent]
-  );
-
-  // ── Agent management actions ──────────────────────────────────────────────
-
-  const killAgent = useCallback(
-    (agentId: string) => {
-      send({ type: "kill_agent", agentId });
-    },
-    [send]
-  );
-
-  const deleteAgent = useCallback(
-    (agentId: string) => {
-      send({ type: "delete_agent", agentId });
-      // Deselect if we just deleted the active agent
-      if (activeAgentIdRef.current === agentId) {
-        onNavigateRef.current(null);
-      }
-    },
-    [send]
-  );
-
-  const renameAgent = useCallback(
-    (agentId: string, label: string) => {
-      send({ type: "rename_agent", agentId, label });
-    },
-    [send]
-  );
-
-  const clearHistory = useCallback(
-    (agentId: string) => {
-      send({ type: "clear_history", agentId });
-    },
-    [send]
-  );
-
-  const pinAgent = useCallback(
-    (agentId: string, pinned: boolean) => {
-      send({ type: "pin_agent", agentId, pinned });
-    },
-    [send]
-  );
-
-  const iceboxAgent = useCallback(
-    (agentId: string, iceboxed: boolean) => {
-      send({ type: "icebox_agent", agentId, iceboxed });
-    },
-    [send]
-  );
-
-  const moveAgent = useCallback(
-    (agentId: string, workspaceId: string | null) => {
-      send({ type: "move_agent", agentId, workspaceId });
-    },
-    [send]
-  );
-
-  // ── Task actions ──────────────────────────────────────────────────────────
-
-  const createTask = useCallback(
-    (title: string, description: string, priority: TaskPriority) => {
-      send({ type: "create_task", title, description, priority });
-    },
-    [send]
-  );
-
-  const updateTask = useCallback(
-    (taskId: string, updates: Partial<Pick<Task, "title" | "description" | "status" | "priority">>) => {
-      send({ type: "update_task", taskId, updates });
-    },
-    [send]
-  );
-
-  const deleteTask = useCallback(
-    (taskId: string) => {
-      send({ type: "delete_task", taskId });
-    },
-    [send]
-  );
-
-  const delegateTask = useCallback(
-    (taskId: string) => {
-      send({ type: "delegate_task", taskId });
-    },
-    [send]
-  );
-
-  // ── Workspace actions ──────────────────────────────────────────────────────
-
-  const setActiveWorkspaceId = useCallback(
-    (workspaceId: string | null) => {
-      setActiveWorkspaceIdState(workspaceId);
-      send({ type: "set_workspace", workspaceId });
-    },
-    [send]
-  );
-
-  const createWorkspace = useCallback(
-    (name: string, cwd: string) => {
-      send({ type: "create_workspace", name, cwd });
-    },
-    [send]
-  );
-
-  const renameWorkspace = useCallback(
-    (workspaceId: string, name: string) => {
-      send({ type: "rename_workspace", workspaceId, name });
-    },
-    [send]
-  );
-
-  const deleteWorkspace = useCallback(
-    (workspaceId: string) => {
-      send({ type: "delete_workspace", workspaceId });
-      setActiveWorkspaceIdState((prev) => (prev === workspaceId ? null : prev));
-    },
-    [send]
-  );
-
-  const browseDirectory = useCallback(
-    (path: string) => {
-      send({ type: "browse_directory", path });
-    },
-    [send]
-  );
-
-  // Derived values for the active agent
   const activeAgent = activeAgentId ? agents.get(activeAgentId) : undefined;
   const activeStatus = useMemo<AgentStatus>(
     () => activeAgent?.status ?? "idle",
@@ -949,26 +512,6 @@ export function useWebSocket(options: UseWebSocketOptions) {
   const activeModel = activeAgent?.model ?? null;
   const historyLoading = activeAgentId !== null && !loadedAgents.has(activeAgentId);
 
-  // ── Notification inbox actions ──────────────────────────────────────────
-
-  const clearNotifications = useCallback(() => {
-    setNotifications([]);
-  }, []);
-
-  const dismissNotification = useCallback((id: string) => {
-    setNotifications((prev) => prev.filter((n) => n.id !== id));
-  }, []);
-
-  const markNotificationRead = useCallback((id: string) => {
-    setNotifications((prev) =>
-      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
-    );
-  }, []);
-
-  const testNotification = useCallback(() => {
-    pushNotification("done", "test", "Test notification");
-  }, []);
-
   return {
     connected,
     initialLoadDone,
@@ -980,34 +523,25 @@ export function useWebSocket(options: UseWebSocketOptions) {
     activeMessages,
     activeRawMessages,
     activeModel,
-    spawnAgent,
-    sendMessage,
-    respondToControl,
-    respondToUserQuestion,
-    killAgent,
-    deleteAgent,
-    renameAgent,
-    clearHistory,
-    pinAgent,
-    iceboxAgent,
-    moveAgent,
+    // Agent actions
+    ...agentActions,
+    // Task state + actions
     tasks,
-    createTask,
-    updateTask,
-    deleteTask,
-    delegateTask,
+    ...taskActions,
+    // Workspace state + actions
     workspaces,
-    activeWorkspaceId,
-    setActiveWorkspaceId,
-    createWorkspace,
-    renameWorkspace,
-    deleteWorkspace,
-    browseDirectory,
-    directoryListing,
-    notifications,
-    clearNotifications,
-    dismissNotification,
-    markNotificationRead,
-    testNotification,
+    activeWorkspaceId: workspaceActions.activeWorkspaceId,
+    setActiveWorkspaceId: workspaceActions.setActiveWorkspaceId,
+    createWorkspace: workspaceActions.createWorkspace,
+    renameWorkspace: workspaceActions.renameWorkspace,
+    deleteWorkspace: workspaceActions.deleteWorkspace,
+    browseDirectory: workspaceActions.browseDirectory,
+    directoryListing: workspaceActions.directoryListing,
+    // Notification state + actions
+    notifications: notifActions.notifications,
+    clearNotifications: notifActions.clearNotifications,
+    dismissNotification: notifActions.dismissNotification,
+    markNotificationRead: notifActions.markNotificationRead,
+    testNotification: notifActions.testNotification,
   };
 }

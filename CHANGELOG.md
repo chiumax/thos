@@ -1,5 +1,39 @@
 # Changelog
 
+## 2026-03-07 — Codebase refactoring for developer experience
+
+Split large monolithic files into focused, single-responsibility modules. All imports remain backward-compatible via barrel re-exports.
+
+### Types split (`lib/types.ts` → `lib/types/`)
+
+- **`lib/types/claude.ts`** — Claude NDJSON protocol types (ClaudeSystemInit, ClaudeAssistant, ClaudeResult, ClaudeControlRequest, ClaudeMessage union)
+- **`lib/types/messages.ts`** — Browser ↔ Server message types (AgentInfo, BrowserMessage, ServerMessage unions)
+- **`lib/types/ui.ts`** — UI state types (AgentStatus, ChatMessage, UserQuestion, ToolCallInfo, NotificationItem)
+- **`lib/types/domain.ts`** — Domain types (Workspace, DirectoryEntry, Task, TaskStatus, TaskPriority)
+- **`lib/types/index.ts`** — Barrel re-export preserving `@/lib/types` imports
+
+### Hooks split (`hooks/use-websocket.ts`)
+
+- **`hooks/message-parser.ts`** — Pure functions for converting relay messages to ChatMessages
+- **`hooks/use-agent-actions.ts`** — Agent lifecycle actions (spawn, send, kill, rename, pin, icebox, etc.)
+- **`hooks/use-task-actions.ts`** — Task CRUD actions (create, update, delete, delegate)
+- **`hooks/use-workspace-actions.ts`** — Workspace actions and state (create, rename, delete, browse)
+- **`hooks/use-notifications.ts`** — Notification inbox state and actions
+
+### Server split (`server/ws.ts`)
+
+- **`server/agent-state.ts`** — Agent state Map, lifecycle, persistence, message dedup, tmux helpers
+- **`server/broadcast.ts`** — Browser socket management and broadcast helpers
+- **`server/handlers/claude.ts`** — Claude CLI NDJSON message handler
+- **`server/handlers/browser.ts`** — Browser WebSocket message handler
+
+### Component extractions
+
+- **`components/dashboard/raw-message.tsx`** — Extracted from chat.tsx
+- **`components/dashboard/model-selector.tsx`** — Extracted from status-bar.tsx
+- **`components/dashboard/agent-context-menu.tsx`** — Extracted ContextMenuItem, ContextMenuSub, RenameInput from agent-sidebar.tsx
+- **`lib/default-prompt.ts`** — Extracted getDefaultPrompt/setDefaultPrompt from settings-menu.tsx
+
 ## 2026-03-03 — Expandable plan mode UI
 
 The approve/deny card for `ExitPlanMode` now renders the `input.plan` markdown as a full rendered document (up to 70vh, scrollable) with expand/collapse toggle, instead of a cramped `max-h-48` raw code block. Defaults to expanded. `allowedPrompts` are shown compactly as permission badges. Buttons say "Approve Plan" / "Reject" instead of generic "Allow" / "Deny".
