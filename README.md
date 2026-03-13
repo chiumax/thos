@@ -1,5 +1,7 @@
 # thos
 
+![thos dashboard](screenshot.jpeg)
+
 **the orchestrator you never knew you needed**
 
 A visual orchestration layer for [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Not another IDE — a UI that sits on top of the terminal-based agents you already use, solving the real friction of working with them day-to-day.
