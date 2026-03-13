@@ -925,6 +925,465 @@
         "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
         "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
       }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772499600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772488800,
+          "isUsingOverage": false
+        },
+        "uuid": "0cf8449a-349e-42b1-9bef-726c94ce370f",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "allowed",
+          "overageResetsAt": 1772553600,
+          "isUsingOverage": false
+        },
+        "uuid": "690a5b08-0dae-4d2a-9a30-502f26c69460",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "70c825dd",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772571600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "d963d04d-c159-4c2a-9c5c-42bdbed11e41",
+        "session_id": "a72dcf9b-9f62-48a2-a8b4-8fad39cc56cb"
+      }
     }
   ]
 }

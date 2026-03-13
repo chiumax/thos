@@ -4664,6 +4664,501 @@
         "fast_mode_state": "off",
         "uuid": "0b5b1570-2e20-4eae-be7f-c10a80a46ca7"
       }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "3774b78e-50a4-47d9-b06a-446b43515f15",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772607600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "7f7a8e21-1d0b-4645-82b8-fbc52afb634c",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "task_started",
+        "task_id": "ae80abf611e5390e8",
+        "tool_use_id": "toolu_01MyUZoHsinnxszzXvLTFnfj",
+        "description": "Plan macOS Clippy app",
+        "task_type": "local_agent",
+        "uuid": "a87fad89-7531-4211-9b28-cd13a8b0cac2",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "80f43437-33e3-4950-a4d8-00775ce91ab5",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "3774b78e-50a4-47d9-b06a-446b43515f15",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772607600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "7f7a8e21-1d0b-4645-82b8-fbc52afb634c",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "task_started",
+        "task_id": "ae80abf611e5390e8",
+        "tool_use_id": "toolu_01MyUZoHsinnxszzXvLTFnfj",
+        "description": "Plan macOS Clippy app",
+        "task_type": "local_agent",
+        "uuid": "a87fad89-7531-4211-9b28-cd13a8b0cac2",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "80f43437-33e3-4950-a4d8-00775ce91ab5",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "3774b78e-50a4-47d9-b06a-446b43515f15",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772607600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "7f7a8e21-1d0b-4645-82b8-fbc52afb634c",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "task_started",
+        "task_id": "ae80abf611e5390e8",
+        "tool_use_id": "toolu_01MyUZoHsinnxszzXvLTFnfj",
+        "description": "Plan macOS Clippy app",
+        "task_type": "local_agent",
+        "uuid": "a87fad89-7531-4211-9b28-cd13a8b0cac2",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "80f43437-33e3-4950-a4d8-00775ce91ab5",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "3774b78e-50a4-47d9-b06a-446b43515f15",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772607600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "7f7a8e21-1d0b-4645-82b8-fbc52afb634c",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "task_started",
+        "task_id": "ae80abf611e5390e8",
+        "tool_use_id": "toolu_01MyUZoHsinnxszzXvLTFnfj",
+        "description": "Plan macOS Clippy app",
+        "task_type": "local_agent",
+        "uuid": "a87fad89-7531-4211-9b28-cd13a8b0cac2",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "80f43437-33e3-4950-a4d8-00775ce91ab5",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "3774b78e-50a4-47d9-b06a-446b43515f15",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772607600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "7f7a8e21-1d0b-4645-82b8-fbc52afb634c",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "task_started",
+        "task_id": "ae80abf611e5390e8",
+        "tool_use_id": "toolu_01MyUZoHsinnxszzXvLTFnfj",
+        "description": "Plan macOS Clippy app",
+        "task_type": "local_agent",
+        "uuid": "a87fad89-7531-4211-9b28-cd13a8b0cac2",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "80f43437-33e3-4950-a4d8-00775ce91ab5",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "3774b78e-50a4-47d9-b06a-446b43515f15",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772607600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "7f7a8e21-1d0b-4645-82b8-fbc52afb634c",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "task_started",
+        "task_id": "ae80abf611e5390e8",
+        "tool_use_id": "toolu_01MyUZoHsinnxszzXvLTFnfj",
+        "description": "Plan macOS Clippy app",
+        "task_type": "local_agent",
+        "uuid": "a87fad89-7531-4211-9b28-cd13a8b0cac2",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "80f43437-33e3-4950-a4d8-00775ce91ab5",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "3774b78e-50a4-47d9-b06a-446b43515f15",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772607600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "7f7a8e21-1d0b-4645-82b8-fbc52afb634c",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "task_started",
+        "task_id": "ae80abf611e5390e8",
+        "tool_use_id": "toolu_01MyUZoHsinnxszzXvLTFnfj",
+        "description": "Plan macOS Clippy app",
+        "task_type": "local_agent",
+        "uuid": "a87fad89-7531-4211-9b28-cd13a8b0cac2",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "80f43437-33e3-4950-a4d8-00775ce91ab5",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "3774b78e-50a4-47d9-b06a-446b43515f15",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772607600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "7f7a8e21-1d0b-4645-82b8-fbc52afb634c",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "task_started",
+        "task_id": "ae80abf611e5390e8",
+        "tool_use_id": "toolu_01MyUZoHsinnxszzXvLTFnfj",
+        "description": "Plan macOS Clippy app",
+        "task_type": "local_agent",
+        "uuid": "a87fad89-7531-4211-9b28-cd13a8b0cac2",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "80f43437-33e3-4950-a4d8-00775ce91ab5",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "3774b78e-50a4-47d9-b06a-446b43515f15",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772607600,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "7f7a8e21-1d0b-4645-82b8-fbc52afb634c",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "task_started",
+        "task_id": "ae80abf611e5390e8",
+        "tool_use_id": "toolu_01MyUZoHsinnxszzXvLTFnfj",
+        "description": "Plan macOS Clippy app",
+        "task_type": "local_agent",
+        "uuid": "a87fad89-7531-4211-9b28-cd13a8b0cac2",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "ca1be671",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "80f43437-33e3-4950-a4d8-00775ce91ab5",
+        "session_id": "534fb50a-2ccf-451e-b6e7-01d6c95c5c4a"
+      }
     }
   ]
 }

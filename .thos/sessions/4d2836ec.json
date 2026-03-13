@@ -2,7 +2,7 @@
   "id": "4d2836ec",
   "state": {
     "agentId": "4d2836ec",
-    "status": "connected",
+    "status": "done",
     "tmuxSession": "thos-agent-4d2836ec",
     "label": "i want to make a macos clippy that periodically checks in...",
     "createdAt": 1772647843379,
@@ -5258,6 +5258,375 @@
         "parent_tool_use_id": null,
         "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562",
         "uuid": "a764b789-7501-4128-9298-5c4ead239688"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "82027b9d-89d1-4461-92f9-7e4e60d5cbed",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772658000,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "5b6cfa3b-dc76-4ec1-a921-ced6a3ed4ed2",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "b9835c12-cfc9-4824-883b-5d6d9d047b2a",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "82027b9d-89d1-4461-92f9-7e4e60d5cbed",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772658000,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "5b6cfa3b-dc76-4ec1-a921-ced6a3ed4ed2",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "b9835c12-cfc9-4824-883b-5d6d9d047b2a",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "82027b9d-89d1-4461-92f9-7e4e60d5cbed",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772658000,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "5b6cfa3b-dc76-4ec1-a921-ced6a3ed4ed2",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "b9835c12-cfc9-4824-883b-5d6d9d047b2a",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "82027b9d-89d1-4461-92f9-7e4e60d5cbed",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772658000,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "5b6cfa3b-dc76-4ec1-a921-ced6a3ed4ed2",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "b9835c12-cfc9-4824-883b-5d6d9d047b2a",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "82027b9d-89d1-4461-92f9-7e4e60d5cbed",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772658000,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "5b6cfa3b-dc76-4ec1-a921-ced6a3ed4ed2",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "b9835c12-cfc9-4824-883b-5d6d9d047b2a",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "82027b9d-89d1-4461-92f9-7e4e60d5cbed",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772658000,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "5b6cfa3b-dc76-4ec1-a921-ced6a3ed4ed2",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "b9835c12-cfc9-4824-883b-5d6d9d047b2a",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "82027b9d-89d1-4461-92f9-7e4e60d5cbed",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772658000,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "5b6cfa3b-dc76-4ec1-a921-ced6a3ed4ed2",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "b9835c12-cfc9-4824-883b-5d6d9d047b2a",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "82027b9d-89d1-4461-92f9-7e4e60d5cbed",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772658000,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "5b6cfa3b-dc76-4ec1-a921-ced6a3ed4ed2",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "b9835c12-cfc9-4824-883b-5d6d9d047b2a",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "plan",
+        "uuid": "82027b9d-89d1-4461-92f9-7e4e60d5cbed",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1772658000,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "out_of_credits",
+          "isUsingOverage": false
+        },
+        "uuid": "5b6cfa3b-dc76-4ec1-a921-ced6a3ed4ed2",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
+      }
+    },
+    {
+      "type": "relay",
+      "agentId": "4d2836ec",
+      "message": {
+        "type": "system",
+        "subtype": "status",
+        "status": null,
+        "permissionMode": "bypassPermissions",
+        "uuid": "b9835c12-cfc9-4824-883b-5d6d9d047b2a",
+        "session_id": "0f980c18-1921-43b9-a7a7-b84022a95562"
       }
     }
   ]

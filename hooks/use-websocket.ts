@@ -144,6 +144,14 @@ export function useWebSocket(options: UseWebSocketOptions) {
   const workspaceActions = useWorkspaceActions(send);
   const notifActions = useNotifications(agentsRef);
 
+  // Stable refs for functions used inside connect's onmessage handler,
+  // so connect doesn't depend on workspaceActions/notifActions objects
+  // (which are new references every render, causing an infinite reconnect loop).
+  const setDirectoryListingRef = useRef(workspaceActions.setDirectoryListing);
+  setDirectoryListingRef.current = workspaceActions.setDirectoryListing;
+  const pushNotificationRef = useRef(notifActions.pushNotification);
+  pushNotificationRef.current = notifActions.pushNotification;
+
   /** Build notification options for an agent event. */
   const notifyOpts = (agentId: string) => {
     const agent = agentsRef.current.get(agentId);
@@ -212,7 +220,7 @@ export function useWebSocket(options: UseWebSocketOptions) {
       if (data.type === "directory_listing") {
         const listing = data as { path: string; entries: DirectoryEntry[] };
         log("directory_listing:", listing.path, listing.entries.length, "entries");
-        workspaceActions.setDirectoryListing({ path: listing.path, entries: listing.entries });
+        setDirectoryListingRef.current({ path: listing.path, entries: listing.entries });
         return;
       }
 
@@ -425,11 +433,11 @@ export function useWebSocket(options: UseWebSocketOptions) {
           if (result.is_error) {
             sfxError();
             notifyError(notifyOpts(agentId));
-            notifActions.pushNotification("error", agentId, "Agent error");
+            pushNotificationRef.current("error", agentId, "Agent error");
           } else {
             sfxDone();
             notifyDone(notifyOpts(agentId));
-            notifActions.pushNotification("done", agentId, "Agent finished");
+            pushNotificationRef.current("done", agentId, "Agent finished");
           }
         }
 
@@ -439,13 +447,13 @@ export function useWebSocket(options: UseWebSocketOptions) {
           const cr = rawMsg as ClaudeControlRequest;
           if (cr.request.tool_name === "AskUserQuestion") {
             notifyQuestion(notifyOpts(agentId));
-            notifActions.pushNotification("question", agentId, "Question from agent");
+            pushNotificationRef.current("question", agentId, "Question from agent");
           } else {
             notifyControlRequest({
               ...notifyOpts(agentId),
               toolName: cr.request.tool_name,
             });
-            notifActions.pushNotification("control_request", agentId, `Approval needed: ${cr.request.tool_name}`);
+            pushNotificationRef.current("control_request", agentId, `Approval needed: ${cr.request.tool_name}`);
           }
         }
 
@@ -475,7 +483,7 @@ export function useWebSocket(options: UseWebSocketOptions) {
         return;
       }
     };
-  }, [updateAgent, workspaceActions, notifActions]);
+  }, [updateAgent]);
 
   useEffect(() => {
     closingRef.current = false;
